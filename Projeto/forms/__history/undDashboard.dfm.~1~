@@ -1,0 +1,18 @@
+inherited frmDashboard: TfrmDashboard
+  Caption = 'frmDashboard'
+  ClientHeight = 768
+  ClientWidth = 1212
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitWidth = 1212
+  ExplicitHeight = 768
+  TextHeight = 15
+  inherited lblTitleForm: TLabel
+    Width = 1212
+  end
+  inherited shpTitleForm: TShape
+    Width = 1196
+  end
+  inherited btnCloseForm: TLabel
+    Left = 1163
+  end
+end

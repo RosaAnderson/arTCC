@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/04/18 14:00:37.000.237,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 15:27:51.000.043,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 17:06:45.000.466,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 17:55:00.000.744,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:04:35.000.708,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:22:02.000.602,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:25:40.000.764,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:31:30.000.345,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:54:06.000.896,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/18 18:55:55.000.482,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/10/01 09:15:38.000.407,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/10/07 16:42:57.000.583,=C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/10/07 16:45:59.000.656,C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=d:\Área de Trabalho\arTCC\Projeto\forms\untClient.dfm</Transaction>
+    <Transaction>2024/10/07 16:45:59.000.656,C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=d:\Área de Trabalho\arTCC\Projeto\forms\untClient.pas</Transaction>
+    <Transaction>2024/10/07 16:48:14.000.802,=d:\Área de Trabalho\arTCC\Projeto\forms\untLogin.pas</Transaction>
+    <Transaction>2024/10/07 16:48:41.000.653,C:\Users\eu\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj=d:\Área de Trabalho\arTCC\Projeto\arEasyCare.dproj</Transaction>
+    <Transaction>2024/10/07 16:49:13.000.263,d:\Área de Trabalho\arTCC\Projeto\forms\untClient.pas=d:\Área de Trabalho\arTCC\Projeto\forms\untClient_Cad.pas</Transaction>
+    <Transaction>2024/10/07 16:49:13.000.263,d:\Área de Trabalho\arTCC\Projeto\forms\untClient.dfm=d:\Área de Trabalho\arTCC\Projeto\forms\untClient_Cad.dfm</Transaction>
+    <Transaction>2024/10/07 17:16:07.000.046,=D:\Área de Trabalho\arTCC\Projeto\standards\untStandard.pas</Transaction>
+    <Transaction>2024/10/07 17:22:31.000.603,=D:\Área de Trabalho\arTCC\Projeto\Unit1.pas</Transaction>
+    <Transaction>2024/10/07 17:23:03.000.609,D:\Área de Trabalho\arTCC\Projeto\forms\untClient_Cad.pas=</Transaction>
+    <Transaction>2024/10/07 17:23:11.000.986,d:\Área de Trabalho\arTCC\Projeto\forms\untClient_Cad.pas=D:\Área de Trabalho\arTCC\Projeto\Unit1.pas</Transaction>
+    <Transaction>2024/10/07 17:23:11.000.986,d:\Área de Trabalho\arTCC\Projeto\forms\untClient_Cad.dfm=D:\Área de Trabalho\arTCC\Projeto\Unit1.dfm</Transaction>
+    <Transaction>2024/10/08 13:06:11.000.274,=d:\Área de Trabalho\arTCC\Projeto\functions\untStyle.pas</Transaction>
+    <Transaction>2024/10/08 13:06:11.000.213,=d:\Área de Trabalho\arTCC\Projeto\functions\untFuncions.pas</Transaction>
+    <Transaction>2024/10/08 13:13:18.000.649,=d:\Área de Trabalho\arTCC\Projeto\sources\untConstants.pas</Transaction>
+    <Transaction>2024/10/08 14:01:37.000.857,=d:\Área de Trabalho\arTCC\Projeto\Unit2.pas</Transaction>
+    <Transaction>2024/10/08 14:03:52.000.338,d:\Área de Trabalho\arTCC\Projeto\forms\undDashboard.dfm=d:\Área de Trabalho\arTCC\Projeto\Unit2.dfm</Transaction>
+    <Transaction>2024/10/08 14:03:52.000.338,d:\Área de Trabalho\arTCC\Projeto\forms\undDashboard.pas=d:\Área de Trabalho\arTCC\Projeto\Unit2.pas</Transaction>
+    <Transaction>2024/10/08 14:23:19.000.779,=d:\Área de Trabalho\arTCC\Projeto\support\untComponents.pas</Transaction>
+    <Transaction>2024/10/08 15:19:53.000.622,d:\Área de Trabalho\arTCC\Projeto\forms\untLogin.pas=d:\Área de Trabalho\arTCC\Projeto\dialogs\untLogin.pas</Transaction>
+    <Transaction>2024/10/08 15:19:53.000.622,d:\Área de Trabalho\arTCC\Projeto\forms\untLogin.dfm=d:\Área de Trabalho\arTCC\Projeto\dialogs\untLogin.dfm</Transaction>
+    <Transaction>2024/10/08 15:20:22.000.205,=d:\Área de Trabalho\arTCC\Projeto\dialogs\untMessages.pas</Transaction>
+    <Transaction>2024/10/08 15:26:07.000.514,=d:\Área de Trabalho\arTCC\Projeto\Unit1.pas</Transaction>
+    <Transaction>2024/10/08 15:27:31.000.776,d:\Área de Trabalho\arTCC\Projeto\Unit1.pas=d:\Área de Trabalho\arTCC\Projeto\forms\untScheduling.pas</Transaction>
+    <Transaction>2024/10/08 15:27:31.000.776,d:\Área de Trabalho\arTCC\Projeto\Unit1.dfm=d:\Área de Trabalho\arTCC\Projeto\forms\untScheduling.dfm</Transaction>
+    <Transaction>2024/10/08 15:39:50.000.997,=d:\Área de Trabalho\arTCC\Projeto\Unit1.pas</Transaction>
+    <Transaction>2024/10/08 15:40:54.000.910,d:\Área de Trabalho\arTCC\Projeto\Unit1.pas=d:\Área de Trabalho\arTCC\Projeto\forms\untNotification.pas</Transaction>
+    <Transaction>2024/10/08 15:40:54.000.910,d:\Área de Trabalho\arTCC\Projeto\Unit1.dfm=d:\Área de Trabalho\arTCC\Projeto\forms\untNotification.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

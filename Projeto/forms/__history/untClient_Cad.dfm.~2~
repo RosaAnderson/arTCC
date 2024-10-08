@@ -1,0 +1,7 @@
+inherited frmStandard1: TfrmStandard1
+  Caption = 'frmStandard1'
+  ClientHeight = 376
+  StyleElements = [seFont, seClient, seBorder]
+  ExplicitHeight = 376
+  TextHeight = 15
+end

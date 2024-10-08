@@ -1,0 +1,5 @@
+inherited frmNotification: TfrmNotification
+  Caption = 'frmNotification'
+  StyleElements = [seFont, seClient, seBorder]
+  TextHeight = 15
+end

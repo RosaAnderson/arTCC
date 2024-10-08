@@ -1,0 +1,28 @@
+program arEasyCare;
+
+uses
+  Vcl.Forms,
+  untFuncions in 'functions\untFuncions.pas',
+  untStyle in 'functions\untStyle.pas',
+  untConstants in 'sources\untConstants.pas',
+  untLogin in 'forms\untLogin.pas' {frmLogin},
+  untStandard in 'standards\untStandard.pas' {frmStandard},
+  untClient_Cad in 'forms\untClient_Cad.pas' {frmClient_Cad},
+  undDashboard in 'forms\undDashboard.pas' {frmDashboard};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmLogin, frmLogin);
+
+  Application.Run;
+end.
+
+
+
+
+
+// resolução notebook: 1366 x 768
+// resolução máxima:   1300 x 660

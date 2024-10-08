@@ -1,0 +1,32 @@
+unit untLogin;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, ArEdit,
+  Vcl.Buttons;
+
+type
+  TfrmLogin = class(TForm)
+    txtUser: TArEdit;
+    txtPass: TArEdit;
+    Image1: TImage;
+    pnlButtonPri_I: TPanel;
+    shpButtonPri: TShape;
+    btnPrimary_I: TSpeedButton;
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmLogin: TfrmLogin;
+
+implementation
+
+{$R *.dfm}
+
+end.

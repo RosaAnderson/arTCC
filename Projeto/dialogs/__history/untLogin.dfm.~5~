@@ -1,0 +1,133 @@
+object frmLogin: TfrmLogin
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'Login'
+  ClientHeight = 480
+  ClientWidth = 280
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -21
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  TextHeight = 30
+  object Image1: TImage
+    Left = 95
+    Top = 38
+    Width = 110
+    Height = 110
+  end
+  object txtUser: TArEdit
+    Left = 24
+    Top = 197
+    Width = 230
+    Height = 33
+    Alignment = taCenter
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    TextHint = 'Usu'#225'rio'
+    FocusColor = clWindow
+    FocusColorEnabled = False
+  end
+  object txtPass: TArEdit
+    Left = 24
+    Top = 248
+    Width = 230
+    Height = 33
+    Alignment = taCenter
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    TextHint = 'Senha'
+    FocusColor = clWindow
+    FocusColorEnabled = False
+  end
+  object pnlButtonPri_I: TPanel
+    Left = 24
+    Top = 353
+    Width = 230
+    Height = 41
+    Hint = 'button'
+    BevelOuter = bvNone
+    TabOrder = 2
+    object shpButtonPri: TShape
+      Left = 10
+      Top = 10
+      Width = 20
+      Height = 20
+      Hint = 'ButtonPrimary'
+      Brush.Color = 16435360
+      Pen.Style = psClear
+    end
+    object btnPrimary_I: TSpeedButton
+      Left = 0
+      Top = 0
+      Width = 230
+      Height = 41
+      Cursor = crHandPoint
+      Align = alClient
+      Caption = 'Confirmar'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16711422
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      ExplicitLeft = 2
+      ExplicitTop = 2
+      ExplicitWidth = 183
+      ExplicitHeight = 39
+    end
+  end
+  object pnlButtonSec_I: TPanel
+    Left = 24
+    Top = 409
+    Width = 230
+    Height = 41
+    Hint = 'button'
+    BevelOuter = bvNone
+    TabOrder = 3
+    object shpButtonSec: TShape
+      Left = 10
+      Top = 10
+      Width = 20
+      Height = 20
+      Hint = 'ButtonSecondary'
+      Brush.Color = 9868950
+      Pen.Style = psClear
+    end
+    object btnSecondary_I: TSpeedButton
+      Left = 0
+      Top = 0
+      Width = 230
+      Height = 41
+      Cursor = crHandPoint
+      Align = alClient
+      Caption = 'Cancelar'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6513507
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      ExplicitLeft = 88
+      ExplicitTop = 16
+      ExplicitWidth = 150
+    end
+  end
+end
