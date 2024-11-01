@@ -1,29 +1,32 @@
 inherited frmMessages: TfrmMessages
   Caption = 'frmMessages'
-  ClientHeight = 215
-  ClientWidth = 600
-  ExplicitWidth = 600
-  ExplicitHeight = 215
-  TextHeight = 15
+  ClientHeight = 313
+  ClientWidth = 1235
+  Visible = False
+  StyleElements = [seFont, seClient, seBorder]
+  OnActivate = FormActivate
+  OnKeyPress = FormKeyPress
+  ExplicitWidth = 1235
+  ExplicitHeight = 313
+  TextHeight = 23
   inherited lblTitleForm: TLabel
-    Width = 600
-  end
-  inherited shpTitleForm: TShape
-    Width = 584
+    Width = 1235
+    ExplicitWidth = 600
   end
   inherited btnCloseForm: TLabel
-    Left = 551
+    Left = 1186
+    ExplicitLeft = 551
   end
-  object imgIcon: TImage
+  object imgIcon: TImage [3]
     AlignWithMargins = True
     Left = 20
-    Top = 56
+    Top = 60
     Width = 150
-    Height = 139
+    Height = 166
     Margins.Left = 20
-    Margins.Top = 20
+    Margins.Top = 30
     Margins.Right = 0
-    Margins.Bottom = 20
+    Margins.Bottom = 30
     Align = alLeft
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000002000000
@@ -1129,62 +1132,81 @@ inherited frmMessages: TfrmMessages
     ExplicitTop = -282
     ExplicitHeight = 749
   end
-  object lblTituloMsg: TLabel
+  object lblTituloMsg: TLabel [4]
     Left = 190
-    Top = 50
-    Width = 387
-    Height = 19
+    Top = 40
+    Width = 455
+    Height = 22
     AutoSize = False
     Caption = 'lblTituloMsg'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
+    Font.Color = 2773792
+    Font.Height = -16
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
   end
-  object lblMensagem: TLabel
+  object lblMensagem: TLabel [5]
     AlignWithMargins = True
     Left = 190
-    Top = 81
-    Width = 387
-    Height = 74
+    Top = 70
+    Width = 455
+    Height = 141
     Margins.Left = 20
-    Margins.Top = 45
+    Margins.Top = 40
     Margins.Right = 0
-    Margins.Bottom = 60
+    Margins.Bottom = 45
     Align = alLeft
     AutoSize = False
     Caption = 'lblMensagem'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
+    Font.Color = 2773792
+    Font.Height = -15
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
+    Layout = tlCenter
     WordWrap = True
-    ExplicitTop = -217
-    ExplicitHeight = 684
+    ExplicitTop = 74
+    ExplicitHeight = 274
   end
-  object btnConfirm: TSpeedButton
-    Left = 341
-    Top = 168
+  object btnConfirm: TSpeedButton [6]
+    Left = 405
+    Top = 210
     Width = 115
     Height = 32
     Hint = 'Confirm'
     Caption = 'btnConfirm'
+    OnClick = btnAction
   end
-  object btnCancel: TSpeedButton
-    Left = 462
-    Top = 168
+  object btnCancel: TSpeedButton [7]
+    Left = 526
+    Top = 210
     Width = 115
     Height = 32
     Hint = 'Cancel'
     Caption = 'btnCancel'
+    OnClick = btnAction
+  end
+  inherited pnlFooter: TPanel
+    Left = 720
+    Top = 183
+    Width = 505
+    Align = alNone
+    TabOrder = 1
+    Visible = False
+    StyleElements = [seFont, seClient, seBorder]
+    ExplicitLeft = 720
+    ExplicitTop = 183
+    ExplicitWidth = 505
+    inherited btnExit: TImage
+      Left = 420
+      ExplicitLeft = 49
+    end
   end
   object Panel1: TPanel
-    Left = 56
-    Top = 325
+    Left = 720
+    Top = 33
     Width = 505
     Height = 142
     Color = 3947580
@@ -5933,6 +5955,112 @@ inherited frmMessages: TfrmMessages
         6082}
       Stretch = True
       ExplicitHeight = 89
+    end
+  end
+  object pnlStatus: TPanel
+    AlignWithMargins = True
+    Left = 8
+    Top = 264
+    Width = 1219
+    Height = 41
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+    Visible = False
+    ExplicitTop = 397
+    ExplicitWidth = 1290
+    object pnlButtonPri: TPanel
+      AlignWithMargins = True
+      Left = 895
+      Top = 2
+      Width = 150
+      Height = 37
+      Hint = 'button'
+      Margins.Left = 8
+      Margins.Top = 2
+      Margins.Right = 8
+      Margins.Bottom = 2
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      ExplicitLeft = 966
+      object shpPrimary: TShape
+        Left = 10
+        Top = 10
+        Width = 20
+        Height = 20
+        Hint = 'ButtonPrimary'
+        Brush.Color = 16435360
+        Pen.Style = psClear
+      end
+      object btnPrimary: TSpeedButton
+        Left = 0
+        Top = 0
+        Width = 150
+        Height = 37
+        Cursor = crHandPoint
+        Align = alClient
+        Caption = 'Confirmar'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 16711422
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitLeft = 2
+        ExplicitTop = 2
+        ExplicitWidth = 183
+        ExplicitHeight = 39
+      end
+    end
+    object pnlButtonSec: TPanel
+      AlignWithMargins = True
+      Left = 1061
+      Top = 2
+      Width = 150
+      Height = 37
+      Hint = 'button'
+      Margins.Left = 8
+      Margins.Top = 2
+      Margins.Right = 8
+      Margins.Bottom = 2
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 1
+      ExplicitLeft = 1132
+      object shpSecondary: TShape
+        Left = 10
+        Top = 10
+        Width = 20
+        Height = 20
+        Hint = 'ButtonSecondary'
+        Brush.Color = 9868950
+        Pen.Style = psClear
+      end
+      object btnSecondary: TSpeedButton
+        Left = 0
+        Top = 0
+        Width = 150
+        Height = 37
+        Cursor = crHandPoint
+        Align = alClient
+        Caption = 'Fechar'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6513507
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitLeft = 88
+        ExplicitTop = 16
+        ExplicitHeight = 41
+      end
     end
   end
 end
