@@ -4,35 +4,35 @@ interface
 
 uses
     Winapi.Windows,
-//    Winapi.ShellAPI,
-//    Winapi.Messages,
 
-//  System.Variants,
-  System.SysUtils,
-  System.Classes,
+    System.SysUtils,
+    System.Classes,
 
-//    Vcl.Dialogs,
-//    Vcl.Controls,
-//    Vcl.Dialogs,
-    Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics,
-    Vcl.ComCtrls
+    Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics, Vcl.ComCtrls
 
-  ;
+    ;
 
     function setStyleWindow(vfForm: TForm): string; // função que padroniza a exibição dos objetos padrão
 
+    procedure setFBorder(vfForm: TForm; vfShape: TShape); // Ajusta o tamanho das bordas
+    procedure setCButton(vfForm: TForm; vfButton: TSpeedButton); // Ajusta os padrões dos botões
+    procedure setPSButton(vfForm: TForm; vfShape: TShape);
+    procedure setTitle(vfForm: TForm; vfTitle: TLabel); // Ajusta os padrões do titulo
+
+    procedure setAtdButton(vfForm: TForm);
+
+    procedure setGradient(vfForm: TForm; vfPaint: TPaintBox; vfStartCl, vfEndCl: TColor);
+
+
 {
     function GetBuildInfo(ProgamName: string): string; // função que pega as informações de versão do sistema
-    function setWindowDefaults(vfForm: TForm): string; // função que padroniza a exibição dos objetos padrão
     function setViewPageControl(vfForm: TForm): Boolean; // função para moldar as definições iniciais do pagecontrol
     function setColorPageControl(vfForm: TForm; vfPageControl: TPageControl): Boolean; // função que define as cores dos botões do pagecontrol
 
-    procedure BorderShape(vfForm: TForm); // Ajusta o tamanho das bordas
     procedure setMenu(vfForm: TForm); // função que configura o tamanho do menu
     procedure allMenu(vfForm: TForm); // função que fecha o menu
 
     procedure ListView(vfForm: TForm); // função que exibe/oculta os itens da lista
-
 }
 
 var
@@ -40,6 +40,7 @@ var
     vShape      : TShape;
     vLabel      : TLabel;
     vListBox    : TListBox;
+    vPaintBox   : TPaintBox;
     vColorEdge  : TColor;
     vSpeedButton: TSpeedButton;
     vPageControl: TPageControl;
@@ -49,7 +50,45 @@ var
 
 implementation
 
-uses untConstants;
+uses untSource;
+
+procedure setGradient(vfForm: TForm; vfPaint: TPaintBox; vfStartCl, vfEndCl: TColor);
+var
+    ACanvas: TCanvas;
+    ARect: TRect;
+    i, rc, gc, bc, h: Integer;
+begin
+    {Esta dica mostra como criar um efeito degradê em um Canvas qualquer.
+    Neste caso, estamos utilizando um componente TPaintBox e o evento OnPaint.
+    Dependendo da utilização deste recurso, esta rotina pode ser adaptada para
+    funcionar em um outro componente.}
+
+    // verifica se foi dedinida uma cor
+    if (vfStartCl = 0) then vfStartCl := sysColorGradientStart;
+    if (vfEndCl = 0) then   vfEndCl   := sysColorGradientEnd;
+
+    //
+    ACanvas := vfPaint.Canvas;
+    ARect   := vfPaint.ClientRect;
+
+    h := ARect.Bottom - ARect.Top;
+
+    { desenha o degradê }
+    for i := 0 to (ARect.Bottom - ARect.Top) do
+    begin
+        rc := GetRValue(vfStartCl);
+        gc := GetGValue(vfStartCl);
+        bc := GetBValue(vfStartCl);
+
+        rc := rc + (((GetRValue(vfEndCl) - rc) * (ARect.Top + i)) div h);
+        gc := gc + (((GetGValue(vfEndCl) - gc) * (ARect.Top + i)) div h);
+        bc := bc + (((GetBValue(vfEndCl) - bc) * (ARect.Top + i)) div h);
+
+        ACanvas.Brush.Style := bsSolid;
+        ACanvas.Brush.Color := RGB(rc, gc, bc);
+        ACanvas.FillRect(Rect(ARect.Left, ARect.Top + i, ARect.Right, ARect.Top + i + 1));
+    end;
+end;
 
 function setStyleWindow(vfForm: TForm): string; // função que padroniza a exibição dos objetos padrão
 begin
@@ -59,54 +98,15 @@ begin
     // varre o form verificando cada objeto existente
     for vI := 0 to vfForm.ComponentCount - 1 do
     begin
-
         // verifica se o objeto é um speedbutton
         if (vfForm.Components[vI] is TSpeedButton) then
         begin
             // define a variavel de shape com o nome do componente encontrado
             vSpeedButton := (vfForm.Components[vI] as TSpeedButton);
 
-            // defione a font do botão
-            vSpeedButton.Font.Name := gcFontName;
-
-            // verifica se é o botão CloseForm
-            if (vSpeedButton.Name = 'btnCloseForm') then
-            begin
-                // define o tamanho do botão
-                vSpeedButton.Font.Size := 12;
-
-                // redimenciona e posiciona o botão
-                vSpeedButton.Height := 30;
-                vSpeedButton.Width  := 45;
-                vSpeedButton.Top    := 0;
-                vSpeedButton.Left   := vSpeedButton.Parent.Width - 45;
-            end;
+            // definições da borda
+            setCButton(vfForm, vSpeedButton);
         end;
-
-    end;
-end;
-
-end.
-
-
-
-
-
-
-
-
-  (*
-
-      *)
-function setWindowDefaults(vfForm: TForm): string;
-begin
-
-    // define a cor para tema claro
-    vColorEdge := sysColorEdge;
-
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
-    begin
 
         // vefica se é um shape
         if (vfForm.Components[vI] is TShape) then
@@ -114,253 +114,180 @@ begin
             // define a variavel de shape com o nome do componente encontrado
             vShape := (vfForm.Components[vI] as TShape);
 
-            // define a cor da borda
-            vShape.Pen.Color := vColorEdge;
+            // definições da borda
+            setFBorder(vfForm, vShape);
 
-            // verifica se é
-            if (vShape.Name = 'shpTitleForm') then
-            begin
-                //
-            end
-            else if ((LowerCase(Copy(vShape.Hint, 1, 6)) = 'button') or
-                      {(LowerCase(Copy(vShape.Name, 1, 7)) = 'shpedge') or}
-                       (LowerCase(Copy(vShape.Hint, 1, 7)) = 'shpedge')) then
-            begin
-                // redimenciona e posiciona o shape para fazer o fundo do botão
-                vShape.Top    := 0;
-                vShape.Left   := 0;
-                vShape.Width  := vShape.Parent.Width;
-                vShape.Height := vShape.Parent.Height;
-
-                // verifica se é um botão
-                if (LowerCase(Copy(vShape.Hint, 1, 6)) = 'button') then
-                    // se for o botão primário
-                    if (LowerCase(Copy(vShape.Hint, 7, 100)) = 'primary') then
-                        vShape.Brush.Color := sysColorButtonPrimary
-                    // se for o botão secundário
-                    else if (LowerCase(Copy(vShape.Hint, 7, 100)) = 'secondary') then
-                        vShape.Brush.Color := sysColorButtonSecondary;
-            end;
+            // dos botões de ação
+            setPSButton(vfForm, vShape);
         end;
 
         // verifica se é um label
         if (vfForm.Components[vI] is TLabel) then
         begin
-            // define a variavel de shape com o nome do componente encontrado
+            // define a variavel de label com o nome do componente encontrado
             vLabel := (vfForm.Components[vI] as TLabel);
 
-            // define a font
-            vLabel.Font.Name := gcFontName;
-
-            // verifica se é o botão CloseForm
-            if Copy(vLabel.Hint, 1 , 8) = 'lblTitle' then
-            begin
-                // define o tamanho e a posição
-                vLabel.Top         := 1;
-                vLabel.Left        := 1;
-                vLabel.Width       := vLabel.Parent.Width;
-
-                vLabel.Alignment   := taCenter;
-                vLabel.Font.Size   := 12;
-
-                vLabel.Color       := sysColorEmpresaPri; // sysColorEmpresaSec;
-                vLabel.Font.Color  := clWindow;           // sysColorEmpresaPri;
-
-                vLabel.Transparent := False;
-            end;
+            // definições da borda
+            setTitle(vfForm, vLabel);
         end;
+
+        // definições das box atendimento e compromisso
+        setAtdButton(vfForm);
     end;
 end;
 
-function setViewPageControl(vfForm: TForm): Boolean;
+procedure setTitle(vfForm: TForm; vfTitle: TLabel);
 begin
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
+    // define a font
+    vfTitle.Font.Name := gcFontName;
+
+    // verifica se é o botão CloseForm
+    if Copy(vfTitle.Hint, 1 , 8) = 'lblTitle' then
     begin
-        // verifica se é um pagecontrol
-        if (vfForm.Components[vI] is TPageControl) then
-        begin
-            // define a variavel com o componente encontrado
-            vPageControl := (vfForm.Components[vI] as TPageControl);
+        // define o tamanho e a posição
+        vfTitle.Top         := 1;
+        vfTitle.Left        := 1;
+        vfTitle.Width       := vfTitle.Parent.Width;
 
-            if (Copy(vPageControl.StyleName, 1, 10) = 'pgcControl') then
-            begin
-                //
-                for iPage := 0 to vPageControl.PageCount - 1 do
-                    // oculta as guias
-                    vPageControl.Pages[iPage].TabVisible := False;
+        vfTitle.Alignment   := taCenter;
+        vfTitle.Font.Size   := 12;
 
-                // exibe a guia
-                vPageControl.ActivePageIndex := 0;
-            end;
-        end;
+        vfTitle.Color       := sysColorEmpresaPri; // sysColorEmpresaSec;
+        vfTitle.Font.Color  := clWindow;           // sysColorEmpresaPri;
+
+        vfTitle.Transparent := False;
     end;
 end;
 
-function setColorPageControl(vfForm: TForm; vfPageControl: TPageControl): Boolean;
+procedure setFBorder(vfForm: TForm; vfShape: TShape);
 begin
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
+    // seta as definições da borda
+    if Copy(vfShape.Hint, 1, 7) = 'shpEdge' then
     begin
-        if (vfForm.Components[vI] is TPanel) then
-        begin
-            // define a variavel com o componente encontrado
-            vPanel := (vfForm.Components[vI] as TPanel);
+        // redimenciona e posiciona o shape para fazer o fundo do botão
+        vfShape.Top       := 0;
+        vfShape.Left      := 0;
+        vfShape.Width     := vfShape.Parent.Width;
+        vfShape.Height    := vfShape.Parent.Height;
+//        vfShape.pen.Color := $00448F0B;
+    end;
 
-            if (vPanel.Hint = 'btnPageControl') then
-            begin
-                // verifica se o panel é o que foi clicado e define a cor
-                if vPanel.Tag = vfPageControl.ActivePageIndex then
-                    vPanel.Color := $0098593B
-                else
-                    vPanel.Color := $00C39D8B;
-            end;
-        end;
+    vfShape.pen.Color := $00448F0B;
+end;
+
+procedure setPSButton(vfForm: TForm; vfShape: TShape);
+begin
+    if ((LowerCase(Copy(vfShape.Hint, 1, 6)) = 'button') or
+            {(LowerCase(Copy(vfShape.Name, 1, 7)) = 'shpedge') or}
+            (LowerCase(Copy(vfShape.Hint, 1, 7)) = 'shpedge')) then
+    begin
+        // redimenciona e posiciona o shape para fazer o fundo do botão
+        vfShape.Top    := 0;
+        vfShape.Left   := 0;
+        vfShape.Width  := vfShape.Parent.Width;
+        vfShape.Height := vfShape.Parent.Height;
+
+        // verifica se é um botão
+        if (LowerCase(Copy(vfShape.Hint, 1, 6)) = 'button') then
+            // se for o botão primário
+            if (LowerCase(Copy(vfShape.Hint, 7, 100)) = 'primary') then
+                vfShape.Brush.Color := sysColorButtonPrimary
+            // se for o botão secundário
+            else if (LowerCase(Copy(vfShape.Hint, 7, 100)) = 'secondary') then
+                vfShape.Brush.Color := sysColorButtonSecondary;
     end;
 end;
 
-procedure setMenu(vfForm: TForm);
-var
-    vH: integer;
+procedure setCButton(vfForm: TForm; vfButton: TSpeedButton);
 begin
-    // inicializa a variavel
-    vH := 0;
+    // defione a font do botão
+    vSpeedButton.Font.Name := gcFontName;
 
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
+    // verifica se é o botão CloseForm
+    if (vSpeedButton.Name = 'btnCloseForm') then
     begin
-        // verifica se é um panel
-        if (vfForm.Components[vI] is TPanel) then
-        begin
-            // define a variavel com o componente encontrado
-            vPanel := (vfForm.Components[vI] as TPanel);
+        // define o tamanho do botão
+        vSpeedButton.Font.Size := 12;
 
-            // verifica se é um item do menu
-            if vPanel.Hint = 'mniButton' then
-            begin
-                // zera o tamanho da borda
-                vPanel.Parent.Height := 0;
-
-                // verifica se o panel está visível
-                if vPanel.Visible then
-                    // define o tamanho do panel
-                    vH := vH + (vPanel.Height + vPanel.Margins.Bottom + vPanel.Margins.Top);
-
-                // seta o tamanho do panel
-                vPanel.Parent.Height := vh;
-            end;
-        end;
-    end;
-
-
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
-    begin
-        // verifica se é um panel
-        if (vfForm.Components[vI] is TShape) then
-        begin
-            // define a variavel com o componente encontrado
-            vShape := (vfForm.Components[vI] as TShape);
-
-            // verifica se é a borda do menu
-            if vShape.Name = 'shpEdgeMenu' then
-            begin
-                vShape.Top    := 0;
-                vShape.Left   := 0;
-                vShape.Width  := vShape.Parent.Width;
-                vShape.Height := vShape.Parent.Height;
-            end;
-        end;
+        // redimenciona e posiciona o botão
+        vSpeedButton.Height := 30;
+        vSpeedButton.Width  := 45;
+        vSpeedButton.Top    := 0;
+        vSpeedButton.Left   := vSpeedButton.Parent.Width - 45;
     end;
 end;
 
-procedure allMenu(vfForm: TForm);
+procedure setAtdButton(vfForm: TForm);
 begin
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
+    // verifica se o objeto é um speedbutton
+    if (vfForm.Components[vI] is TSpeedButton) then
     begin
-        // verifica se é um panel
-        if (vfForm.Components[vI] is TPanel) then
-        begin
-            // define a variavel com o componente encontrado
-            vPanel := (vfForm.Components[vI] as TPanel);
+        // define a variavel de shape com o nome do componente encontrado
+        vSpeedButton := (vfForm.Components[vI] as TSpeedButton);
 
-            // verifica se é um item do menu
-            if Copy(vPanel.Name, 1, 7) = 'pnlMenu' then
-                // torma o panel invisível
-                vPanel.Visible := False;
+        // verifica se é o botão da lista de atendimento
+        if vSpeedButton.Hint = 'btnAtd' then
+        begin
+            // ajusta a trasnparência
+            vSpeedButton.Flat := True;
+
+            // remove o texto
+            vSpeedButton.Caption := '';
+
+            // posiciona o bitão
+            vSpeedButton.top    := 2;
+            vSpeedButton.Left   := 2;
+            vSpeedButton.Height := vSpeedButton.Parent.Height - 2;
+            vSpeedButton.Width  := vSpeedButton.Parent.Width - 2;
         end;
     end;
-end;
 
-
-procedure ListView(vfForm: TForm);
-begin
-    // passa por cada componente do form
-    for vI := 0 to vfForm.ComponentCount - 1 do
+    // vefica se é um shape
+    if (vfForm.Components[vI] is TShape) then
     begin
-        // verifica se é um panel
-        if (vfForm.Components[vI] is TListBox) then
+        // define a variavel de shape com o nome do componente encontrado
+        vShape := (vfForm.Components[vI] as TShape);
+
+        if vShape.Hint = 'shpAtd' then
         begin
-            // define a variavel com o componente encontrado
-            vListBox := (vfForm.Components[vI] as TListBox);
+            // posiciona o bitão
+            vShape.top    := 0;
+            vShape.Left   := 0;
+            vShape.Height := vShape.Parent.Height;
+            vShape.Width  := vShape.Parent.Width;
+        end;
+    end;
 
-            if vListBox.Hint <> '' then
+    // vefica se é um shape
+    if (vfForm.Components[vI] is TLabel) then
+    begin
+        // define a variavel de shape com o nome do componente encontrado
+        vLabel := (vfForm.Components[vI] as TLabel);
+
+        if (vLabel.Hint = 'lblAtdHora') or
+            (vLabel.Hint = 'lblAtdCliente') then
+        begin
+            // formata a label hora
+            if (vLabel.Hint = 'lblAtdHora') then
             begin
-                // verifica se há registro
-                if (vListBox.Items.Count > 0) then
-                    vListBox.Parent.Tag := 100 // define o tamanho
-                else
-                    vListBox.Parent.Tag := 35; // define o tamanho
-
-                // seta o tamanho
-                vListBox.Parent.Height := vListBox.Parent.Tag;
+                vLabel.Font.Color := $002A5320;
+                vLabel.Font.Size  := 16;
+                vLabel.Font.Style := [fsBold];
             end;
-        end;
-{
-        // verifica se é um panel
-        if (vfForm.Components[vI] is TShape) then
-        begin
-            // define a variavel com o componente encontrado
-            vShape := (vfForm.Components[vI] as TShape);
 
-            // verifica se o shape é um titulo
-            if (vShape.Hint = 'shpTitle') then
-                if (vShape.Parent.Height > 35) then
-                    vShape.Height := 1
-                else
-                    vShape.Height := 0;
-        end;
-}
-    end;
-
-    // atualiza a tela
-//    setWindowDefaults(vfForm);
-    BorderShape(vfForm);
-end;
-
-procedure BorderShape(vfForm: TForm);
-begin
-    for vI := 0 to vfForm.ComponentCount -1 do
-    begin
-        // vefica se é um shape
-        if (vfForm.Components[vI] is TShape) then
-        begin
-            // define a variavel de shape com o nome do componente encontrado
-            vShape := (vfForm.Components[vI] as TShape);
-
-            //
-            if Copy(vShape.Hint, 1, 7) = 'shpEdge' then
+            // formata a label cliente
+            if (vLabel.Hint = 'lblAtdCliente') then
             begin
-                // redimenciona e posiciona o shape para fazer o fundo do botão
-                vShape.Top    := 0;
-                vShape.Left   := 0;
-                vShape.Width  := vShape.Parent.Width;
-                vShape.Height := vShape.Parent.Height;
+                vLabel.Font.Size  := 14;
             end;
         end;
     end;
 end;
 
 end.
+
+//##############################################################################
+//##############################################################################
+//##############################################################################
+//##############################################################################
 
