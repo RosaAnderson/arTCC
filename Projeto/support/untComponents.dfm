@@ -5,7 +5,7 @@ object frmComponents: TfrmComponents
   BorderStyle = bsNone
   Caption = 'frmComponents'
   ClientHeight = 875
-  ClientWidth = 1314
+  ClientWidth = 1465
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,14 +13,20 @@ object frmComponents: TfrmComponents
   Font.Name = 'Segoe UI'
   Font.Style = []
   DesignSize = (
-    1314
+    1465
     875)
   TextHeight = 15
+  object dgrClock: TPaintBox
+    Left = 480
+    Top = 288
+    Width = 161
+    Height = 89
+  end
   object pnlFooter: TPanel
     AlignWithMargins = True
     Left = 8
     Top = 826
-    Width = 1298
+    Width = 1449
     Height = 41
     Margins.Left = 8
     Margins.Top = 8
@@ -28,6 +34,7 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 0
+    ExplicitWidth = 1298
   end
   object pnlPageControl: TPanel
     AlignWithMargins = True
@@ -2601,7 +2608,7 @@ object frmComponents: TfrmComponents
       Font.Color = 16711422
       Font.Height = -16
       Font.Name = 'Segoe UI'
-      Font.Style = []
+      Font.Style = [fsBold]
       ParentFont = False
       ExplicitLeft = 2
       ExplicitTop = 2
@@ -2636,10 +2643,10 @@ object frmComponents: TfrmComponents
       Caption = 'Cancelar'
       Flat = True
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 6513507
+      Font.Color = 16711422
       Font.Height = -16
       Font.Name = 'Segoe UI'
-      Font.Style = []
+      Font.Style = [fsBold]
       ParentFont = False
       ExplicitLeft = 88
       ExplicitTop = 16
@@ -2647,9 +2654,9 @@ object frmComponents: TfrmComponents
   end
   object pnlAdditional: TScrollBox
     AlignWithMargins = True
-    Left = 1086
+    Left = 1191
     Top = 0
-    Width = 220
+    Width = 266
     Height = 757
     Margins.Left = 4
     Margins.Top = 0
@@ -2658,11 +2665,12 @@ object frmComponents: TfrmComponents
     Align = alRight
     BorderStyle = bsNone
     TabOrder = 6
+    ExplicitLeft = 1040
     object shpTitleDescricao: TShape
       AlignWithMargins = True
       Left = 8
       Top = 113
-      Width = 204
+      Width = 250
       Height = 1
       Hint = 'shpTitle'
       Margins.Left = 8
@@ -2673,12 +2681,13 @@ object frmComponents: TfrmComponents
       Brush.Style = bsClear
       Pen.Color = clGrayText
       ExplicitTop = 188
+      ExplicitWidth = 204
     end
     object lblTitleDescricao: TLabel
       AlignWithMargins = True
       Left = 8
       Top = 82
-      Width = 211
+      Width = 257
       Height = 30
       Hint = 'lblTitle'
       Margins.Left = 8
@@ -2700,12 +2709,13 @@ object frmComponents: TfrmComponents
       Layout = tlCenter
       ExplicitLeft = 24
       ExplicitTop = 257
+      ExplicitWidth = 211
     end
     object pnlAtividade: TPanel
       AlignWithMargins = True
       Left = 2
       Top = 0
-      Width = 214
+      Width = 260
       Height = 73
       Margins.Left = 2
       Margins.Top = 0
@@ -2715,10 +2725,10 @@ object frmComponents: TfrmComponents
       BevelOuter = bvNone
       TabOrder = 0
       DesignSize = (
-        214
+        260
         73)
       object shpEdge_panel: TShape
-        Left = 128
+        Left = 174
         Top = 8
         Width = 40
         Height = 20
@@ -2732,7 +2742,7 @@ object frmComponents: TfrmComponents
         AlignWithMargins = True
         Left = 1
         Top = 1
-        Width = 212
+        Width = 258
         Height = 30
         Hint = 'lblTitle'
         Margins.Left = 1
@@ -2760,7 +2770,7 @@ object frmComponents: TfrmComponents
         AlignWithMargins = True
         Left = 8
         Top = 32
-        Width = 198
+        Width = 244
         Height = 1
         Hint = 'shpTitle'
         Margins.Left = 8
@@ -9354,8 +9364,8 @@ object frmComponents: TfrmComponents
     end
   end
   object pnlMenuCad: TPanel
-    Left = 706
-    Top = 8
+    Left = 857
+    Top = 7
     Width = 270
     Height = 745
     Hint = 'MenuCadastro'
@@ -9368,6 +9378,7 @@ object frmComponents: TfrmComponents
     ParentColor = True
     TabOrder = 8
     Visible = False
+    ExplicitLeft = 706
     object shpEdgeMenu: TShape
       Left = 216
       Top = 1
@@ -10553,7 +10564,7 @@ object frmComponents: TfrmComponents
     AlignWithMargins = True
     Left = 8
     Top = 769
-    Width = 1298
+    Width = 1449
     Height = 41
     Margins.Left = 8
     Margins.Top = 8
@@ -10561,9 +10572,10 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 9
+    ExplicitWidth = 1298
     object pnlButtonPri: TPanel
       AlignWithMargins = True
-      Left = 973
+      Left = 1124
       Top = 3
       Width = 150
       Height = 35
@@ -10575,6 +10587,7 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 973
       object shpPrimary: TShape
         Left = 10
         Top = 10
@@ -10607,7 +10620,7 @@ object frmComponents: TfrmComponents
     end
     object pnlButtonSec: TPanel
       AlignWithMargins = True
-      Left = 1139
+      Left = 1290
       Top = 3
       Width = 150
       Height = 35
@@ -10619,6 +10632,7 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitLeft = 1139
       object shpSecondary: TShape
         Left = 10
         Top = 10
@@ -10676,5 +10690,87 @@ object frmComponents: TfrmComponents
       ShowHint = True
       TabOrder = 2
     end
+  end
+  object Panel2: TPanel
+    Left = 470
+    Top = 69
+    Width = 361
+    Height = 121
+    BevelOuter = bvNone
+    Color = 13298641
+    ParentBackground = False
+    TabOrder = 10
+    Visible = False
+    object Label6: TLabel
+      AlignWithMargins = True
+      Left = 0
+      Top = 0
+      Width = 361
+      Height = 30
+      Hint = 'lblTitle'
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Align = alTop
+      AutoSize = False
+      Caption = 'Pr'#243'ximo Atendimento - 13:30'
+      Color = clBlack
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGrayText
+      Font.Height = -29
+      Font.Name = 'Century Gothic'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = True
+      Layout = tlCenter
+      StyleElements = [seClient, seBorder]
+      ExplicitTop = 1
+      ExplicitWidth = 1384
+    end
+  end
+  object SearchBox1: TSearchBox
+    Left = 55
+    Top = 622
+    Width = 257
+    Height = 32
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 11
+    Text = 'SearchBox1'
+    ButtonWidth = 36
+  end
+  object GridPanel1: TGridPanel
+    Left = 20
+    Top = 386
+    Width = 409
+    Height = 206
+    Color = clWhite
+    ColumnCollection = <
+      item
+        Value = 50.000000000000000000
+      end
+      item
+        Value = 50.000000000000000000
+      end>
+    ControlCollection = <>
+    ParentBackground = False
+    RowCollection = <
+      item
+        Value = 50.000000000000000000
+      end
+      item
+        Value = 50.000000000000000000
+      end>
+    TabOrder = 12
+    Visible = False
   end
 end

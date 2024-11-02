@@ -8,16 +8,18 @@ uses
   System.SysUtils, System.Variants, System.Classes,
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
   TfrmStandard = class(TForm)
     shpEdgeForm: TShape;
     lblTitleForm: TLabel;
-    shpTitleForm: TShape;
     btnCloseForm: TLabel;
+    pnlFooter: TPanel;
+    btnExit: TImage;
+    btnSave: TImage;
 
-    procedure objectStyle;
+    procedure btnFormClose;
 
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
@@ -35,6 +37,8 @@ type
     { Private declarations }
   public
     { Public declarations }
+    // procedure para fazer ENTER funcionar como tab.
+    procedure CMDialogKey(var Msg: TWMKey); message CM_DIALOGKEY;
   end;
 
 var
@@ -44,13 +48,13 @@ implementation
 
 {$R *.dfm}
 
-uses untFuncions, untStyle, untConstants;
+uses untFunctions, untStyle, untSource;
 
-procedure TfrmStandard.objectStyle;
+procedure TfrmStandard.btnFormClose;
 begin
     // oculta o fundo do botão fechar
     btnCloseForm.Transparent := True;
-    btnCloseForm.Font.Color  := clBlack;
+    btnCloseForm.Font.Color  := clWhite;
 end;
 
 procedure TfrmStandard.MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -73,15 +77,29 @@ procedure TfrmStandard.CloseLeave(Sender: TObject);
 begin
     // oculta o fundo
     btnCloseForm.Transparent := True;
-    btnCloseForm.Font.Color  := clBlack;
+    btnCloseForm.Font.Color  := clWhite;
+end;
+
+procedure TfrmStandard.CMDialogKey(var Msg: TWMKey);
+begin
+    // faz uma validação de controle
+    if not(Assigned(ActiveControl)) then
+        Exit;
+
+    // Faz o ENTER funcionar como TAB.
+    if not(ActiveControl.Tag = 310779) then
+        if Msg.Charcode = 13 then
+            Msg.Charcode := 9;
+    inherited;
 end;
 
 procedure TfrmStandard.FormCreate(Sender: TObject);
 begin
     // seta as definições da janela
-//    lblTitleForm.Caption := setWindowDefaults(Self);
+    lblTitleForm.Caption := setStyleWindow(Self);
 
-    objectStyle;
+    // aplica o estilo do botão fechar
+    btnFormClose;
 end;
 
 procedure TfrmStandard.FormClose(Sender: TObject; var Action: TCloseAction);

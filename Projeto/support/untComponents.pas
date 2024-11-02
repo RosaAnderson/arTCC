@@ -8,7 +8,8 @@ uses
   System.SysUtils, System.Variants, System.Classes,
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.DBCtrls,
-  Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.Buttons, Vcl.Imaging.jpeg, Vcl.ComCtrls;
+  Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.Buttons, Vcl.Imaging.jpeg, Vcl.ComCtrls,
+  ArEdit, Vcl.WinXCtrls;
 
 type
   TfrmComponents = class(TForm)
@@ -116,6 +117,11 @@ type
     shpSecondary: TShape;
     btnSecondary: TSpeedButton;
     navBOClassificacao: TDBNavigator;
+    Panel2: TPanel;
+    Label6: TLabel;
+    SearchBox1: TSearchBox;
+    dgrClock: TPaintBox;
+    GridPanel1: TGridPanel;
   private
     { Private declarations }
   public
