@@ -106,7 +106,14 @@
         <DCC_DcuOutput>.\outputs\$(Platform)\dcu</DCC_DcuOutput>
         <DCC_ExeOutput>.\outputs\$(Platform)</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <VerInfo_MajorVer>0</VerInfo_MajorVer>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=0.1.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Icon_MainIcon>images\icon\app\logo_ARd_02.ico</Icon_MainIcon>
+        <UWP_DelphiLogo44>images\icon\app\logo_AR.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>images\icon\app\logo_AR.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -127,35 +134,65 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="functions\untFuncions.pas"/>
-        <DCCReference Include="functions\untStyle.pas"/>
-        <DCCReference Include="sources\untConstants.pas"/>
-        <DCCReference Include="support\untComponents.pas">
-            <Form>frmComponents</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="standards\untStandard.pas">
             <Form>frmStandard</Form>
+        </DCCReference>
+        <DCCReference Include="support\untComponents.pas">
+            <Form>frmComponents</Form>
+        </DCCReference>
+        <DCCReference Include="support\untColors.pas">
+            <Form>frmColors</Form>
+        </DCCReference>
+        <DCCReference Include="support\untObjetos.pas">
+            <Form>Form1</Form>
+        </DCCReference>
+        <DCCReference Include="class\e.log.pas"/>
+        <DCCReference Include="class\c.connection.pas"/>
+        <DCCReference Include="class\c.pessoas.pas"/>
+        <DCCReference Include="class\c.atendimentos.pas"/>
+        <DCCReference Include="class\c.procedimentos.pas"/>
+        <DCCReference Include="modules\untDBConnect.pas">
+            <Form>frmDBConnect</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="functions\untFunctions.pas"/>
+        <DCCReference Include="functions\untStyle.pas"/>
+        <DCCReference Include="sources\untSource.pas"/>
+        <DCCReference Include="dialogs\untMessages.pas">
+            <Form>frmMessages</Form>
         </DCCReference>
         <DCCReference Include="dialogs\untLogin.pas">
             <Form>frmLogin</Form>
         </DCCReference>
-        <DCCReference Include="dialogs\untMessages.pas">
-            <Form>frmMessages</Form>
+        <DCCReference Include="dialogs\untDark.pas">
+            <Form>frmDark</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untMain.pas">
+            <Form>frmMain</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untMain_v1.pas">
+            <Form>frmMain_v1</Form>
         </DCCReference>
         <DCCReference Include="forms\undDashboard.pas">
             <Form>frmDashboard</Form>
         </DCCReference>
-        <DCCReference Include="forms\untClient_Cad.pas">
-            <Form>frmClient_Cad</Form>
+        <DCCReference Include="forms\untCli_Manutencao.pas">
+            <Form>frmCli_Manutencao</Form>
         </DCCReference>
-        <DCCReference Include="forms\untScheduling.pas">
-            <Form>frmScheduling</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="forms\untCli_Cadastro.pas">
+            <Form>frmCli_Cadastro</Form>
         </DCCReference>
-        <DCCReference Include="forms\untNotification.pas">
-            <Form>frmNotification</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="forms\untAtd_Cadastro.pas">
+            <Form>frmAtd_Cadastro</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untAtd_Listagem.pas">
+            <Form>frmAtd_Listagem</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untCom_Cadastro.pas">
+            <Form>frmCom_Cadastro</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untCom_Listagem.pas">
+            <Form>frmCom_Listagem</Form>
         </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -183,6 +220,13 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="4">
+                <DeployFile LocalName="images\icon\app\logo_AR.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="outputs\Win32\arEasyCare.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>arEasyCare.exe</RemoteName>
