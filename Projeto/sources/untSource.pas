@@ -48,17 +48,18 @@ uses e.log,
     gvSysPatch                    : string  = ''; // caminho do executavel do sistema
 
     // variaveis de comunicação (whatsapp e e-mail)
+    gvDDI                         : string  = '+55'; // DDI padrão do sistema
+    gvDDD                         : string  = '14';  // DDD padrão do sistema
+
     gvURL                         : string  = 'https://app.whatsgw.com.br/api/WhatsGw/Send?'; // URL constante do site
     gvAPIKey                      : string  = ''; // APIKey gerada no site
     gvPhoneFrom                   : string  = '5514996905500'; // numero de origem do whatsapp
+
     gvEMail                       : string  = ''; // e-mail do sistema
     gvSMTP                        : string  = ''; // host SMTP
     gvPorta                       : Integer = 0 ; // porta
     gvSenha                       : string  = ''; // senha do e-mail
     gvNome                        : string  = ''; // nome do remetente
-
-
-
 
 //##########################################
 //#### Variáveis de BD #####################
