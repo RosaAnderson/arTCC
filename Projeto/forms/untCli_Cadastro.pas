@@ -248,11 +248,14 @@ end;
 procedure TfrmCli_Cadastro.vTransfer;
 begin
     // transfere o valor dos campos para a classe
-    c.pessoas.vcPES_CPF        := Trim(txtCPF.Text);
+    c.pessoas.vcPES_DOC        := Trim(txtCPF.Text);
     c.pessoas.vcPES_NOME       := NameCase(Trim(txtNome.Text), 'y');
     c.pessoas.vcPES_NASCIMENTO := txtNascimento.Date;
+
+    c.pessoas.vcTEL_DDI        := getNumber(gvDDI);
     c.pessoas.vcTEL_DDD        := txtDDD.Text;
     c.pessoas.vcTEL_TELEFONE   := txtTelefone.Text;
+
     c.pessoas.vcMAI_EMAIL      := LowerCase(Trim(txtEmail.Text));
 end;
 
