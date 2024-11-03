@@ -52,26 +52,31 @@ type
     Shape9: TShape;
     txtDuracao: TArEdit;
     txtValor: TArEdit;
+    pnlPagamento: TPanel;
+    Label6: TLabel;
+    Shape10: TShape;
+    btnFPgtoSearch: TImage;
+    txtPagamento: TArEdit;
 
     function wasChanged(): Boolean;
     function requiredField():Boolean;
     function getObjName(Sender: TObject):string;
 
+    procedure clearFields();
+    procedure vTransfer();
     procedure vSearch(vpSearch, vpField: string);
+
+    procedure FormCreate(Sender: TObject);
+
     procedure txtSearchKeyPress(Sender: TObject; var Key: Char);
     procedure btnSearchClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
-
-    procedure FormCreate(Sender: TObject);
     procedure btnCloseFormClick(Sender: TObject);
 
   private
     { Private declarations }
     vField: string;
     vCount: Integer;
-
-//    vDataI, vDataF: TDate;
-//    vHoraI, vHoraF: TTime;
 
   public
     { Public declarations }
@@ -84,7 +89,8 @@ implementation
 
 {$R *.dfm}
 
-uses untDBConnect, untFunctions, untSource, c.procedimentos, c.atendimentos;
+uses untDBConnect, untFunctions, untSource,
+    c.procedimentos, c.atendimentos, c.forma_pgto;
 
 procedure TfrmAtd_Cadastro.btnCloseFormClick(Sender: TObject);
 begin
@@ -101,6 +107,9 @@ begin
                     {link}                ''
                    )) then
         begin
+            // transfere os dados
+            vTransfer();
+
             // se não houver um cadastro
             if gvATD_ID = 0 then
                 atdUpdate(atdGetID(txtCliente.Text)) // atualiza o cadastro
@@ -115,6 +124,7 @@ end;
 procedure TfrmAtd_Cadastro.btnSaveClick(Sender: TObject);
 begin
   inherited;
+{
     // verifica se alguma informação foi alterada
     if not(wasChanged) then
         Exit;
@@ -123,6 +133,9 @@ begin
     if not(requiredField) then
         Exit;
 }
+    // transfere os dados
+    vTransfer();
+
     // se não houver um cadastro
     if gvATD_ID = 0 then
         atdUpdate(atdGetID(txtCliente.Text)) // atualiza o cadastro
@@ -139,13 +152,28 @@ begin
         vSearch(txtCliente.Text, vField) // faz a busca
     else
     if vField = 'Procedimento' then
+        vSearch(txtProcedimento.Text, vField) // faz a busca
+    else
+    if vField = 'Pagamento' then
         vSearch(txtProcedimento.Text, vField); // faz a busca
+end;
+
+procedure TfrmAtd_Cadastro.clearFields;
+begin
+    // limpa os campos
+    txtCliente.Text      := '';
+    txtData.Date         := Now;
+    txtHora.Time         := Now;
+    txtProcedimento.Text := '';
+    txtDuracao.Text      := '0 min.';
+    txtValor.Text        := 'R$ 0,00';
+    txtObservacoes.Clear;
 end;
 
 procedure TfrmAtd_Cadastro.FormCreate(Sender: TObject);
 begin
     // define o tamanho do form
-    Self.ClientHeight := 500;
+    Self.ClientHeight := 565;
     Self.ClientWidth  := 350;
 
     txtData.Date      := Now;
@@ -216,7 +244,10 @@ begin
             vSearch(txtCliente.Text, vField) // faz a busca
         else
         if vField = 'Procedimento' then
-            vSearch(txtProcedimento.Text, vField); // faz a busca
+            vSearch(txtProcedimento.Text, vField) // faz a busca
+        else
+        if vField = 'Pagamento' then
+            vSearch(txtPagamento.Text, vField); // faz a busca
     end;
 end;
 
@@ -227,7 +258,9 @@ begin
         Exit;
 
     // faz a pesquisa dos dados informados no campo código
-    if ((not pesSearch(vpSearch)) and (not prcSearch(vpSearch))) then
+    if ((not pesSearch(vpSearch)) and
+            (not prcSearch(vpSearch)) and
+                (not fpgSearch(vpSearch))) then
     begin
         // exibe a mensagem para o usuario
         if (showMsg({janela de ogigem}    Self.Caption,
@@ -250,6 +283,12 @@ begin
             if vpField = 'Procedimento' then
             begin
                 // abrir janela de cadastro de procedimento
+            end
+            else
+            // se for forma de pgto
+            if vpField = 'Pagamento' then
+            begin
+                // abrir janela de cadastro de procedimento
             end;
         end;
     end
@@ -260,6 +299,8 @@ begin
         txtCliente.Text      := gvPES_NOME;
         pnlProcedimento.Tag  := gvPRC_ID;
         txtProcedimento.Text := gvPRC_NOME;
+        pnlPagamento.Tag     := gvFPG_ID;
+        txtPagamento.Text    := gvFPG_NOME;
         txtDuracao.Text      := IntToStr(gvPRC_DURACAO) + ' min.';
         txtValor.Text        := FormatMoney(gvPRC_VALOR);
 
@@ -267,8 +308,21 @@ begin
             txtData.SetFocus// abrir janela de cadastro de cliente
         else
         if vpField = 'Procedimento' then // se for procedimento
-            txtDuracao.SetFocus;
+            txtDuracao.SetFocus
+        else
+        if vpField = 'Pagamento' then // se for procedimento
+            txtObservacoes.SetFocus;
     end;
+end;
+
+procedure TfrmAtd_Cadastro.vTransfer;
+begin
+    //
+    c.atendimentos.vcATD_DATA        := txtData.Date;
+    c.atendimentos.vcATD_HORA        := txtHora.Time;
+    c.atendimentos.vcATD_DURACAO     := toMinute(txtDuracao.Text);
+    c.atendimentos.vcATD_VALOR       := toCurrency(getNumber(txtValor.Text));
+    c.atendimentos.vcATD_OBSERVACOES := txtObservacoes.Text;
 end;
 
 function TfrmAtd_Cadastro.wasChanged: Boolean;
