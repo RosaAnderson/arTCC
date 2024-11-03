@@ -21,11 +21,22 @@ uses
     jpeg
     ;
 
+type
+    tFunctions = class
+
+    private
+        {Private declarations}
+    public
+        {Public declarations}
+    end;
+
     // declaração das procedures
     procedure ATime(vpHH, vpMM, vpSS: TLabel);
     procedure ToCreate(vpForm: TForm; vpTForm: TFormClass; vpParent: TComponent; vpPParent, vpPanel: TPanel);
 
     // decaração das functions
+    function IsNumeric(vfValue: string): Boolean;
+    function getNumber(vfValue: string): string;
     function Crypto(vfStr: string): string;
     function NameCase(vfName, vfAll: string): string;
     function fullDate(vfDate: TDateTime):string;
@@ -34,13 +45,12 @@ uses
     function formatDocs(vfDoc: string): string;
     function removeChar(vfString: string): string;
     function toCurrency(vfValue: string): Currency;
-    function FormatMoney(vfValor: Currency): string;
+    function toMinute(vfValue: string):Integer;
+    function formatMoney(vfValor: Currency): string;
 
-
-
-
-
-  var
+var
+    vI        :  Integer;
+    vFound    : Boolean;
     qryAuxFunc: TFDQuery;
 
 implementation
@@ -93,9 +103,39 @@ end;
 //##############################################################################
 //### Functions ################################################################
 //##############################################################################
+function getNumber(vfValue: string): string;
+begin
+    // define o valor inicial do resultado
+    Result := '';
+
+    // sai da função se o valor for vazio
+    if (vfValue = '') then Exit;
+
+    // passa caracte por caracter
+    for vI := 1 to Length(vfValue) do
+        if (vfValue[vI] in ['0'..'9', ',', '.']) then // testa o caracter pra checar se é numero
+            Result := Result + Copy(vfValue, vI, 1); // pega o numero e separa para definir o resultado
+end;
+
+function IsNumeric(vfValue: string): Boolean;
+begin
+    // define o valor inicial do resultado
+    Result := False;
+
+    // sai da função se o valor for vazio
+    if (vfValue = '') then Exit;
+
+    // passa caracte por caracter
+    for vI := 1 to Length(vfValue) do
+        // testa o caracter pra checar se é numero
+        if not (vfValue[vI] in ['0'..'9']) then Exit;
+
+    // dá o resultado final
+    Result := True;
+end;
+
 function Crypto(vfStr: string): string;
 var
-    i: Integer;
     symbol: array [0 .. 4] of String;
 begin
     // função crypto modificada por Anderson Rosa
@@ -106,19 +146,19 @@ begin
 
     Result := '';
 
-    for i := 1 to Length(Trim(vfStr)) do
+    for vI := 1 to Length(Trim(vfStr)) do
     begin
-        if Pos(Copy(vfStr, i, 1), symbol[1]) > 0 then
-            Result := Result + Copy(symbol[2], Pos(Copy(vfStr, i, 1), symbol[1]), 1)
+        if Pos(Copy(vfStr, vI, 1), symbol[1]) > 0 then
+            Result := Result + Copy(symbol[2], Pos(Copy(vfStr, vI, 1), symbol[1]), 1)
         else
-        if Pos(Copy(vfStr, i, 1), symbol[2]) > 0 then
-            Result := Result + Copy(symbol[1], Pos(Copy(vfStr, i, 1), symbol[2]), 1)
+        if Pos(Copy(vfStr, vI, 1), symbol[2]) > 0 then
+            Result := Result + Copy(symbol[1], Pos(Copy(vfStr, vI, 1), symbol[2]), 1)
         else
-        if Pos(Copy(vfStr, i, 1), symbol[3]) > 0 then
-            Result := Result + Copy(symbol[4], Pos(Copy(vfStr, i, 1), symbol[3]), 1)
+        if Pos(Copy(vfStr, vI, 1), symbol[3]) > 0 then
+            Result := Result + Copy(symbol[4], Pos(Copy(vfStr, vI, 1), symbol[3]), 1)
         else
-        if Pos(Copy(vfStr, i, 1), symbol[4]) > 0 then
-            Result := Result + Copy(symbol[3], Pos(Copy(vfStr, i, 1), symbol[4]), 1);
+        if Pos(Copy(vfStr, vI, 1), symbol[4]) > 0 then
+            Result := Result + Copy(symbol[3], Pos(Copy(vfStr, vI, 1), symbol[4]), 1);
     end;
 end;
 
@@ -244,6 +284,30 @@ begin
     Result := vfString;
 end;
 
+function toMinute(vfValue: string):Integer;
+var
+    vNumber: string;
+begin
+    // define o valor inicial do resultado
+    Result  := 0;
+    vNumber := '';
+
+    // passa caracte por caracter
+    for vI := 1 to Length(vfValue) do
+    begin
+        vFound := (vfValue[vI] in ['h', 'H']); // se encontrar marca como true
+
+        if (vfValue[vI] in ['0'..'9']) then // testa o caracter pra checar se é numero
+            vNumber := vNumber + Copy(vfValue, vI, 1); // pega o numero e armazena
+    end;
+
+    // se encontrou o marcador de hora (h)
+    if vFound then
+        Result := StrToInt(vNumber) * 60 // transforma a hora em minuto
+    else
+        Result := StrToIntDef(vNumber, gvScheduleInterval); // retorna o valor do campo
+end;
+
 function toCurrency(vfValue: string): Currency;
 begin
     // define o valor inicial
@@ -254,7 +318,7 @@ begin
         Result := StrToFloat(StringReplace(vfValue, '.', ',', [rfReplaceAll])); // converte o valor
 end;
 
-function FormatMoney(vfValor: Currency): string;
+function formatMoney(vfValor: Currency): string;
 begin
     // define o resultado inicial
     Result := 'R$ 0,00';
@@ -322,35 +386,12 @@ WITH (NOLOCK)
 //##############################################################################
 //##############################################################################
 //##############################################################################
-unit untFuncao;
-
-interface
-
-uses
-  Winapi.ShellAPI, Winapi.Messages, Winapi.Windows,
-
-  System.SysUtils, System.Variants, System.Classes, System.DateUtils,
-
-  Vcl.Graphics, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Forms,
-  Vcl.Buttons,
-
-  VCLTee.TeeData,
-
-  ZConnection,
-  ZDataset,
-
-  Datasnap.DBClient, Datasnap.Provider,
-
-  Data.DB,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
-  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
-  FireDAC.Phys, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait,
-  FireDAC.Comp.UI, FireDAC.FMXUI.Wait, FireDAC.Comp.Client, FireDAC.Stan.Param,
-  FireDAC.Comp.DataSet, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-
-  jpeg
-  ;
+//##############################################################################
+//##############################################################################
+//##############################################################################
+//##############################################################################
+//##############################################################################
+//##############################################################################
 
   type ThCarrFoto = class(TThread)
     protected
@@ -522,8 +563,6 @@ end;
 
 // Popular Grafico
 Procedure PopularGrafico(Query : TZQuery; Gcds : TChartDataSet);
-var
-  i : Integer;
 begin
   // Excluindo registros atuais
   Gcds.Close;
