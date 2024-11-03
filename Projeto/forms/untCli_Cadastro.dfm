@@ -1334,7 +1334,7 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
     Width = 340
     TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 449
+    ExplicitTop = 456
     ExplicitWidth = 340
     inherited btnExit: TImage
       Left = 255

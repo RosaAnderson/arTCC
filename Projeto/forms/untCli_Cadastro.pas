@@ -52,6 +52,7 @@ type
     function requiredField():Boolean;
 
     procedure clearFields();
+    procedure vTransfer();
     procedure vSearch(vpSearch: string);
 
     procedure FormCreate(Sender: TObject);
@@ -138,6 +139,9 @@ begin
                     {link}                ''
                    )) then
         begin
+            // transfere os dados
+            vTransfer();
+
             // se não houver um cadastro
             if gvPES_ID = 0 then
                 pesUpdate(pesGetID(txtNome.Text)) // atualiza o cadastro
@@ -160,13 +164,8 @@ begin
     if not(requiredField) then
         Exit;
 
-    //
-    vcPES_CPF        := Trim(txtCPF.Text);
-    vcPES_NOME       := NameCase(Trim(txtNome.Text), 'y');
-    vcPES_NASCIMENTO := txtNascimento.Date;
-    vcTEL_DDD        := txtDDD.Text;
-    vcTEL_TELEFONE   := txtTelefone.Text;
-    vcMAI_EMAIL      := LowerCase(Trim(txtEmail.Text));
+    // transfere os dados
+    vTransfer();
 
     // se não houver um cadastro
     if gvPES_ID = 0 then
@@ -244,6 +243,17 @@ begin
         txtTelefone.Text   := gvTEL_TELEFONE;
         txtEmail.Text      := gvMAI_EMAIL;
     end;
+end;
+
+procedure TfrmCli_Cadastro.vTransfer;
+begin
+    // transfere o valor dos campos para a classe
+    c.pessoas.vcPES_CPF        := Trim(txtCPF.Text);
+    c.pessoas.vcPES_NOME       := NameCase(Trim(txtNome.Text), 'y');
+    c.pessoas.vcPES_NASCIMENTO := txtNascimento.Date;
+    c.pessoas.vcTEL_DDD        := txtDDD.Text;
+    c.pessoas.vcTEL_TELEFONE   := txtTelefone.Text;
+    c.pessoas.vcMAI_EMAIL      := LowerCase(Trim(txtEmail.Text));
 end;
 
 procedure TfrmCli_Cadastro.txtBuscaKeyPress(Sender: TObject; var Key: Char);
