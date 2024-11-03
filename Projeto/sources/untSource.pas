@@ -2,7 +2,7 @@ unit untSource;
 
 interface
 
-uses {e.log,}
+uses e.log,
 
   Winapi.Windows, Winapi.Messages,
 
@@ -34,7 +34,35 @@ uses {e.log,}
     sysColorGradientStart         : TColor  = $00A0D5A9;
     sysColorGradientEnd           : TColor  = $002A5320;
 
-    // reserva de ids
+    // variaveis de ambiente e sistema
+    gcAppName                     : string  = 'EasyCare'; // nome do sistema/aplicativo
+    gcSymbolLine                  : string  = '%0A'; // caracteres para mudança de linha em uma url
+    gcSymbolSpace                 : string  = '%20'; // caracteres para espaço em uma url
+    gcPosResult                   : Integer = Length('result:') + 1; // valor para encontrar o result no json
+    gcPosMessId                   : Integer = Length('result:') + 1; // valor para encontrar o id da mensagem no json
+    gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
+    gvResponse                    : Integer = 0; // armazena um codigo do banco de dados da tabela config para checar se coletou os dados de configuração
+    gvScheduleInterval            : Integer = 30; // define o intervalo minimo de cada atendimento
+
+    gvAttachPath                  : string  = 'D:\'; // caminho da pasta de armazenamento de anexos
+    gvSysPatch                    : string  = ''; // caminho do executavel do sistema
+
+    // variaveis de comunicação (whatsapp e e-mail)
+    gvURL                         : string  = 'https://app.whatsgw.com.br/api/WhatsGw/Send?'; // URL constante do site
+    gvAPIKey                      : string  = ''; // APIKey gerada no site
+    gvPhoneFrom                   : string  = '5514996905500'; // numero de origem do whatsapp
+    gvEMail                       : string  = ''; // e-mail do sistema
+    gvSMTP                        : string  = ''; // host SMTP
+    gvPorta                       : Integer = 0 ; // porta
+    gvSenha                       : string  = ''; // senha do e-mail
+    gvNome                        : string  = ''; // nome do remetente
+
+
+
+
+//##########################################
+//#### Variáveis de BD #####################
+//##########################################
 
     // Cliente
     gvPES_ID                      : Integer = 0;
@@ -50,34 +78,34 @@ uses {e.log,}
     gvPES_AVATAR                  : string  = '';
     gvPES_DATA_ATUALIZADO         : TDateTime;
 
-    // endereço
-    gvEND_ID                      : Integer = 0;
-    gvEND_PES_ID                  : Integer = 0;
-    gvEND_TIPO                    : string  = '';
-    gvEND_CEP                     : string  = '';
-    gvEND_CIDADE                  : string  = '';
-    gvEND_UF                      : string  = '';
-    gvEND_LOGRADOURO              : string  = '';
-    gvEND_NUMERO                  : string  = '';
-    gvEND_BAIRRO                  : string  = '';
-    gvEND_COMPLEMENTO             : string  = '';
-    gvEND_DATA_ATUALIZADO         : TDateTime;
+        // endereço
+        gvEND_ID                  : Integer = 0;
+        gvEND_PES_ID              : Integer = 0;
+        gvEND_TIPO                : string  = '';
+        gvEND_CEP                 : string  = '';
+        gvEND_CIDADE              : string  = '';
+        gvEND_UF                  : string  = '';
+        gvEND_LOGRADOURO          : string  = '';
+        gvEND_NUMERO              : string  = '';
+        gvEND_BAIRRO              : string  = '';
+        gvEND_COMPLEMENTO         : string  = '';
+        gvEND_DATA_ATUALIZADO     : TDateTime;
 
-    // telefone
-    gvTEL_ID                      : Integer = 0;
-    gvTEL_PES_ID                  : Integer = 0;
-    gvTEL_TIPO                    : string  = '';
-    gvTEL_DDI                     : string  = '';
-    gvTEL_DDD                     : string  = '';
-    gvTEL_TELEFONE                : string  = '';
-    gvTEL_DATA_ATUALIZADO         : TDateTime;
+        // telefone
+        gvTEL_ID                  : Integer = 0;
+        gvTEL_PES_ID              : Integer = 0;
+        gvTEL_TIPO                : string  = '';
+        gvTEL_DDI                 : string  = '';
+        gvTEL_DDD                 : string  = '';
+        gvTEL_TELEFONE            : string  = '';
+        gvTEL_DATA_ATUALIZADO     : TDateTime;
 
-    // email
-    gvMAI_ID                      : Integer = 0;
-    gvMAI_PES_ID                  : Integer = 0;
-    gvMAI_TIPO                    : string  = '';
-    gvMAI_EMAIL                   : string  = '';
-    gvMAI_DATA_ATUALIZADO         : TDateTime;
+        // email
+        gvMAI_ID                  : Integer = 0;
+        gvMAI_PES_ID              : Integer = 0;
+        gvMAI_TIPO                : string  = '';
+        gvMAI_EMAIL               : string  = '';
+        gvMAI_DATA_ATUALIZADO     : TDateTime;
 
     // procedimento
     gvPRC_ID                      : Integer = 0;
@@ -105,25 +133,25 @@ uses {e.log,}
     gvATD_DURACAO                 : Integer = 0;
     gvATD_VALOR                   : Double = 0.00;
     gvATD_OBSERVACOES             : string = '';
-    gvATD_DATA_ATUALIZACAO        : TDateTime;
+    gvATD_DATA_ATUALIZADO         : TDateTime;
 
-    // atendimentos pessoa
-    gvAPS_ID                      : Integer = 0;
-    gvAPS_ATD_ID                  : Integer = 0;
-    gvAPS_PES_ID                  : Integer = 0;
-    gvAPS_DATA_ATUALIZADO         : TDateTime;
+        // atendimentos pessoa
+        gvAPS_ID                  : Integer = 0;
+        gvAPS_ATD_ID              : Integer = 0;
+        gvAPS_PES_ID              : Integer = 0;
+        gvAPS_DATA_ATUALIZADO     : TDateTime;
 
-    // atendimentos procedimento
-    gvAPC_ID                      : Integer = 0;
-    gvAPC_ATD_ID                  : Integer = 0;
-    gvAPC_PRC_ID                  : Integer = 0;
-    gvAPC_DATA_ATUALIZADO         : TDateTime;
+        // atendimentos procedimento
+        gvAPC_ID                  : Integer = 0;
+        gvAPC_ATD_ID              : Integer = 0;
+        gvAPC_PRC_ID              : Integer = 0;
+        gvAPC_DATA_ATUALIZADO     : TDateTime;
 
-    // atendimentos profissional
-    gvAPF_ID                      : Integer = 0;
-    gvAPF_ATD_ID                  : Integer = 0;
-    gvAPF_PRF_ID                  : Integer = 0;
-    gvAPF_DATA_ATUALIZADO         : TDateTime;
+        // atendimentos profissional
+        gvAPF_ID                  : Integer = 0;
+        gvAPF_ATD_ID              : Integer = 0;
+        gvAPF_PRF_ID              : Integer = 0;
+        gvAPF_DATA_ATUALIZADO     : TDateTime;
 
     // profissionais
     gvPRF_ID                      : Integer = 0;
@@ -131,9 +159,50 @@ uses {e.log,}
     gvPRF_STATUS                  : string = '';
     gvPRF_DATA_ATUALIZADO         : TDateTime;
 
-    //
+    // formas de pagamento
+    gvFPG_ID                      : Integer = 0;
+    gvFPG_STATUS                  : string = '';
+    gvFPG_NOME                    : string = '';
+    gvFPG_DATA_ATUALIZADO         : TDateTime;
 
     //
+
+implementation
+
+function exePathRequest: string;
+var
+    coleta: TStringList;
+    vArq, valor: string;
+begin
+    // verifica se a variavel está preenchida
+//    if dm.exePathReply <> '' then
+//    begin
+//        Result := dm.exePathReply;
+//        Exit;
+//    end;
+
+    // pega o caminho do executável
+    Result := ExtractFileDir(GetCurrentDir);
+
+    // substitui o o trecho especificado caso exista
+    Result := StringReplace(Result, 'outputs', '', [rfReplaceAll]);
+    Result := StringReplace(Result, 'win32', '', [rfReplaceAll]);
+    Result := StringReplace(Result, 'win64', '', [rfReplaceAll]);
+
+    // se o ultimo caracter não for uma barra
+    if Copy(Result, Length(Result), 1) <> '\' then
+        Result := Result + '\'; // insere a barra
+
+    // grava o resultado na variavel
+//    dm.exePathReply := Result;
+end;
+
+end.
+
+
+
+
+
 
 
 
@@ -184,7 +253,6 @@ uses {e.log,}
     // Arquivos
     iniName                       : string  = 'conf.ini'; // nome do arquivo de configurações
 
-
     // padrões
     sysMessage                    : string  = 'SIMPLIM - SFC (Shop Floor Control)';
     gcDefault                     : string  = '123mudar';
@@ -193,57 +261,5 @@ uses {e.log,}
 
     // temporizadores
     sysStandByTime                : Integer = 60000;
-
-    gcAppName      : string  = 'EasyCare'; // nome do sistema/aplicativo
-    gcSymbolLine   : string  = '%0A'; // caracteres para mudança de linha em uma url
-    gcSymbolSpace  : string  = '%20'; // caracteres para espaço em uma url
-    gcPosResult    : Integer = Length('result:') + 1; // valor para encontrar o result no json
-    gcPosMessId    : Integer = Length('result:') + 1; // valor para encontrar o id da mensagem no json
-
-    gvInterval     : Integer = 5; // intervalo entre cada requisição de dados para o servidor
-    gvResponse     : Integer = 0; // armazena um codigo do banco de dados da tabela config para checar se coletou os dados de configuração
-
-    gvAttachPath   : string  = 'D:\'; // caminho da pasta de armazenamento de anexos
-    gvSysPatch     : string  = ''; // caminho do executavel do sistema
-    gvURL          : string  = 'https://app.whatsgw.com.br/api/WhatsGw/Send?'; // URL constante do site
-    gvAPIKey       : string  = ''; // APIKey gerada no site
-    gvPhoneFrom    : string  = '5514996905500'; // numero de origem do whatsapp
-
-    gvEMail        : string  = ''; // e-mail do sistema
-    gvSMTP         : string  = ''; // host SMTP
-    gvPorta        : Integer = 0 ; // porta
-    gvSenha        : string  = ''; // senha do e-mail
-    gvNome         : string  = ''; // nome do remetente
 //}
-implementation
-
-function exePathRequest: string;
-var
-    coleta: TStringList;
-    vArq, valor: string;
-begin
-    // verifica se a variavel está preenchida
-//    if dm.exePathReply <> '' then
-//    begin
-//        Result := dm.exePathReply;
-//        Exit;
-//    end;
-
-    // pega o caminho do executável
-//    Result := ExtractFileDir(GetCurrentDir);
-
-    // substitui o o trecho especificado caso exista
-    Result := StringReplace(Result, 'win32', '', [rfReplaceAll]);
-    Result := StringReplace(Result, 'win64', '', [rfReplaceAll]);
-
-    // se o ultimo caracter não for uma barra
-    if Copy(Result, Length(Result), 1) <> '\' then
-        Result := Result + '\'; // insere a barra
-
-    // grava o resultado na variavel
-//    dm.exePathReply := Result;
-end;
-
-end.
-
 
