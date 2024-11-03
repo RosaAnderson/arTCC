@@ -35,11 +35,36 @@ type
         function pesUpdate(vfValue: Integer): Boolean;
 
 var
-    qryAuxCli: TFDQuery;
-    vFound   : Boolean;
+    qryAuxCli       : TFDQuery;
+    vFound          : Boolean;
 
-    vcPES_CPF, vcPES_NOME, vcTEL_DDD, vcTEL_TELEFONE, vcMAI_EMAIL: string;
-    vcPES_NASCIMENTO:TDate;
+    vcPES_ID             : Integer;
+    vcPES_INC            : TDateTime;
+    vcPES_STATUS         : string;
+    vcPES_TIPO           : string;
+    vcPES_USER           : string;
+    vcPES_DOC            : string;
+    vcPES_NOME           : string;
+    vcPES_NASCIMENTO     : TDate;
+    vcPES_GENERO         : string;
+    vcPES_PROFISSAO      : string;
+    vcPES_AVATAR         : string;
+    vcPES_DATA_ATUALIZADO: TDateTime;
+
+    vcTEL_ID             : Integer;
+    vcTEL_PES_ID         : Integer;
+    vcTEL_TIPO           : string;
+    vcTEL_DDI            : string;
+    vcTEL_DDD            : string;
+    vcTEL_TELEFONE       : string;
+    vcTEL_DATA_ATUALIZADO: TDateTime;
+
+    vcMAI_ID             : Integer;
+    vcMAI_PES_ID         : Integer;
+    vcMAI_TIPO           : string;
+    vcMAI_EMAIL          : string;
+    vcMAI_DATA_ATUALIZADO: TDateTime;
+
 
 implementation
 
@@ -130,13 +155,32 @@ begin
                 if not(IsEmpty) then
                 begin
                     // insere os dados nos campos
-                    gvPES_ID         :=                FieldByName('PES_ID').AsInteger;
-                    gvPES_DOC        :=           Trim(FieldByName('PES_DOC').AsString);
-                    gvPES_NOME       :=  NameCase(Trim(FieldByName('PES_NOME').AsString), 'y');
-                    gvPES_NASCIMENTO :=                FieldByName('PES_NASCIMENTO').AsDateTime;
-                    gvTEL_DDD        :=           Trim(FieldByName('TEL_DDD').AsString);
-                    gvTEL_TELEFONE   :=           Trim(FieldByName('TEL_TELEFONE').AsString);
-                    gvMAI_EMAIL      := LowerCase(Trim(FieldByName('MAI_EMAIL').AsString));
+                    gvPES_ID              :=                FieldByName('PES_ID').AsInteger;
+                    gvPES_INC             :=                FieldByName('PES_INC').AsDateTime;
+                    gvPES_STATUS          :=           Trim(FieldByName('PES_STATUS').AsString);
+                    gvPES_TIPO            :=           Trim(FieldByName('PES_TIPO').AsString);
+                    gvPES_USER            :=           Trim(FieldByName('PES_USER').AsString);
+                    gvPES_DOC             :=           Trim(FieldByName('PES_DOC').AsString);
+                    gvPES_NOME            :=  NameCase(Trim(FieldByName('PES_NOME').AsString), 'y');
+                    gvPES_NASCIMENTO      :=                FieldByName('PES_NASCIMENTO').AsDateTime;
+                    gvPES_GENERO          :=           Trim(FieldByName('PES_GENERO').AsString);
+                    gvPES_PROFISSAO       :=           Trim(FieldByName('PES_PROFISSAO').AsString);
+                    gvPES_AVATAR          :=           Trim(FieldByName('PES_AVATAR').AsString);
+                    gvPES_DATA_ATUALIZADO :=                FieldByName('PES_DATA_ATUALIZADO').AsDateTime;
+
+                    gvTEL_ID              :=                FieldByName('TEL_ID').AsInteger;
+                    gvTEL_PES_ID          :=                FieldByName('TEL_PES_ID').AsInteger;
+                    gvTEL_TIPO            :=           Trim(FieldByName('TEL_TIPO').AsString);
+                    gvTEL_DDI             :=           Trim(FieldByName('TEL_DDI').AsString);
+                    gvTEL_DDD             :=           Trim(FieldByName('TEL_DDD').AsString);
+                    gvTEL_TELEFONE        :=           Trim(FieldByName('TEL_TELEFONE').AsString);
+                    gvTEL_DATA_ATUALIZADO :=                FieldByName('TEL_DATA_ATUALIZADO').AsDateTime;
+
+                    gvMAI_ID              :=                FieldByName('MAI_ID').AsInteger;
+                    gvMAI_PES_ID          :=                FieldByName('MAI_PES_ID').AsInteger;
+                    gvMAI_TIPO            :=           Trim(FieldByName('MAI_TIPO').AsString);
+                    gvMAI_EMAIL           := LowerCase(Trim(FieldByName('MAI_EMAIL').AsString));
+                    gvMAI_DATA_ATUALIZADO :=                FieldByName('MAI_DATA_ATUALIZADO').AsDateTime;
                 end;
             end;
 
@@ -164,28 +208,40 @@ begin
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
-//##################################
-//## TABELA CLIENTES ###############
-//##################################
+//##############################################################################
+//## TABELA CLIENTES ###########################################################
+//##############################################################################
 
                 // insere o sql
-                SQL.Add(' UPDATE PESSOAS SET ');
-                SQL.Add(' PES_DOC        = :PES_DOC,       ');
-                SQL.Add(' PES_NOME       = :PES_NOME,      ');
-                SQL.Add(' PES_NASCIMENTO = :PES_NASCIMENTO ');
-                SQL.Add(' WHERE PES_ID   = :PES_ID         ');
+                SQL.Add(' UPDATE PESSOAS SET                ');
+                SQL.Add(' PES_STATUS     = :PES_STATUS,     ');
+                SQL.Add(' PES_TIPO       = :PES_TIPO,       ');
+                SQL.Add(' PES_USER       = :PES_USER,       ');
+                SQL.Add(' PES_DOC        = :PES_DOC,        ');
+                SQL.Add(' PES_NOME       = :PES_NOME,       ');
+                SQL.Add(' PES_NASCIMENTO = :PES_NASCIMENTO, ');
+                SQL.Add(' PES_GENERO     = :PES_GENERO,     ');
+                SQL.Add(' PES_PROFISSAO  = :PES_PROFISSAO,  ');
+                SQL.Add(' PES_AVATAR     = :PES_AVATAR      ');
+                SQL.Add(' WHERE PES_ID   = :PES_ID          ');
 
                 // insere os dados na query
-                ParamByName('PES_ID').AsInteger      := vfValue;
-                ParamByName('PES_DOC').AsString      := vcPES_CPF;
-                ParamByName('PES_NOME').AsString     := vcPES_NOME;
-                ParamByName('PES_NASCIMENTO').AsDate := vcPES_NASCIMENTO;
+                ParamByName('PES_ID').AsInteger       := vfValue;
+                ParamByName('PES_STATUS').AsString    := vcPES_STATUS;
+                ParamByName('PES_TIPO').AsString      := vcPES_TIPO;
+                ParamByName('PES_USER').AsString      := vcPES_USER;
+                ParamByName('PES_DOC').AsString       := vcPES_DOC;
+                ParamByName('PES_NOME').AsString      := vcPES_NOME;
+                ParamByName('PES_NASCIMENTO').AsDate  := vcPES_NASCIMENTO;
+                ParamByName('PES_GENERO').AsString    := vcPES_GENERO;
+                ParamByName('PES_PROFISSAO').AsString := vcPES_PROFISSAO;
+                ParamByName('PES_AVATAR').AsString    := vcPES_AVATAR;
                 ExecSQL; // executa o SQL
                 SQL.Clear; // limpa
 
-//##################################
-//## TABELA TELEFONES ##############
-//##################################
+//##############################################################################
+//## TABELA TELEFONES ##########################################################
+//##############################################################################
 
                 // verifica se encontrou um telefone
                 SQL.Add(' SELECT TEL_ID FROM TELEFONES  ');
@@ -201,6 +257,8 @@ begin
                 begin
                     // atualiza o telefone
                     SQL.Add(' UPDATE TELEFONES SET           ');
+                    SQL.ADD(' TEL_TIPO     = :TEL_TIPO,      ');
+                    SQL.ADD(' TEL_DDI      = :TEL_DDI,       ');
                     SQL.ADD(' TEL_DDD      = :TEL_DDD,       ');
                     SQL.Add(' TEL_TELEFONE = :TEL_TELEFONE   ');
                     SQL.ADD(' WHERE TEL_PES_ID = :TEL_PES_ID ');
@@ -208,25 +266,32 @@ begin
                 else
                 begin
                     // insere o telefone
-                    SQL.Add(' INSERT INTO TELEFONES                  ');
-                    SQL.ADD(' (TEL_PES_ID, TEL_DDD, TEL_TELEFONE)    ');
-                    SQL.ADD(' VALUES                                 ');
-                    SQL.ADD(' (:TEL_PES_ID, :TEL_DDD, :TEL_TELEFONE) ');
+                    SQL.Add(' INSERT INTO TELEFONES    ');
+                    SQL.ADD(' (TEL_PES_ID, TEL_TIPO,   ');
+                    SQL.ADD('  TEL_DDI, TEL_DDD,       ');
+                    SQL.ADD('  TEL_TELEFONE)           ');
+                    SQL.ADD(' VALUES                   ');
+                    SQL.ADD(' (:TEL_PES_ID, :TEL_TIPO, ');
+                    SQL.ADD('  :TEL_DDI, :TEL_DDD,     ');
+                    SQL.ADD('  :TEL_TELEFONE)          ');
                 end;
 
                 // passa os valores
                 ParamByName('TEL_PES_ID').AsInteger  := vfValue;
+                ParamByName('TEL_TIPO').AsString     := 'P'; //vcTEL_TIPO;
+                ParamByName('TEL_DDI').AsString      := vcTEL_DDI;
                 ParamByName('TEL_DDD').AsString      := vcTEL_DDD;
                 ParamByName('TEL_TELEFONE').AsString := vcTEL_TELEFONE;
                 ExecSQL; // executa
                 SQL.Clear; // limpa
 
-//##################################
-//## TABELA E-MAIL #################
-//##################################
+//##############################################################################
+//## TABELA E-MAIL #############################################################
+//##############################################################################
 
                 // verifica se encontrou um email
-                SQL.Add(' SELECT MAI_ID FROM MAILS WHERE MAI_PES_ID = :MAI_PES_ID');
+                SQL.Add(' SELECT MAI_ID FROM MAILS       ');
+                SQL.Add(' WHERE MAI_PES_ID = :MAI_PES_ID ');
                 ParamByName('MAI_PES_ID').AsInteger := vfValue;
                 Open; // abre
                 vFound := not(IsEmpty); // encontrou
@@ -240,31 +305,47 @@ begin
                     begin
                         // atualiza o telefone
                         SQL.Add(' UPDATE MAILS SET               ');
+                        SQL.ADD(' MAI_TIPO  = :MAI_TIPO,         ');
                         SQL.ADD(' MAI_EMAIL = :MAI_EMAIL         ');
                         SQL.ADD(' WHERE MAI_PES_ID = :MAI_PES_ID ');
                     end
                     else
                     begin
                         // insere o e-mail
-                        SQL.Add(' INSERT INTO MAILS         ');
-                        SQL.ADD(' (MAI_PES_ID, MAI_EMAIL)   ');
-                        SQL.ADD(' VALUES                    ');
-                        SQL.ADD(' (:MAI_PES_ID, :MAI_EMAIL) ');
+                        SQL.Add(' INSERT INTO MAILS                    ');
+                        SQL.ADD(' (MAI_PES_ID, MAI_TIPO, MAI_EMAIL)    ');
+                        SQL.ADD(' VALUES                               ');
+                        SQL.ADD(' (:MAI_PES_ID, :MAI_TIPO, :MAI_EMAIL) ');
                     end;
 
                     // passa os valores
                     ParamByName('MAI_PES_ID').AsInteger := vfValue;
+                    ParamByName('MAI_TIPO').AsString    := 'P'; //vcMAI_TIPO;
                     ParamByName('MAI_EMAIL').AsString   := vcMAI_EMAIL;
                     ExecSQL; // executa
                 end;
             end;
 
             // atualiza as variáveis
-            gvPES_DOC        := vcPES_CPF;
+            gvPES_ID         := vfValue;
+            gvPES_STATUS     := vcPES_STATUS;
+            gvPES_TIPO       := vcPES_TIPO;
+            gvPES_USER       := vcPES_USER;
+            gvPES_DOC        := vcPES_DOC;
             gvPES_NOME       := vcPES_NOME;
             gvPES_NASCIMENTO := vcPES_NASCIMENTO;
+            gvPES_GENERO     := vcPES_GENERO;
+            gvPES_PROFISSAO  := vcPES_PROFISSAO;
+            gvPES_AVATAR     := vcPES_AVATAR;
+
+            gvTEL_PES_ID     := vfValue;
+            gvTEL_TIPO       := 'P'; //vcTEL_TIPO;
+            gvTEL_DDI        := vcTEL_DDI;
             gvTEL_DDD        := vcTEL_DDD;
             gvTEL_TELEFONE   := vcTEL_TELEFONE;
+
+            gvMAI_PES_ID     := vfValue;
+            gvMAI_TIPO       := 'P'; //vcMAI_TIPO;
             gvMAI_EMAIL      := vcMAI_EMAIL;
 
             Result := not(qryAuxCli.IsEmpty); // derfine o resultado
