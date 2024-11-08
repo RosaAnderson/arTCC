@@ -143,21 +143,22 @@
         <DCCReference Include="support\untColors.pas">
             <Form>frmColors</Form>
         </DCCReference>
-        <DCCReference Include="support\untObjetos.pas">
-            <Form>Form1</Form>
-        </DCCReference>
         <DCCReference Include="class\e.log.pas"/>
         <DCCReference Include="class\c.connection.pas"/>
         <DCCReference Include="class\c.pessoas.pas"/>
+        <DCCReference Include="class\c.forma_pgto.pas"/>
         <DCCReference Include="class\c.atendimentos.pas"/>
         <DCCReference Include="class\c.procedimentos.pas"/>
+        <DCCReference Include="class\c.compromissos.pas"/>
+        <DCCReference Include="functions\untFunctions.pas"/>
+        <DCCReference Include="functions\untStyle.pas"/>
+        <DCCReference Include="functions\untObjects.pas"/>
+        <DCCReference Include="functions\untPrepareMessage.pas"/>
+        <DCCReference Include="sources\untSource.pas"/>
         <DCCReference Include="modules\untDBConnect.pas">
             <Form>frmDBConnect</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="functions\untFunctions.pas"/>
-        <DCCReference Include="functions\untStyle.pas"/>
-        <DCCReference Include="sources\untSource.pas"/>
         <DCCReference Include="dialogs\untMessages.pas">
             <Form>frmMessages</Form>
         </DCCReference>
@@ -193,6 +194,12 @@
         </DCCReference>
         <DCCReference Include="forms\untCom_Listagem.pas">
             <Form>frmCom_Listagem</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untLst_Registro.pas">
+            <Form>frmLst_Registro</Form>
+        </DCCReference>
+        <DCCReference Include="forms\untSnd_Mensagem.pas">
+            <Form>frmSnd_Mensagem</Form>
         </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

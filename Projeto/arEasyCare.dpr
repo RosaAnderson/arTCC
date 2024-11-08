@@ -8,16 +8,19 @@ uses
   untStandard in 'standards\untStandard.pas' {frmStandard},
   untComponents in 'support\untComponents.pas' {frmComponents},
   untColors in 'support\untColors.pas' {frmColors},
-  untObjetos in 'support\untObjetos.pas' {Form1},
   e.log in 'class\e.log.pas',
   c.connection in 'class\c.connection.pas',
   c.pessoas in 'class\c.pessoas.pas',
+  c.forma_pgto in 'class\c.forma_pgto.pas',
   c.atendimentos in 'class\c.atendimentos.pas',
   c.procedimentos in 'class\c.procedimentos.pas',
-  untDBConnect in 'modules\untDBConnect.pas' {frmDBConnect: TDataModule},
+  c.compromissos in 'class\c.compromissos.pas',
   untFunctions in 'functions\untFunctions.pas',
   untStyle in 'functions\untStyle.pas',
+  untObjects in 'functions\untObjects.pas',
+  untPrepareMessage in 'functions\untPrepareMessage.pas',
   untSource in 'sources\untSource.pas',
+  untDBConnect in 'modules\untDBConnect.pas' {frmDBConnect: TDataModule},
   untMessages in 'dialogs\untMessages.pas' {frmMessages},
   untLogin in 'dialogs\untLogin.pas' {frmLogin},
   untDark in 'dialogs\untDark.pas' {frmDark},
@@ -29,7 +32,9 @@ uses
   untAtd_Cadastro in 'forms\untAtd_Cadastro.pas' {frmAtd_Cadastro},
   untAtd_Listagem in 'forms\untAtd_Listagem.pas' {frmAtd_Listagem},
   untCom_Cadastro in 'forms\untCom_Cadastro.pas' {frmCom_Cadastro},
-  untCom_Listagem in 'forms\untCom_Listagem.pas' {frmCom_Listagem};
+  untCom_Listagem in 'forms\untCom_Listagem.pas' {frmCom_Listagem},
+  untLst_Registro in 'forms\untLst_Registro.pas' {frmLst_Registro},
+  untSnd_Mensagem in 'forms\untSnd_Mensagem.pas' {frmSnd_Mensagem};
 
 {$R *.res}
 
@@ -69,8 +74,10 @@ begin
 
         // verifica qual driver usar
         if vDBDriver = 'mysql' then
-//            frmDBConnect.FDDriverLink.VendorLib := exePathRequest + 'dlls\libmysql_32.dll' // define o caminho da dll do MySQL
-            frmDBConnect.FDDriverLink.VendorLib := 'd:\Área de Trabalho\arTCC\Projeto\dlls\libmysql_32.dll' // define o caminho da dll do MySQL
+        begin
+            frmDBConnect.FDDriverLink.VendorLib := exePathRequest + 'dlls\libmysql_32.dll'; // define o caminho da dll do MySQL
+//            frmDBConnect.FDDriverLink.VendorLib := 'd:\Área de Trabalho\arTCC\Projeto\dlls\libmysql_32.dll'; // define o caminho da dll do MySQL
+        end
         else if vDBDriver = 'outro banco' then
             vDBDriver := 'mysql'; //troca no futuro
 
@@ -84,6 +91,8 @@ end.
 
 
 
-// resolução notebook: 1366 x 768
+// resolução notebook: 1366 x 768 ** justificar o tamanho escolhido
 // resolução máxima:   1300 x 660
+
+
 
