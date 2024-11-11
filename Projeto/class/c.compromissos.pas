@@ -1,4 +1,4 @@
-unit c.atendimentos;
+unit c.compromissos;
 
 interface
 
@@ -16,7 +16,7 @@ uses
 
 
 type
-    TAtendimentos = class
+    TCompromissos = class
 
     private
         {Private declarations}
@@ -28,7 +28,7 @@ type
 
         procedure cDisconnect();
 
-        function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
+        function atdSearchClk(vfData, vfHora: string): Boolean;
         function atdSearchOne(vfValue: string): Boolean;
         function atdSearchAll(vfValue: string): Boolean;
         function atdGetID(vfValue: string): Integer;
@@ -66,19 +66,8 @@ var
     vcAPF_DATA_ATUALIZADO: TDateTime;
 
     vcCLK_ATD_ID         : Integer;
+    vcCLK_ATD_NOME       : string;
     vcCLK_ATD_STATUS     : string;
-    vcCLK_ATD_DATA       : string;
-    vcCLK_ATD_DURACAO    : string;
-    vcCLK_ATD_HORA       : string;
-    vcCLK_ATD_VALOR      : string;
-    vcCLK_PES_ID         : Integer;
-    vcCLK_PES_NOME       : string;
-    vcCLK_PRC_ID         : Integer;
-    vcCLK_PRC_NOME       : string;
-    vcCLK_FPG_ID         : Integer;
-    vcCLK_FPG_NOME       : string;
-    vcCLK_TEL_TELEFONE   : string;
-    vcCLK_ATD_OBSERVACOES: string;
 
 implementation
 
@@ -463,21 +452,15 @@ begin
     end;
 end;
 
-function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
+function atdSearchClk(vfData, vfHora: string): Boolean;
 begin
     //
-    Result             := True;
-    vcCLK_ATD_ID       := 0;
-    vcCLK_ATD_STATUS   := '';
-    vcCLK_ATD_DATA     := '';
-    vcCLK_ATD_DURACAO  := '';
-    vcCLK_ATD_HORA     := '';
-    vcCLK_ATD_VALOR    := '';
-    vcCLK_PRC_NOME     := '';
-    vcCLK_TEL_TELEFONE := '';
-    vcCLK_PES_NOME     := '';
+    Result           := True;
+    vcCLK_ATD_ID     := 0;
+    vcCLK_ATD_NOME   := '';
+    vcCLK_ATD_STATUS := '';
 
-   try
+    try
         // conecta
         if not(frmDBConnect.DBConnect) then
         begin
@@ -492,82 +475,24 @@ begin
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
-                SQL.Add(' SELECT                                           ');
-                SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, ATD_OBSERVACOES, ');
-                SQL.Add('   PES_ID, PES_NOME,                              ');
-                SQL.Add('   PRC_ID, PRC_NOME,                              ');
-                SQL.Add('   FPG_ID, FPG_NOME,                              ');
-                SQL.Add('   TEL_ID, TEL_DDI, TEL_DDD, TEL_TELEFONE,        ');
-                SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAO, ');
-                SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORA,  ');
-                SQL.Add('   REPLACE(                                       ');
-                SQL.Add('       REPLACE(                                   ');
-                SQL.Add('           REPLACE(                               ');
-                SQL.Add('               FORMAT(ATD_VALOR, 2),              ');
-                SQL.Add('           ''.'', ''|''),                         ');
-                SQL.Add('       '','', ''.''),                             ');
-                SQL.Add('   ''|'', '','') AS ATD_VALOR                     ');
-                SQL.Add('  FROM ATENDIMENTOS                               ');
-                SQL.Add('  JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
-                SQL.Add('  JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
-                SQL.Add('  JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
-                SQL.Add('  JOIN TELEFONES ON (TEL_PES_ID = PES_ID)         ');
-                SQL.Add('  JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)     ');
-                SQL.Add('  JOIN FORMA_PGTO ON (FPG_ID = ATD_FPG_ID)        ');
-                SQL.Add('  WHERE ATD_DATA = ' + QuotedStr(vfData)           );
-                SQL.Add('    AND ATD_HORA = ' + QuotedStr(vfHora + ':00')   );
-
-                //
-                if vfATD_ID > 0 then
-                begin
-                    SQL.Add(' AND ATD_ID = ' + QuotedStr(IntToStr(vfATD_ID)));
-                    SQL.Add(' AND ATD_STATUS = ''A''                       ');
-                end
-                else
-                    SQL.Add(' AND ATD_STATUS <> ''C''                      ');
-
-                SQL.Add(' ORDER BY ATD_HORA                                ');
+                SQL.Add(' SELECT                                            ');
+                SQL.Add('    ATD_ID, ATD_STATUS, ATD_DATA, ATD_HORA,        ');
+                SQL.Add('    PES_NOME                                       ');
+                SQL.Add('   FROM ATENDIMENTOS                               ');
+                SQL.Add('   JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
+                SQL.Add('   JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
+                SQL.Add('  WHERE ATD_DATA = ' + QuotedStr(vfData)            );
+                SQL.Add('    AND ATD_HORA = ' + QuotedStr(vfHora + ':00')    );
+                SQL.Add('    AND ATD_STATUS <> ''C''                        ');
                 Open;
 
                 if not(IsEmpty) then
                 begin
                     // insere os dados nos campos
-                    vcCLK_ATD_ID          := FieldByName('ATD_ID').AsInteger;
-                    vcCLK_ATD_STATUS      := FieldByName('ATD_STATUS').AsString;
-                    vcCLK_ATD_DATA        := FieldByName('ATD_DATA').AsString;
-                    vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAO').AsString;
-                    vcCLK_ATD_HORA        := FieldByName('ATD_HORA').AsString;
-                    vcCLK_ATD_VALOR       := FieldByName('ATD_VALOR').AsString;
-                    vcCLK_ATD_OBSERVACOES := FieldByName('ATD_OBSERVACOES').AsString;
-
-                    vcCLK_PES_ID          := FieldByName('PES_ID').AsInteger;
-                    vcCLK_PES_NOME        := FieldByName('PES_NOME').AsString;
-                    vcCLK_PRC_ID          := FieldByName('PRC_ID').AsInteger;
-                    vcCLK_PRC_NOME        := FieldByName('PRC_NOME').AsString;
-                    vcCLK_FPG_ID          := FieldByName('FPG_ID').AsInteger;
-                    vcCLK_FPG_NOME        := FieldByName('FPG_NOME').AsString;
-                    vcCLK_TEL_TELEFONE    := FieldByName('TEL_DDI').AsString +
-                                              FieldByName('TEL_DDD').AsString +
-                                               FieldByName('TEL_TELEFONE').AsString;
+                    vcCLK_ATD_ID     := FieldByName('ATD_ID').AsInteger;
+                    vcCLK_ATD_STATUS := FieldByName('ATD_STATUS').AsString;
+                    vcCLK_ATD_NOME   := FieldByName('PES_NOME').AsString;
                 end;
-
-                // atualiza as variáveis
-                gvATD_ID          := vcCLK_ATD_ID;
-//                gvATD_INC         := vcATD_INC;
-//                gvATD_STATUS      := vcATD_STATUS;
-//                gvATD_DATA        := vcATD_DATA;
-//                gvATD_HORA        := vcATD_HORA;
-//                gvATD_DURACAO     := vcATD_DURACAO;
-//                gvATD_VALOR       := vcATD_VALOR;
-                gvATD_OBSERVACOES := vcCLK_ATD_OBSERVACOES;
-
-                gvPES_ID          := vcCLK_PES_ID;
-                gvPES_NOME        := vcCLK_PES_NOME;
-                gvPRC_ID          := vcCLK_PRC_ID;
-                gvPRC_NOME        := vcCLK_PRC_NOME;
-                gvFPG_ID          := vcCLK_FPG_ID;
-                gvFPG_NOME        := vcCLK_FPG_NOME;
-                gvPRF_ID          := 1;
 
                 Result := not(IsEmpty);
             end;

@@ -20,7 +20,6 @@ type
 
     private
         {Private declarations}
-//        qryAuxCli: TFDQuery;
     public
         {Public declarations}
 //        constructor Create(ccConnection: TFDConnection);
@@ -30,13 +29,14 @@ type
 
         procedure cDisconnect();
 
-        function pesSearch(vfValue: string): Boolean;
-        function pesGetID(vfValue: string):Integer;
+        function pesSearchOne(vfValue: string): Boolean;
+        function pesGetID(vfValue: string): Integer;
         function pesUpdate(vfValue: Integer): Boolean;
 
 var
-    qryAuxCli       : TFDQuery;
-    vFound          : Boolean;
+    qryAuxPES            : TFDQuery;
+    vFound               : Boolean;
+    vOutCount            : Integer;
 
     vcPES_ID             : Integer;
     vcPES_INC            : TDateTime;
@@ -74,8 +74,8 @@ uses untDBConnect, untSource, untFunctions, untCli_Cadastro;
 
 procedure cDisconnect();
 begin
-    qryAuxCli.Close; // fecha a query
-    qryAuxCli.Free; // descarrega a query
+    qryAuxPES.Close; // fecha a query
+    qryAuxPES.Free; // descarrega a query
 
     frmDBConnect.DBDisconnect; // desconecta
 end;
@@ -87,10 +87,10 @@ begin
         if not(frmDBConnect.DBConnect) then
             Exit
         else
-            qryAuxCli := TFDQuery.Create(nil); // cria a query
+            qryAuxPES := TFDQuery.Create(nil); // cria a query
 
         try
-            with qryAuxCli do
+            with qryAuxPES do
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
@@ -119,7 +119,7 @@ begin
     end;
 end;
 
-function pesSearch(vfValue: string): Boolean;
+function pesSearchOne(vfValue: string): Boolean;
 begin
     // remove possiveis espaços
     vfValue := Trim(vfValue);
@@ -129,10 +129,10 @@ begin
         if not(frmDBConnect.DBConnect) then
             Exit
         else
-            qryAuxCli := TFDQuery.Create(nil); // cria a query
+            qryAuxPES := TFDQuery.Create(nil); // cria a query
 
         try
-            with qryAuxCli do
+            with qryAuxPES do
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
@@ -182,9 +182,11 @@ begin
                     gvMAI_EMAIL           := LowerCase(Trim(FieldByName('MAI_EMAIL').AsString));
                     gvMAI_DATA_ATUALIZADO :=                FieldByName('MAI_DATA_ATUALIZADO').AsDateTime;
                 end;
+
+                vOutCount := RecordCount;
             end;
 
-            Result := not(qryAuxCli.IsEmpty); // derfine o resultado
+            Result := not(qryAuxPES.IsEmpty); // derfine o resultado
         except
             //
             Result := False;
@@ -201,10 +203,10 @@ begin
         if not(frmDBConnect.DBConnect) then
             Exit
         else
-            qryAuxCli := TFDQuery.Create(nil); // cria a query
+            qryAuxPES := TFDQuery.Create(nil); // cria a query
 
         try
-            with qryAuxCli do
+            with qryAuxPES do
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
@@ -214,28 +216,28 @@ begin
 
                 // insere o sql
                 SQL.Add(' UPDATE PESSOAS SET                ');
-                SQL.Add(' PES_STATUS     = :PES_STATUS,     ');
-                SQL.Add(' PES_TIPO       = :PES_TIPO,       ');
-                SQL.Add(' PES_USER       = :PES_USER,       ');
+//                SQL.Add(' PES_STATUS     = :PES_STATUS,     ');
+//                SQL.Add(' PES_TIPO       = :PES_TIPO,       ');
+//                SQL.Add(' PES_USER       = :PES_USER,       ');
                 SQL.Add(' PES_DOC        = :PES_DOC,        ');
                 SQL.Add(' PES_NOME       = :PES_NOME,       ');
                 SQL.Add(' PES_NASCIMENTO = :PES_NASCIMENTO, ');
-                SQL.Add(' PES_GENERO     = :PES_GENERO,     ');
+//                SQL.Add(' PES_GENERO     = :PES_GENERO,     ');
                 SQL.Add(' PES_PROFISSAO  = :PES_PROFISSAO,  ');
-                SQL.Add(' PES_AVATAR     = :PES_AVATAR      ');
+//                SQL.Add(' PES_AVATAR     = :PES_AVATAR      ');
                 SQL.Add(' WHERE PES_ID   = :PES_ID          ');
 
                 // insere os dados na query
                 ParamByName('PES_ID').AsInteger       := vfValue;
-                ParamByName('PES_STATUS').AsString    := vcPES_STATUS;
-                ParamByName('PES_TIPO').AsString      := vcPES_TIPO;
-                ParamByName('PES_USER').AsString      := vcPES_USER;
+//                ParamByName('PES_STATUS').AsString    := vcPES_STATUS;
+//                ParamByName('PES_TIPO').AsString      := vcPES_TIPO;
+//                ParamByName('PES_USER').AsString      := vcPES_USER;
                 ParamByName('PES_DOC').AsString       := vcPES_DOC;
                 ParamByName('PES_NOME').AsString      := vcPES_NOME;
                 ParamByName('PES_NASCIMENTO').AsDate  := vcPES_NASCIMENTO;
-                ParamByName('PES_GENERO').AsString    := vcPES_GENERO;
+//                ParamByName('PES_GENERO').AsString    := vcPES_GENERO;
                 ParamByName('PES_PROFISSAO').AsString := vcPES_PROFISSAO;
-                ParamByName('PES_AVATAR').AsString    := vcPES_AVATAR;
+//                ParamByName('PES_AVATAR').AsString    := vcPES_AVATAR;
                 ExecSQL; // executa o SQL
                 SQL.Clear; // limpa
 
@@ -348,7 +350,7 @@ begin
             gvMAI_TIPO       := 'P'; //vcMAI_TIPO;
             gvMAI_EMAIL      := vcMAI_EMAIL;
 
-            Result := not(qryAuxCli.IsEmpty); // derfine o resultado
+            Result := not(qryAuxPES.IsEmpty); // derfine o resultado
         except
             //
             Result := False;
@@ -356,7 +358,7 @@ begin
     finally
         cDisconnect(); // desconecta
 
-        pesSearch(IntToStr(vfValue));
+        pesSearchOne(IntToStr(vfValue));
     end;
 end;
 

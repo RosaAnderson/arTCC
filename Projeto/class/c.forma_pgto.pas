@@ -20,7 +20,6 @@ type
 
     private
         {Private declarations}
-        qryAuxCli: TFDQuery;
     public
         {Public declarations}
 //        constructor Create(ccConnection: TFDConnection);
@@ -29,13 +28,14 @@ type
 
         procedure cDisconnect();
 
-        function fpgSearch(vfValue: string): Boolean;
+        function fpgSearchOne(vfValue: string): Boolean;
         function fpgGetID(vfValue: string): Integer;
         function fpgUpdate(vfValue: Integer): Boolean;
 
 var
-    qryAuxCli        : TFDQuery;
-    vFound           : Boolean;
+    qryAuxFPG             : TFDQuery;
+    vFound                : Boolean;
+    vOutCount             : Integer;
 
     vcFPG_ID              : Integer;
     vcFPG_STATUS          : string;
@@ -50,13 +50,13 @@ uses untDBConnect, untFunctions, untSource;
 
 procedure cDisconnect();
 begin
-    qryAuxCli.Close; // fecha a query
-    qryAuxCli.Free; // descarrega a query
+    qryAuxFPG.Close; // fecha a query
+    qryAuxFPG.Free; // descarrega a query
 
     frmDBConnect.DBDisconnect; // desconecta
 end;
 
-function fpgSearch(vfValue: string): Boolean;
+function fpgSearchOne(vfValue: string): Boolean;
 begin
     // remove possiveis espaços
     vfValue := Trim(vfValue);
@@ -66,10 +66,10 @@ begin
         if not(frmDBConnect.DBConnect) then
             Exit
         else
-            qryAuxCli := TFDQuery.Create(nil); // cria a query
+            qryAuxFPG := TFDQuery.Create(nil); // cria a query
 
         try
-            with qryAuxCli do
+            with qryAuxFPG do
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
@@ -91,9 +91,11 @@ begin
                     gvFPG_NOME            := Trim(FieldByName('FPG_NOME').AsString);
                     gvFPG_DATA_ATUALIZADO :=      FieldByName('FPG_DATA_ATUALIZADO').AsDateTime;
                 end;
+
+                vOutCount := RecordCount;
             end;
 
-            Result := not(qryAuxCli.IsEmpty); // derfine o resultado
+            Result := not(qryAuxFPG.IsEmpty); // derfine o resultado
         except
             //
             Result := False;

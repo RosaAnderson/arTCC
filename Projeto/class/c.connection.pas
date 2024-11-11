@@ -33,7 +33,7 @@ type
 
         procedure SaveINI;
 
-        function ReadINI:boolean;
+        function ReadINI: Boolean;
         function BDConnect: Boolean;
 
 
@@ -49,7 +49,6 @@ type
     end;
 
 implementation
-
 
 { TConnection }
 

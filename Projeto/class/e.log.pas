@@ -149,6 +149,7 @@ type
   public
     { Public declarations }
     constructor Create;
+
     procedure getExcept(Sender: TObject; E: Exception);
     procedure putOnFile(vpLine: string);
   end;
@@ -162,9 +163,9 @@ const
 
 implementation
 
-uses untMessage, untDBConnect, untFunctions;
-
 { TException }
+
+uses untMessage, untDBConnect, untFunctions;
 
 constructor TException.Create;
 begin

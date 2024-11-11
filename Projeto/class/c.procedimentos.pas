@@ -20,7 +20,6 @@ type
 
     private
         {Private declarations}
-//        qryAuxCli: TFDQuery;
     public
         {Public declarations}
 //        constructor Create(ccConnection: TFDConnection);
@@ -29,26 +28,29 @@ type
 
         procedure cDisconnect();
 
-        function prcSearch(vfValue: string): Boolean;
+        function prcSearchOne(vfValue: string): Boolean;
         function prcGetID(vfValue: string): Integer;
         function prcUpdate(vfValue: Integer): Boolean;
 
 var
-    qryAuxCli: TFDQuery;
+    qryAuxPRC : TFDQuery;
+    vOutCount : Integer;
 
 implementation
+
+{ TProcedimentos }
 
 uses untDBConnect, untFunctions, untSource;
 
 procedure cDisconnect();
 begin
-    qryAuxCli.Close; // fecha a query
-    qryAuxCli.Free; // descarrega a query
+    qryAuxPRC.Close; // fecha a query
+    qryAuxPRC.Free; // descarrega a query
 
     frmDBConnect.DBDisconnect; // desconecta
 end;
 
-function prcSearch(vfValue: string): Boolean;
+function prcSearchOne(vfValue: string): Boolean;
 begin
     // remove possiveis espaços
     vfValue := Trim(vfValue);
@@ -58,10 +60,10 @@ begin
         if not(frmDBConnect.DBConnect) then
             Exit
         else
-            qryAuxCli := TFDQuery.Create(nil); // cria a query
+            qryAuxPRC := TFDQuery.Create(nil); // cria a query
 
         try
-            with qryAuxCli do
+            with qryAuxPRC do
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
@@ -91,13 +93,15 @@ begin
                     gvPRC_RISCOS          :=          Trim(FieldByName('PRC_RISCOS').AsString);
                     gvPRC_DATA_ATUALIZADO :=               FieldByName('PRC_DATA_ATUALIZADO').AsDateTime;
                 end;
+
+                vOutCount := RecordCount;
             end;
         except
             //
             Result := False;
         end;
     finally
-        Result := not(qryAuxCli.IsEmpty); // derfine o resultado
+        Result := not(qryAuxPRC.IsEmpty); // derfine o resultado
 
         cDisconnect(); // desconecta
     end;
