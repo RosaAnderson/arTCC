@@ -23,6 +23,8 @@ type
 
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
+    procedure ToPaint(Sender: TObject);
+
     procedure CloseEnter(Sender: TObject);
     procedure CloseLeave(Sender: TObject);
 
@@ -64,6 +66,15 @@ begin
     // permite mover o form
     ReleaseCapture;
     Perform(wm_SysCommand, sc_DragMove, 0);
+end;
+
+procedure TfrmStandard.ToPaint(Sender: TObject);
+const
+    clStart: TColor  = $002A5320;
+    clEnd  : TColor  = $00A0D5A9;
+begin
+    // aplica o gradiente no objeto
+    setGradient(Self, (Sender as TPaintBox), clStart, clEnd);
 end;
 
 procedure TfrmStandard.CloseEnter(Sender: TObject);

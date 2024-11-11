@@ -4,7 +4,7 @@ object frmStandard: TfrmStandard
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'frmStandard'
-  ClientHeight = 138
+  ClientHeight = 216
   ClientWidth = 438
   Color = clWhite
   Ctl3D = False
@@ -14,13 +14,12 @@ object frmStandard: TfrmStandard
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
-  Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   DesignSize = (
     438
-    138)
+    216)
   TextHeight = 23
   object shpEdgeForm: TShape
     Left = 180
@@ -89,9 +88,9 @@ object frmStandard: TfrmStandard
   object pnlFooter: TPanel
     AlignWithMargins = True
     Left = 5
-    Top = 61
+    Top = 151
     Width = 428
-    Height = 72
+    Height = 60
     Hint = 'pnlSideBar'
     Margins.Left = 5
     Margins.Top = 5
@@ -103,15 +102,14 @@ object frmStandard: TfrmStandard
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitTop = 150
     object btnExit: TImage
       AlignWithMargins = True
-      Left = 343
+      Left = 353
       Top = 5
-      Width = 60
-      Height = 62
+      Width = 50
+      Height = 50
       Cursor = crHandPoint
-      Hint = 'Encerrar'
+      Hint = 'Fechar'
       Margins.Left = 25
       Margins.Top = 5
       Margins.Right = 25
@@ -433,15 +431,15 @@ object frmStandard: TfrmStandard
       ShowHint = True
       Stretch = True
       OnClick = btnCloseFormClick
-      ExplicitLeft = 210
-      ExplicitTop = 7
+      ExplicitLeft = 343
+      ExplicitHeight = 62
     end
     object btnSave: TImage
       AlignWithMargins = True
       Left = 25
       Top = 5
-      Width = 60
-      Height = 62
+      Width = 50
+      Height = 50
       Cursor = crHandPoint
       Hint = 'Salvar'
       Margins.Left = 25
@@ -670,7 +668,7 @@ object frmStandard: TfrmStandard
       Proportional = True
       ShowHint = True
       Stretch = True
-      ExplicitTop = 10
+      ExplicitHeight = 62
     end
   end
 end
