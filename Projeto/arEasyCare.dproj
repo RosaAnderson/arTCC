@@ -171,9 +171,6 @@
         <DCCReference Include="forms\untMain.pas">
             <Form>frmMain</Form>
         </DCCReference>
-        <DCCReference Include="forms\untMain_v1.pas">
-            <Form>frmMain_v1</Form>
-        </DCCReference>
         <DCCReference Include="forms\undDashboard.pas">
             <Form>frmDashboard</Form>
         </DCCReference>

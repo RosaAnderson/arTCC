@@ -25,7 +25,6 @@ uses
   untLogin in 'dialogs\untLogin.pas' {frmLogin},
   untDark in 'dialogs\untDark.pas' {frmDark},
   untMain in 'forms\untMain.pas' {frmMain},
-  untMain_v1 in 'forms\untMain_v1.pas' {frmMain_v1},
   undDashboard in 'forms\undDashboard.pas' {frmDashboard},
   untCli_Manutencao in 'forms\untCli_Manutencao.pas' {frmCli_Manutencao},
   untCli_Cadastro in 'forms\untCli_Cadastro.pas' {frmCli_Cadastro},
@@ -50,8 +49,12 @@ begin
 
     Application.CreateForm(TfrmDBConnect, frmDBConnect);
   Application.MainFormOnTaskbar := True;
-    Application.Title := 'AR EasyCare - Sistema Gestão de Clínica Estética';
-    Application.CreateForm(TfrmMain_v1, frmMain_v1);
+    Application.Title := gcAppTitle;
+
+    // define a data inicial
+    gvDate := Now;
+
+    Application.CreateForm(TfrmMain, frmMain);
 
     // lê os dados do arquivo de inicialização
     if not frmDBConnect.ReadINI then
@@ -95,4 +98,5 @@ end.
 // resolução máxima:   1300 x 660
 
 
-
+'{'#$D#$A'    "result": "success",'#$D#$A'    "message_id": 233286111,'#$D#$A'    "contact_phone_number": "5514996905500",'#$D#$A'    "phone_state": "Conectado"'#$D#$A'}'
+'{'#$D#$A'    "result": "fail",'#$D#$A'    "result_message": "contact_phone_number empty"'#$D#$A'}'
