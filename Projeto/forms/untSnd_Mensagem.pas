@@ -67,7 +67,7 @@ implementation
 
 {$R *.dfm}
 
-uses untStyle, untDBConnect, untFunctions, untPrepareMessage;
+uses untStyle, untDBConnect, untFunctions, untPrepareMessage, untSource;
 
 var
     vType : string  = 'text';
@@ -88,24 +88,8 @@ procedure TfrmSnd_Mensagem.dbgListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
 //  inherited;
-
     // define o padrão da zebra
-    if odd(dbgList.DataSource.DataSet.RecNo) then
-        dbgList.Canvas.Brush.Color := $00CAEBD1
-    else
-        dbgList.Canvas.Brush.Color := clWhite;
-
-    // cofigura a cor do highligth
-    if (gdSelected in State) then
-    begin
-        dbgList.Canvas.Brush.Color := $0048B74B;
-        dbgList.Canvas.Font.Color  := clWhite;
-        dbgList.Canvas.Font.Style  := [fsBold];
-    end;
-
-    // seta as configurações
-    dbgList.Canvas.FillRect(Rect);
-    dbgList.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+    setZebraDbg(Self.dbgList, (Sender as TObject), Rect, DataCol, Column, State);
 end;
 
 procedure TfrmSnd_Mensagem.FormActivate(Sender: TObject);
@@ -119,15 +103,15 @@ procedure TfrmSnd_Mensagem.FormCreate(Sender: TObject);
 begin
   inherited;
     // seta a data atual no calendario
-    Calendar.Date := Now;
+    Calendar.Date := gvDate;
 
     // colca a data do calendario no label
-    lblLogDate.Caption := fullDAte(Calendar.Date);
+    lblLogDate.Caption := fullDAte(gvDate);
 end;
 
 procedure TfrmSnd_Mensagem.reLoad(Sender: TObject);
 begin
-    // atualiza os dados do grid
+    // seleciona os dados
     with qryAtd do
     begin
         Close;
@@ -137,7 +121,7 @@ begin
         SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, PES_NOME, PRC_NOME, ');
         SQL.Add('   TEL_DDI, TEL_DDD, TEL_TELEFONE,                   ');
         SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAO,    ');
-        SQL.Add('   TIME_FORMAT(ATD_HORA, ''%h:%i'') AS ATD_HORA,     ');
+        SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORA,     ');
         SQL.Add('   REPLACE(                                          ');
         SQL.Add('       REPLACE(                                      ');
         SQL.Add('           REPLACE(                                  ');
@@ -158,6 +142,7 @@ begin
         Open;
     end;
 
+    // carrega os dados no CDS
     cdsAtd.Open;
     cdsAtd.Refresh;
 end;
@@ -205,7 +190,7 @@ begin
             vPES_NOME     := cdsAtd.FieldByName('PES_NOME').AsString;
 
             // gera a mensagem
-            vSND_MESSAGE := createMessage(vPES_NOME,
+            vSND_MESSAGE := createMessage('confirma', vPES_NOME,
                                            cdsAtd.FieldByName('ATD_DATA').AsString,
                                             cdsAtd.FieldByName('ATD_HORA').AsString,
                                              cdsAtd.FieldByName('PRC_NOME').AsString);
@@ -266,4 +251,31 @@ end;
 
 end.
 
+
+
+
+
+
+procedure TfrmSnd_Mensagem.dbgListDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+//  inherited;
+    // define o padrão da zebra
+    if Odd(dbgList.DataSource.DataSet.RecNo) then
+        dbgList.Canvas.Brush.Color := $00CAEBD1
+    else
+        dbgList.Canvas.Brush.Color := clWhite;
+
+    // cofigura a cor do highligth
+    if (gdSelected in State) then
+    begin
+        dbgList.Canvas.Brush.Color := $0048B74B;
+        dbgList.Canvas.Font.Color  := clWhite;
+        dbgList.Canvas.Font.Style  := [fsBold];
+    end;
+
+    // seta as configurações
+    dbgList.Canvas.FillRect(Rect);
+    dbgList.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
 

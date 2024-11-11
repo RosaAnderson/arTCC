@@ -18,24 +18,24 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     ExplicitLeft = 909
   end
   inherited pnlFooter: TPanel
-    Top = 560
+    Top = 572
     Width = 840
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 560
+    ExplicitTop = 572
     ExplicitWidth = 840
     inherited btnExit: TImage
-      Left = 755
-      ExplicitLeft = 860
+      Left = 765
+      ExplicitLeft = 755
     end
     inherited btnSave: TImage
       Visible = False
     end
     object btnSendAll: TImage
       AlignWithMargins = True
-      Left = 645
+      Left = 665
       Top = 5
-      Width = 60
-      Height = 62
+      Width = 50
+      Height = 50
       Cursor = crHandPoint
       Hint = 'Enviar Notifica'#231#245'es'
       Margins.Left = 25
@@ -549,14 +549,14 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       ShowHint = True
       Stretch = True
       OnClick = btnSendAllClick
-      ExplicitTop = 0
+      ExplicitLeft = 655
     end
     object btnRefresh: TImage
       AlignWithMargins = True
-      Left = 135
+      Left = 125
       Top = 5
-      Width = 60
-      Height = 62
+      Width = 50
+      Height = 50
       Cursor = crHandPoint
       Hint = 'Enviar Notifica'#231#245'es'
       Margins.Left = 25
@@ -1625,7 +1625,6 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       ShowHint = True
       Stretch = True
       OnClick = reLoad
-      ExplicitTop = 3
     end
   end
   object dbgList: TDBGrid
@@ -1633,7 +1632,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     Left = 1
     Top = 90
     Width = 848
-    Height = 366
+    Height = 378
     Margins.Left = 1
     Margins.Top = 0
     Margins.Right = 1
@@ -1937,7 +1936,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
   object pnlHistory: TPanel
     AlignWithMargins = True
     Left = 1
-    Top = 456
+    Top = 468
     Width = 848
     Height = 99
     Margins.Left = 1
@@ -1949,6 +1948,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     Caption = 'pnlHistory'
     TabOrder = 3
     Visible = False
+    ExplicitTop = 456
     object txtHistory: TMemo
       Left = 0
       Top = 0
@@ -1964,8 +1964,6 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 0
-      ExplicitTop = 33
-      ExplicitHeight = 82
     end
   end
   object dspAtd: TDataSetProvider
