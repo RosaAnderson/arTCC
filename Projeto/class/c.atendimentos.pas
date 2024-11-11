@@ -522,11 +522,14 @@ begin
                 begin
                     SQL.Add(' AND ATD_ID = ' + QuotedStr(IntToStr(vfATD_ID)));
                     SQL.Add(' AND ATD_STATUS = ''A''                       ');
+                    vcCLK_ATD_STATUS := 'N';
                 end
                 else
+                begin
                     SQL.Add(' AND ATD_STATUS <> ''C''                      ');
+                    SQL.Add(' ORDER BY ATD_HORA                            ');
+                end;
 
-                SQL.Add(' ORDER BY ATD_HORA                                ');
                 Open;
 
                 if not(IsEmpty) then
@@ -535,8 +538,8 @@ begin
                     vcCLK_ATD_ID          := FieldByName('ATD_ID').AsInteger;
                     vcCLK_ATD_STATUS      := FieldByName('ATD_STATUS').AsString;
                     vcCLK_ATD_DATA        := FieldByName('ATD_DATA').AsString;
-                    vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAO').AsString;
                     vcCLK_ATD_HORA        := FieldByName('ATD_HORA').AsString;
+                    vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAO').AsString;
                     vcCLK_ATD_VALOR       := FieldByName('ATD_VALOR').AsString;
                     vcCLK_ATD_OBSERVACOES := FieldByName('ATD_OBSERVACOES').AsString;
 
@@ -554,7 +557,7 @@ begin
                 // atualiza as variáveis
                 gvATD_ID          := vcCLK_ATD_ID;
 //                gvATD_INC         := vcATD_INC;
-//                gvATD_STATUS      := vcATD_STATUS;
+                gvATD_STATUS      := vcCLK_ATD_STATUS;
 //                gvATD_DATA        := vcATD_DATA;
 //                gvATD_HORA        := vcATD_HORA;
 //                gvATD_DURACAO     := vcATD_DURACAO;

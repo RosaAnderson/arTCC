@@ -40,11 +40,15 @@ type
 
     procedure btnSecondary_IClick(Sender: TObject);
     procedure btnPrimary_IClick(Sender: TObject);
+    procedure txtSenhaKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
+    vLogin: Integer;
   public
     { Public declarations }
+    // procedure para fazer ENTER funcionar como tab.
+    procedure CMDialogKey(var Msg: TWMKey); message CM_DIALOGKEY;
   end;
 
 var
@@ -54,14 +58,47 @@ implementation
 
 {$R *.dfm}
 
-uses untStyle, untDark, untColors, untMain_v1;
+uses untStyle, untDark, untColors, untFunctions;
+
+procedure TfrmLogin.CMDialogKey(var Msg: TWMKey);
+begin
+    // faz uma validação de controle
+    if not(Assigned(ActiveControl)) then
+        Exit;
+
+    // Faz o ENTER funcionar como TAB.
+    if not(ActiveControl.Tag = 310779) then
+        if Msg.Charcode = 13 then
+            Msg.Charcode := 9;
+    inherited;
+end;
 
 procedure TfrmLogin.btnPrimary_IClick(Sender: TObject);
 begin
-    // aqui vão todos os codigos de validação do login!!!
+    // inicializa a variavel
+    vLogin := 0;
 
-    // fecha a janela
-    Close;
+    // aqui vão todos os codigos de validação do login!!!
+    if not(LowerCase(txtUsuario.Text) = 'anderson') then
+        vLogin := 1;
+    if not(LowerCase(txtSenha.Text) = '#ar795400') then
+        vLogin := 1;
+
+    //
+    if (vLogin > 0) then
+    begin
+        showMsg({janela de ogigem}    Self.Caption,
+                {título da mensagem}  'Login inválido!',
+                {mensagem ao usuário} 'Usuário ou senha inválidos!',
+                {caminho do ícone}    'error', {check/error/question/exclamation}
+                {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                {nome do link}        '',
+                {link}                '');
+
+        txtUsuario.SetFocus; //
+    end
+    else
+        Close; // fecha a janela
 end;
 
 procedure TfrmLogin.btnSecondary_IClick(Sender: TObject);
@@ -96,6 +133,18 @@ procedure TfrmLogin.FormShow(Sender: TObject);
 begin
     // "esmaece" o fundo
     TfrmDark.getinstace(Self).Show;
+end;
+
+procedure TfrmLogin.txtSenhaKeyPress(Sender: TObject; var Key: Char);
+begin
+    // verifica se a tecla <enter> foi pressionada
+    if Key = #13 then
+    begin
+        Key := #0; // impede que o som seja emitido
+
+        //
+        btnPrimary_IClick(Sender);
+    end;
 end;
 
 end.

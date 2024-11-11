@@ -15661,6 +15661,7 @@ object frmLogin: TfrmLogin
       Shape = stRoundRect
     end
     object txtSenha: TArEdit
+      Tag = 310779
       AlignWithMargins = True
       Left = 5
       Top = 27
@@ -15679,8 +15680,10 @@ object frmLogin: TfrmLogin
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
+      PasswordChar = '*'
       TabOrder = 0
       TextHint = 'Senha'
+      OnKeyPress = txtSenhaKeyPress
       FocusColor = 13298641
       FocusFontColor = clBlack
       FocusColorEnabled = True
