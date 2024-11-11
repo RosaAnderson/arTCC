@@ -47,9 +47,11 @@ type
     function toCurrency(vfValue: string): Currency;
     function toMinute(vfValue: string):Integer;
     function formatMoney(vfValor: Currency): string;
+    function doWeek(vfValue:TDate): string;
+
 
 var
-    vI        :  Integer;
+    vI        : Integer;
     vFound    : Boolean;
     qryAuxFunc: TFDQuery;
 
@@ -84,7 +86,7 @@ begin
         vpForm.Parent      := vpPParent; // define o local onde será iniciado o form
         vpForm.Align       := alLeft;       // define a posição
         vpForm.BorderStyle := bsNone;       // define a borda
-}
+//}
     end;
 
     try
@@ -333,7 +335,34 @@ begin
     end;
 end;
 
+function doWeek(vfValue:TDate): string;
+var
+    dOw: Integer;
+begin
+    // pega
+    dOw := DayOfWeek(vfValue);
 
+    if dOw = 1 then
+        Result := 'Domingo'
+    else
+    if dOw = 2 then
+        Result := 'Segunda-Feira'
+    else
+    if dOw = 3 then
+        Result := 'Terça-Feira'
+    else
+    if dOw = 4 then
+        Result := 'Quarta-Feira'
+    else
+    if dOw = 5 then
+        Result := 'Quinta-feira'
+    else
+    if dOw = 6 then
+        Result := 'Sexta-Feira'
+    else
+    if dOw = 7 then
+        Result := 'Sábado';
+end;
 
 
 end.
@@ -378,8 +407,6 @@ end.
                   {Data}                    vpDtPrev,
                   {Tipo de mensagem}        vpType);
 
-//##############################################################################
-//##############################################################################
 WITH (NOLOCK)
 
 
@@ -392,8 +419,30 @@ WITH (NOLOCK)
 //##############################################################################
 //##############################################################################
 //##############################################################################
+//##############################################################################
+//##############################################################################
 
-  type ThCarrFoto = class(TThread)
+uses
+      Winapi.Windows, Winapi.ShellAPI, Winapi.Messages, Winapi.WinInet,
+
+    System.SysUtils, System.Classes, System.IniFiles,
+
+    Vcl.Forms, Vcl.StdCtrls, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics,
+    Vcl.ComCtrls,
+
+    IdHTTP, //IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
+
+    FireDAC.Comp.Client, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+    FireDAC.Stan.Async, FireDAC.Comp.DataSet, FireDAC.Stan.Error, FireDAC.Phys.Intf,
+    FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+
+    Data.DB, Datasnap.DBClient, Datasnap.Provider,
+
+    REST.Types, REST.Client, UrlMon
+
+    ;
+
+type ThCarrFoto = class(TThread)
     protected
       FImage: TImage;
       FDiretorio: String;
@@ -476,6 +525,42 @@ WITH (NOLOCK)
 
     procedure AddMensagemBO(vpCodReg, vpCodOri, vpCodDes, vpCodAlt: Integer;
                             vpDesT01, vpDesT02, vpDesT03, vpDtPrev, vpType: string);
+
+    function Shuffle(vfDoc, vfDat: string): string;
+    function getVersionInfo(ProgamName: string): string;
+    function getCoupon(vfCUP_ID: Integer; vfCUP_STATUS: string): Boolean;
+    function getClient(vfCLI_ID, vfCLI_STATUS: Integer): Boolean;
+    function getCampaign(vfCAM_ID, vfCAM_STATUS: Integer): Integer;
+    function getCompany(vfEMP_ID, vfEMP_STATUS: Integer): Integer;
+
+    function exePathRequest: string;
+    function ReadINI(): Boolean;
+
+    function Crypto(vfStr: string): string;
+    function ValidatePhone(vfCell: string): Boolean;
+    function FriendlyTime(vfDateTime: TDateTime): string;
+    function toCurrency(vfValue: string): Currency;
+    function FormatNumber(vfNumber: Integer): string;
+
+    function LoadMessage(vfTituloJan, vfTituloMen, vfMensagem, vfIcone, vfButton, vfNameLink, vfLink: string): Boolean;
+
+    function SingleResult(vfConnection: TFDConnection; vfReturnField, vfTable, vfFilterField, vfOperator, vfValue, vfWhere,  vfOrder: string): string;
+    function SingleUpdate(vfConnection: TFDConnection; vfUpdateField, vfUpdateValue, vfTable, vfSearchField, vfOperator, vfSearchValue, vfWhere, vfOrder: string): Boolean;
+    function FullAddress(vfEndereco, vfNumero, vfBairro, vfCEP, vfComplemento, vfCity, vfUF: string): string;
+    function RequestJSON(vfURL: string): string;
+
+    procedure RequiredField(vpForm: TForm);
+    procedure SaveINI(vfValue: string);
+
+    procedure NumericKey(Sender: TObject; var Key: Char);
+
+    procedure getValidation;
+
+    function getPCName(): string;
+    function getHDSerial(): string;
+    function getMBSerial(vfPart: Integer): string;
+
+    function DownloadLicenca(vfOrigem, ArquivoLicenca: string): Boolean;
 
 //    procedure postMessage; /// eliminar depois de testar
 
@@ -2213,74 +2298,8 @@ begin
     end;
 end;
 }
-//###############################################################################################################
-//###############################################################################################################
-//###############################################################################################################
-//###############################################################################################################
-end.
-//##############################################################################
-//##############################################################################
-//##############################################################################
 
-unit untFunctions;
 
-interface
-
-uses
-    Winapi.Windows, Winapi.ShellAPI, Winapi.Messages, Winapi.WinInet,
-
-    System.SysUtils, System.Classes, System.IniFiles,
-
-    Vcl.Forms, Vcl.StdCtrls, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics,
-    Vcl.ComCtrls,
-
-    IdHTTP, //IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
-
-    FireDAC.Comp.Client, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-    FireDAC.Stan.Async, FireDAC.Comp.DataSet, FireDAC.Stan.Error, FireDAC.Phys.Intf,
-    FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-
-    Data.DB, Datasnap.DBClient, Datasnap.Provider,
-
-    REST.Types, REST.Client, UrlMon
-
-    ;
-
-    function Shuffle(vfDoc, vfDat: string): string;
-    function getVersionInfo(ProgamName: string): string;
-    function getCoupon(vfCUP_ID: Integer; vfCUP_STATUS: string): Boolean;
-    function getClient(vfCLI_ID, vfCLI_STATUS: Integer): Boolean;
-    function getCampaign(vfCAM_ID, vfCAM_STATUS: Integer): Integer;
-    function getCompany(vfEMP_ID, vfEMP_STATUS: Integer): Integer;
-
-    function exePathRequest: string;
-    function ReadINI(): Boolean;
-
-    function Crypto(vfStr: string): string;
-    function ValidatePhone(vfCell: string): Boolean;
-    function FriendlyTime(vfDateTime: TDateTime): string;
-    function toCurrency(vfValue: string): Currency;
-    function FormatNumber(vfNumber: Integer): string;
-
-    function LoadMessage(vfTituloJan, vfTituloMen, vfMensagem, vfIcone, vfButton, vfNameLink, vfLink: string): Boolean;
-
-    function SingleResult(vfConnection: TFDConnection; vfReturnField, vfTable, vfFilterField, vfOperator, vfValue, vfWhere,  vfOrder: string): string;
-    function SingleUpdate(vfConnection: TFDConnection; vfUpdateField, vfUpdateValue, vfTable, vfSearchField, vfOperator, vfSearchValue, vfWhere, vfOrder: string): Boolean;
-    function FullAddress(vfEndereco, vfNumero, vfBairro, vfCEP, vfComplemento, vfCity, vfUF: string): string;
-    function RequestJSON(vfURL: string): string;
-
-    procedure RequiredField(vpForm: TForm);
-    procedure SaveINI(vfValue: string);
-
-    procedure NumericKey(Sender: TObject; var Key: Char);
-
-    procedure getValidation;
-
-    function getPCName(): string;
-    function getHDSerial(): string;
-    function getMBSerial(vfPart: Integer): string;
-
-    function DownloadLicenca(vfOrigem, ArquivoLicenca: string): Boolean;
 
 var
 
@@ -3280,7 +3299,7 @@ begin
     end;
 end;
 
-end.
+
 
 // #######################################################################
 // #######################################################################
