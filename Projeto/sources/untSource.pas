@@ -35,7 +35,9 @@ uses e.log,
     sysColorGradientEnd           : TColor  = $002A5320;
 
     // variaveis de ambiente e sistema
+    gvDate                        : TDate;
     gcAppName                     : string  = 'EasyCare'; // nome do sistema/aplicativo
+    gcAppTitle                    : string  = 'AR EasyCare - Sistema Gestão de Clínica Estética';
     gcSymbolLine                  : string  = '%0A'; // caracteres para mudança de linha em uma url
     gcSymbolSpace                 : string  = '%20'; // caracteres para espaço em uma url
     gcPosResult                   : Integer = Length('result:') + 1; // valor para encontrar o result no json
@@ -43,6 +45,7 @@ uses e.log,
     gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
     gvResponse                    : Integer = 0; // armazena um codigo do banco de dados da tabela config para checar se coletou os dados de configuração
     gvScheduleInterval            : Integer = 30; // define o intervalo minimo de cada atendimento
+    gvScheduleRefresh             : Integer = (1000 * 60) * 30; // define o intervalo entre cada atualização da agenda
 
     gvAttachPath                  : string  = 'D:\'; // caminho da pasta de armazenamento de anexos
     gvSysPatch                    : string  = ''; // caminho do executavel do sistema
@@ -51,9 +54,9 @@ uses e.log,
     gvDDI                         : string  = '+55'; // DDI padrão do sistema
     gvDDD                         : string  = '14';  // DDD padrão do sistema
 
-    gvURL                         : string  = 'https://app.whatsgw.com.br/api/WhatsGw/Send?'; // URL constante do site
-    gvAPIKey                      : string  = ''; // APIKey gerada no site
-    gvPhoneFrom                   : string  = '5514996905500'; // numero de origem do whatsapp
+    gvURL                         : string  = 'https://app.whatsgw.com.br/api/WhatsGw/Send'; // URL constante do site
+    gvAPIKey                      : string  = '4ddb1698-05a3-4613-8416-6ca08340519b'; // APIKey gerada no site
+    gvPhoneFrom                   : string  = '5514999065400'; // numero de origem do whatsapp
 
     gvEMail                       : string  = ''; // e-mail do sistema
     gvSMTP                        : string  = ''; // host SMTP
@@ -155,8 +158,8 @@ uses e.log,
         gvAPF_DATA_ATUALIZADO     : TDateTime;
 
     // profissionais
-    gvPRF_ID                      : Integer = 0;
-    gvPRF_PES_ID                  : Integer = 0;
+    gvPRF_ID                      : Integer = 1;
+    gvPRF_PES_ID                  : Integer = 1;
     gvPRF_STATUS                  : string = '';
     gvPRF_DATA_ATUALIZADO         : TDateTime;
 
