@@ -39,8 +39,6 @@ type
     pnlHistory: TPanel;
     txtHistory: TMemo;
     btnRefresh: TImage;
-
-    procedure toPaint(Sender: TObject);
     procedure reLoad(Sender: TObject);
 
     procedure FormCreate(Sender: TObject);
@@ -158,14 +156,8 @@ begin
         // verifica se tem algum registro listado
         if cdsAtd.IsEmpty then
         begin
-            showMsg({janela de ogigem}    Self.Caption,
-                    {título da mensagem}  'Nenhum agendamento!',
-                    {mensagem ao usuário} 'Nenhum cliente listado na data selecionada!',
-                    {caminho do ícone}    'check', {check/error/question/exclamation}
-                    {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-                    {nome do link}        '',
-                    {link}                '');
-            Exit;
+            vError := -27; // define o erro
+            Exit; // encerra a execução
         end;
 
         // exibe o painel historico
@@ -228,7 +220,16 @@ begin
         cdsAtd.First;
     finally
         // exibe a mensagem
-        if not(vError > 0) then
+        if vError = -27 then
+            showMsg({janela de ogigem}    Self.Caption,
+                    {título da mensagem}  'Lista vazia!',
+                    {mensagem ao usuário} 'Nenhum cliente listado na data selecionada!',
+                    {caminho do ícone}    'exclamation', {check/error/question/exclamation}
+                    {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                    {nome do link}        '',
+                    {link}                '')
+        else
+        if vError = 0 then
             showMsg({janela de ogigem}    Self.Caption,
                     {título da mensagem}  'Notificações de Agendamento',
                     {mensagem ao usuário} 'Todas as notificações foram enviadas com sucesso!',
@@ -240,13 +241,6 @@ begin
         // fecha a ajanela
         Close;
     end;
-end;
-
-procedure TfrmSnd_Mensagem.toPaint(Sender: TObject);
-begin
-  inherited;
-    // aplica o gradiente no objeto
-    setGradient(Self, (Sender as TPaintBox), 0, 0);
 end;
 
 end.

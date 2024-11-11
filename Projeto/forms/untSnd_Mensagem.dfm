@@ -1948,7 +1948,6 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     Caption = 'pnlHistory'
     TabOrder = 3
     Visible = False
-    ExplicitTop = 456
     object txtHistory: TMemo
       Left = 0
       Top = 0
