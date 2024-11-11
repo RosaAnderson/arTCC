@@ -77,7 +77,7 @@ implementation
 
 {$R *.dfm}
 
-uses c.pessoas, untFunctions, untSource;
+uses c.pessoas, untFunctions, untSource, untLst_Registro;
 
 function TfrmCli_Cadastro.requiredField(): Boolean;
 begin
@@ -121,7 +121,20 @@ end;
 procedure TfrmCli_Cadastro.btnBuscarClick(Sender: TObject);
 begin
   inherited;
-    vSearch(txtBusca.Text); // faz a busca
+    // verifica se o form foi criado
+    if not Assigned(frmLst_Registro) then
+        frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+    try
+        frmLst_Registro.Caption := 'Cliente';
+        frmLst_Registro.ShowModal; // exibe o form
+
+        if frmLst_Registro.Tag <> 0 then
+            txtBusca.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+    finally
+        frmLst_Registro := nil;
+        frmLst_Registro.Free; // descarrega o objeto
+    end;
 end;
 
 procedure TfrmCli_Cadastro.btnCloseFormClick(Sender: TObject);
@@ -212,7 +225,7 @@ begin
         Exit;
 
     // faz a pesquisa dos dados informados no campo código
-    if not pesSearch(vpSearch) then
+    if not pesSearchOne(vpSearch) then
     begin
         // exibe a mensagem para o usuario
         if (showMsg({janela de ogigem}    Self.Caption,
@@ -235,13 +248,36 @@ begin
     end
     else
     begin
-        // preenche os campos
-        txtCPF.Text        := formatDocs(gvPES_DOC);
-        txtNome.Text       := gvPES_NOME;
-        txtNascimento.Date := gvPES_NASCIMENTO;
-        txtDDD.Text        := gvTEL_DDD;
-        txtTelefone.Text   := gvTEL_TELEFONE;
-        txtEmail.Text      := gvMAI_EMAIL;
+        try
+            // verifica sem encontrou mais de 1 registro
+            if c.pessoas.vOutCount > 1 then
+            begin
+                // verifica se o form foi criado
+                if not Assigned(frmLst_Registro) then
+                    frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+                try
+                    frmLst_Registro.Hint    := vpSearch; // carrega os dados no form
+                    frmLst_Registro.Caption := 'Cliente';
+
+                    frmLst_Registro.ShowModal; // exibe o form
+
+                    if frmLst_Registro.Tag <> 0 then
+                        txtBusca.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+                finally
+                    frmLst_Registro := nil;
+                    frmLst_Registro.Free; // descarrega o objeto
+                end;
+            end;
+        finally
+            // preenche os campos
+            txtCPF.Text        := formatDocs(gvPES_DOC);
+            txtNome.Text       := gvPES_NOME;
+            txtNascimento.Date := gvPES_NASCIMENTO;
+            txtDDD.Text        := gvTEL_DDD;
+            txtTelefone.Text   := gvTEL_TELEFONE;
+            txtEmail.Text      := gvMAI_EMAIL;
+        end;
     end;
 end;
 
