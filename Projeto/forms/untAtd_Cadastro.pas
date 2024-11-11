@@ -20,31 +20,31 @@ type
     pnlObsercacoes: TPanel;
     Label4: TLabel;
     Shape4: TShape;
-    pnlInicio: TPanel;
-    Panel6: TPanel;
+    pnlHoraDia: TPanel;
+    pnlHora: TPanel;
     Label1: TLabel;
     Shape2: TShape;
     txtHora: TTimePicker;
-    Panel7: TPanel;
+    pnlData: TPanel;
     Label3: TLabel;
     Shape3: TShape;
     txtData: TDatePicker;
-    pnlFim: TPanel;
-    Panel2: TPanel;
+    pnlProcDetalhes: TPanel;
+    pnlValor: TPanel;
     Label2: TLabel;
     Shape5: TShape;
-    Panel3: TPanel;
+    pnlDuracao: TPanel;
     Label5: TLabel;
     Shape6: TShape;
     pnlProcedimento: TPanel;
     Label36: TLabel;
     Shape19: TShape;
-    btnProcedimentoSearch: TImage;
+    btnProcedimento: TImage;
     txtProcedimento: TArEdit;
     pnlCliente: TPanel;
     Label7: TLabel;
     Shape7: TShape;
-    btnClienteSearch: TImage;
+    btnCliente: TImage;
     txtCliente: TArEdit;
     Shape1: TShape;
     Shape8: TShape;
@@ -55,8 +55,9 @@ type
     pnlPagamento: TPanel;
     Label6: TLabel;
     Shape10: TShape;
-    btnFPgtoSearch: TImage;
+    btnPagamento: TImage;
     txtPagamento: TArEdit;
+    lblDia: TLabel;
 
     function wasChanged(): Boolean;
     function requiredField():Boolean;
@@ -69,6 +70,8 @@ type
     procedure FormCreate(Sender: TObject);
 
     procedure txtSearchKeyPress(Sender: TObject; var Key: Char);
+    procedure txtDataChange(Sender: TObject);
+
     procedure btnSearchClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCloseFormClick(Sender: TObject);
@@ -90,12 +93,15 @@ implementation
 {$R *.dfm}
 
 uses untDBConnect, untFunctions, untSource,
-    c.procedimentos, c.atendimentos, c.forma_pgto;
+    c.procedimentos, c.atendimentos, c.forma_pgto, untPrepareMessage,
+  untCli_Cadastro, untLst_Registro;
+
 
 procedure TfrmAtd_Cadastro.btnCloseFormClick(Sender: TObject);
 begin
     // verifica se alguma informação foi alterada
-    if ((wasChanged) and (requiredField)) then
+//    if ((wasChanged) and (requiredField)) then
+    if  (requiredField) then
     begin
         if (showMsg({janela de ogigem}    Self.Caption,
                     {título da mensagem}  'Salvar',
@@ -122,69 +128,171 @@ begin
 end;
 
 procedure TfrmAtd_Cadastro.btnSaveClick(Sender: TObject);
+var
+    vSuccess    : Boolean;
+    vActMsg     : string;
+    vSND_MESSAGE: string;
 begin
   inherited;
 {
     // verifica se alguma informação foi alterada
     if not(wasChanged) then
         Exit;
+//}
 {
     // valida os campos obrigatórios
     if not(requiredField) then
         Exit;
-}
+//}
     // transfere os dados
     vTransfer();
 
     // se não houver um cadastro
     if gvATD_ID = 0 then
-        atdUpdate(atdGetID(txtCliente.Text)) // atualiza o cadastro
+    begin
+        vSuccess := (atdUpdate(atdGetID(txtCliente.Text))); // atualiza o cadastro
+        vActMsg := 'question';
+    end
     else
-       atdUpdate(gvATD_ID); // atualiza o cadastro
+    begin
+        vSuccess := (atdUpdate(gvATD_ID)); // atualiza o cadastro
+        vActMsg := 'check';
+    end;
+
+    //
+    if vSuccess then
+        try
+            if vActMsg = 'question' then
+            begin
+                // gera a mensagem
+                vSND_MESSAGE := createMessage('cadastra', gvPES_NOME,
+                                                           FormatDateTime('dd/mm/yyyy', gvATD_DATA),
+                                                            FormatDateTime('hh:MM', gvATD_HORA),
+                                                             gvPRC_NOME);
+
+                // exibe a mensagem para o usuario
+                if (showMsg({janela de ogigem}    Self.Caption,
+                            {título da mensagem}  'Atendimento Registrado!',
+                            {mensagem ao usuário} 'O atendimento de ' + gvPES_NOME +
+                                                  ' para ' + FormatDateTime('dd/mm/yyyy', gvATD_DATA) +
+                                                  ' às '   + FormatDateTime('hh:MM', gvATD_DATA) +
+                                                  ' foi registrado com sucesso!' +
+                                                  sLineBreak + sLineBreak +
+                                                  'Deseja cadastrar outro?',
+                            {caminho do ícone}    'question', {check/error/question/exclamation}
+                            {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                            {nome do link}        '',
+                            {link}                ''
+                           )) then
+                begin
+                    //
+                    clearFields();
+                    txtCliente.SetFocus;
+                end
+                else
+                begin
+                    Close;
+                end;
+            end
+            else
+            if vActMsg = 'check' then
+            begin
+                // gera a mensagem
+                vSND_MESSAGE := createMessage('altera', gvPES_NOME,
+                                                         FormatDateTime('dd/mm/yyyy', gvATD_DATA),
+                                                          FormatDateTime('hh:MM', gvATD_HORA),
+                                                           gvPRC_NOME);
+
+                // exibe a mensagem para o usuario
+                showMsg({janela de ogigem}    Self.Caption,
+                        {título da mensagem}  'Atendimento Atualizado!',
+                        {mensagem ao usuário} 'O atendimento de ' + gvPES_NOME +
+                                              ' foi atualizado com sucesso! ' +
+                                              sLineBreak + sLineBreak +
+                                              'Data: ' + FormatDateTime('dd/mm/yyyy', gvATD_DATA) + sLineBreak +
+                                              'Hora: ' + FormatDateTime('hh:MM', gvATD_DATA),
+                        {caminho do ícone}    'check', {check/error/question/exclamation}
+                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                        {nome do link}        '',
+                        {link}                '');
+
+                Close;
+            end;
+        finally
+            // valida o numero
+            if vcCLK_TEL_TELEFONE = '' then
+                vcCLK_TEL_TELEFONE := ValidarPhone(gvTEL_DDI + gvTEL_DDD + gvTEL_TELEFONE)
+            else
+                vcCLK_TEL_TELEFONE := ValidarPhone(vcCLK_TEL_TELEFONE);
+
+            // envia a mensagem
+            vSuccess := getSendResult(SendToWhatsapp(vcCLK_TEL_TELEFONE,
+                                                     'mult-notification', 'text', '', '',
+                                                     vSND_MESSAGE));
+        end;
 end;
 
 procedure TfrmAtd_Cadastro.btnSearchClick(Sender: TObject);
 begin
     vField := getObjName(Sender); // define a origem
 
-    // verifica onde será a busca
-    if vField = 'Cliente' then
-        vSearch(txtCliente.Text, vField) // faz a busca
-    else
-    if vField = 'Procedimento' then
-        vSearch(txtProcedimento.Text, vField) // faz a busca
-    else
-    if vField = 'Pagamento' then
-        vSearch(txtProcedimento.Text, vField); // faz a busca
+    // verifica se o form foi criado
+    if not Assigned(frmLst_Registro) then
+        frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+    try
+        frmLst_Registro.Caption := vField;
+        frmLst_Registro.ShowModal; // exibe o form
+
+        if frmLst_Registro.Tag <> 0 then
+            vSearch(frmLst_Registro.cdsLst.FieldByName('NOME').AsString, vField) // faz a busca
+    finally
+        frmLst_Registro := nil;
+        frmLst_Registro.Free; // descarrega o objeto
+    end;
 end;
 
 procedure TfrmAtd_Cadastro.clearFields;
 begin
     // limpa os campos
-    txtCliente.Text      := '';
-    txtData.Date         := Now;
-    txtHora.Time         := Now;
+    txtCliente.Text := '';
+    pnlCliente.Tag  := 0;
+
+    if (FormatDateTime('ss', txtHora.Time) <> '00') then
+    begin
+        txtData.Date := Now;
+        txtHora.Time := Now;
+    end;
+
     txtProcedimento.Text := '';
+    pnlProcedimento.Tag  := 0;
     txtDuracao.Text      := '0 min.';
     txtValor.Text        := 'R$ 0,00';
+    txtPagamento.Text    := '';
+    pnlPagamento.Tag     := 0;
     txtObservacoes.Clear;
 end;
 
 procedure TfrmAtd_Cadastro.FormCreate(Sender: TObject);
 begin
     // define o tamanho do form
-    Self.ClientHeight := 565;
+    Self.ClientHeight := 570;
     Self.ClientWidth  := 350;
 
     txtData.Date      := Now;
     txtHora.Time      := Now;
 
-    gvATD_ID          := 0;
-    gvATD_DATA        := Now - 1;
-    gvATD_HORA        := Now - 1;
-    gvATD_DURACAO     := 0;
-    gvATD_VALOR       := 0.00;
-    gvATD_OBSERVACOES := '';
+    if Self.Tag = 0 then
+    begin
+        gvATD_ID          := 0;
+        gvATD_DATA        := Now - 1;
+        gvATD_HORA        := Now - 1;
+        gvATD_DURACAO     := 0;
+        gvATD_VALOR       := 0.00;
+        gvATD_OBSERVACOES := '';
+    end;
+
+    clearFields();
 
   inherited;
 end;
@@ -227,6 +335,13 @@ begin
     Result := (vCount = 0);
 end;
 
+procedure TfrmAtd_Cadastro.txtDataChange(Sender: TObject);
+begin
+  inherited;
+    // exibe o dia da semana
+    lblDia.Caption := doWeek(txtData.Date);
+end;
+
 procedure TfrmAtd_Cadastro.txtSearchKeyPress(Sender: TObject; var Key: Char);
 var
     vField: string;
@@ -258,9 +373,9 @@ begin
         Exit;
 
     // faz a pesquisa dos dados informados no campo código
-    if ((not pesSearch(vpSearch)) and
-            (not prcSearch(vpSearch)) and
-                (not fpgSearch(vpSearch))) then
+    if ((not pesSearchOne(vpSearch)) and
+            (not prcSearchOne(vpSearch)) and
+                (not fpgSearchOne(vpSearch))) then
     begin
         // exibe a mensagem para o usuario
         if (showMsg({janela de ogigem}    Self.Caption,
@@ -277,6 +392,7 @@ begin
             if vpField = 'Cliente' then
             begin
                 // abrir janela de cadastro de cliente
+                ToCreate(frmCli_Cadastro, TfrmCli_Cadastro, Self, nil, nil);
             end
             else
             // se for procedimento
@@ -294,23 +410,114 @@ begin
     end
     else
     begin
-        // preenche os campos
-        pnlCliente.Tag       := gvPES_ID;
-        txtCliente.Text      := gvPES_NOME;
-        pnlProcedimento.Tag  := gvPRC_ID;
-        txtProcedimento.Text := gvPRC_NOME;
-        pnlPagamento.Tag     := gvFPG_ID;
-        txtPagamento.Text    := gvFPG_NOME;
-        txtDuracao.Text      := IntToStr(gvPRC_DURACAO) + ' min.';
-        txtValor.Text        := FormatMoney(gvPRC_VALOR);
+        try
+            // se for cliente
+            if vpField = 'Cliente' then
+            begin
+                // verifica sem encontrou mais de 1 registro
+                if c.pessoas.vOutCount > 1 then
+                begin
+                    gvPES_ID := 0;
 
-        if vpField = 'Cliente' then // se for cliente
-            txtData.SetFocus// abrir janela de cadastro de cliente
+                    // verifica se o form foi criado
+                    if not Assigned(frmLst_Registro) then
+                        frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+                    try
+                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Caption := vpField;
+
+                        frmLst_Registro.ShowModal; // exibe o form
+
+                        if frmLst_Registro.Tag <> 0 then
+                            txtCliente.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+                    finally
+                        frmLst_Registro := nil;
+                        frmLst_Registro.Free; // descarrega o objeto
+                    end;
+                end;
+            end
+            else
+            // se for procedimento
+            if vpField = 'Procedimento' then
+            begin
+                // verifica sem encontrou mais de 1 registro
+                if c.procedimentos.vOutCount > 1 then
+                begin
+                    gvPES_ID := 0;
+
+                    // verifica se o form foi criado
+                    if not Assigned(frmLst_Registro) then
+                        frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+                    try
+                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Caption := vpField;
+
+                        frmLst_Registro.ShowModal; // exibe o form
+
+                        if frmLst_Registro.Tag <> 0 then
+                            txtProcedimento.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+                    finally
+                        frmLst_Registro := nil;
+                        frmLst_Registro.Free; // descarrega o objeto
+                    end;
+                end;
+            end
+            else
+            // se for forma de pgto
+            if vpField = 'Pagamento' then
+            begin
+                // verifica sem encontrou mais de 1 registro
+                if c.forma_pgto.vOutCount > 1 then
+                begin
+                    gvPES_ID := 0;
+
+                    // verifica se o form foi criado
+                    if not Assigned(frmLst_Registro) then
+                        frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
+
+                    try
+                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Caption := vpField;
+
+                        frmLst_Registro.ShowModal; // exibe o form
+
+                        if frmLst_Registro.Tag <> 0 then
+                            txtPagamento.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+                    finally
+                        frmLst_Registro := nil;
+                        frmLst_Registro.Free; // descarrega o objeto
+                    end;
+                end;
+            end;
+        finally
+            //
+        end;
+
+        // preenche os campos
+        pnlCliente.Tag := gvPES_ID;
+        if gvPES_ID <> 0 then
+            txtCliente.Text := gvPES_NOME;
+
+        pnlProcedimento.Tag := gvPRC_ID;
+        if gvPRC_ID <> 0 then
+            txtProcedimento.Text := gvPRC_NOME;
+
+        pnlPagamento.Tag := gvFPG_ID;
+        if gvFPG_ID <> 0 then
+            txtPagamento.Text := gvFPG_NOME;
+
+        txtDuracao.Text := IntToStr(gvPRC_DURACAO) + ' min.';
+        txtValor.Text   := FormatMoney(gvPRC_VALOR);
+
+        if ((vpField = 'Cliente') and (gvPES_ID <> 0)) then // se for cliente
+            txtProcedimento.SetFocus
         else
-        if vpField = 'Procedimento' then // se for procedimento
+        if ((vpField = 'Procedimento') and (gvPRC_ID <> 0)) then // se for procedimento
             txtDuracao.SetFocus
         else
-        if vpField = 'Pagamento' then // se for procedimento
+        if ((vpField = 'Pagamento') and (gvFPG_ID <> 0)) then // se for procedimento
             txtObservacoes.SetFocus;
     end;
 end;
@@ -318,6 +525,11 @@ end;
 procedure TfrmAtd_Cadastro.vTransfer;
 begin
     //
+    c.atendimentos.vcATD_FPG_ID      := gvFPG_ID;
+    c.atendimentos.vcAPS_PES_ID      := gvPES_ID;
+    c.atendimentos.vcAPC_PRC_ID      := gvPRC_ID;
+    c.atendimentos.vcAPF_PRF_ID      := gvPRF_ID;
+
     c.atendimentos.vcATD_DATA        := txtData.Date;
     c.atendimentos.vcATD_HORA        := txtHora.Time;
     c.atendimentos.vcATD_DURACAO     := toMinute(txtDuracao.Text);

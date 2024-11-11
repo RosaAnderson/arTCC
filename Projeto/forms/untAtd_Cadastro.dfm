@@ -1,14 +1,13 @@
 inherited frmAtd_Cadastro: TfrmAtd_Cadastro
   Caption = 'Atendimento'
-  ClientHeight = 745
+  ClientHeight = 560
   ClientWidth = 350
-  Visible = False
   StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 350
-  ExplicitHeight = 745
+  ExplicitHeight = 560
   DesignSize = (
     350
-    745)
+    560)
   TextHeight = 23
   inherited shpEdgeForm: TShape
     Pen.Color = 4493067
@@ -25,7 +24,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
   object pnlObsercacoes: TPanel [3]
     AlignWithMargins = True
     Left = 8
-    Top = 355
+    Top = 363
     Width = 334
     Height = 130
     Margins.Left = 8
@@ -35,7 +34,6 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 5
-    ExplicitTop = 290
     DesignSize = (
       334
       130)
@@ -53,7 +51,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       AutoSize = False
       Caption = 'Observa'#231#245'es'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 3355443
+      Font.Color = 2773792
       Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
@@ -108,12 +106,12 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       TabOrder = 0
     end
   end
-  object pnlInicio: TPanel [4]
+  object pnlHoraDia: TPanel [4]
     AlignWithMargins = True
     Left = 8
     Top = 95
     Width = 334
-    Height = 65
+    Height = 73
     Margins.Left = 8
     Margins.Top = 0
     Margins.Right = 8
@@ -121,12 +119,33 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    object Panel6: TPanel
+    object lblDia: TLabel
+      AlignWithMargins = True
+      Left = 10
+      Top = 0
+      Width = 314
+      Height = 17
+      Margins.Left = 10
+      Margins.Top = 0
+      Margins.Right = 10
+      Margins.Bottom = 0
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Domingo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2773792
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      ExplicitWidth = 54
+    end
+    object pnlHora: TPanel
       AlignWithMargins = True
       Left = 183
-      Top = 0
+      Top = 17
       Width = 151
-      Height = 65
+      Height = 56
       Margins.Left = 5
       Margins.Top = 0
       Margins.Right = 0
@@ -136,42 +155,42 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       TabOrder = 1
       DesignSize = (
         151
-        65)
+        56)
       object Label1: TLabel
         AlignWithMargins = True
         Left = 4
-        Top = 4
+        Top = 0
         Width = 143
         Height = 23
         Margins.Left = 4
-        Margins.Top = 4
+        Margins.Top = 0
         Margins.Right = 4
         Margins.Bottom = 0
         Align = alTop
         AutoSize = False
-        Caption = 'Hora Inicio'
+        Caption = 'Hora'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = 3355443
+        Font.Color = 2773792
         Font.Height = -15
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        ExplicitTop = 4
         ExplicitWidth = 394
       end
       object Shape2: TShape
         Left = 0
-        Top = 25
+        Top = 21
         Width = 149
         Height = 31
         Anchors = [akLeft, akTop, akRight]
         Pen.Color = 4493067
         Shape = stRoundRect
-        ExplicitWidth = 198
       end
       object txtHora: TTimePicker
         AlignWithMargins = True
         Left = 5
-        Top = 27
+        Top = 23
         Width = 141
         Height = 28
         Margins.Left = 5
@@ -185,85 +204,94 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         Font.Height = -17
         Font.Name = 'Segoe UI'
         Font.Style = []
+        SelectionColor = 2773792
         TabOrder = 0
-        Time = 45578.995893923610000000
+        Time = 45605.132737303240000000
         TimeFormat = 'hh:nn'
       end
     end
-    object Panel7: TPanel
+    object pnlData: TPanel
       AlignWithMargins = True
       Left = 0
-      Top = 0
+      Top = 17
       Width = 178
-      Height = 65
+      Height = 56
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
       Margins.Bottom = 0
       Align = alLeft
       BevelOuter = bvNone
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2773792
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
       DesignSize = (
         178
-        65)
+        56)
       object Label3: TLabel
         AlignWithMargins = True
         Left = 4
-        Top = 4
+        Top = 0
         Width = 170
         Height = 23
         Margins.Left = 4
-        Margins.Top = 4
+        Margins.Top = 0
         Margins.Right = 4
         Margins.Bottom = 0
         Align = alTop
         AutoSize = False
-        Caption = 'Data Inicio'
+        Caption = 'Data'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = 3355443
+        Font.Color = 2773792
         Font.Height = -15
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        ExplicitTop = 4
         ExplicitWidth = 394
       end
       object Shape3: TShape
         Left = 0
-        Top = 25
+        Top = 21
         Width = 176
         Height = 31
         Anchors = [akLeft, akTop, akRight]
         Pen.Color = 4493067
         Shape = stRoundRect
-        ExplicitWidth = 198
       end
       object txtData: TDatePicker
         AlignWithMargins = True
         Left = 5
-        Top = 27
+        Top = 23
         Width = 168
         Height = 28
         Margins.Left = 5
         Margins.Top = 0
         Margins.Right = 5
-        Margins.Bottom = 4
+        Margins.Bottom = 0
         Align = alTop
         BorderStyle = bsNone
-        Date = 45578.000000000000000000
+        Date = 45604.000000000000000000
         DateFormat = 'dd/mm/yyyy'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2773792
         Font.Height = -17
         Font.Name = 'Segoe UI'
         Font.Style = []
+        SelectionColor = 2773792
         TabOrder = 0
+        OnChange = txtDataChange
       end
     end
   end
-  object pnlFim: TPanel [5]
+  object pnlProcDetalhes: TPanel [5]
     AlignWithMargins = True
     Left = 8
-    Top = 225
+    Top = 233
     Width = 334
     Height = 65
     Margins.Left = 8
@@ -273,7 +301,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    object Panel2: TPanel
+    object pnlValor: TPanel
       AlignWithMargins = True
       Left = 146
       Top = 0
@@ -303,7 +331,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         AutoSize = False
         Caption = 'Valor'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = 3355443
+        Font.Color = 2773792
         Font.Height = -15
         Font.Name = 'Segoe UI'
         Font.Style = []
@@ -340,7 +368,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         FocusColorEnabled = True
       end
     end
-    object Panel3: TPanel
+    object pnlDuracao: TPanel
       AlignWithMargins = True
       Left = 0
       Top = 0
@@ -370,7 +398,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         AutoSize = False
         Caption = 'Dura'#231#227'o (min)'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = 3355443
+        Font.Color = 2773792
         Font.Height = -15
         Font.Name = 'Segoe UI'
         Font.Style = []
@@ -409,14 +437,14 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     end
   end
   inherited pnlFooter: TPanel
-    Top = 668
+    Top = 495
     Width = 340
     TabOrder = 6
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 442
+    ExplicitTop = 495
     ExplicitWidth = 340
     inherited btnExit: TImage
-      Left = 255
+      Left = 265
       ExplicitLeft = 255
     end
     inherited btnSave: TImage
@@ -426,7 +454,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
   object pnlProcedimento: TPanel
     AlignWithMargins = True
     Left = 8
-    Top = 160
+    Top = 168
     Width = 334
     Height = 65
     Margins.Left = 8
@@ -453,7 +481,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       AutoSize = False
       Caption = 'Procedimento'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 3355443
+      Font.Color = 2773792
       Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
@@ -470,7 +498,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       Shape = stRoundRect
       ExplicitWidth = 329
     end
-    object btnProcedimentoSearch: TImage
+    object btnProcedimento: TImage
       AlignWithMargins = True
       Left = 301
       Top = 28
@@ -1310,7 +1338,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       AutoSize = False
       Caption = 'Cliente'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 3355443
+      Font.Color = 2773792
       Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
@@ -1327,7 +1355,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       Shape = stRoundRect
       ExplicitWidth = 329
     end
-    object btnClienteSearch: TImage
+    object btnCliente: TImage
       AlignWithMargins = True
       Left = 301
       Top = 28
@@ -2140,7 +2168,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
   object pnlPagamento: TPanel
     AlignWithMargins = True
     Left = 8
-    Top = 290
+    Top = 298
     Width = 334
     Height = 65
     Margins.Left = 8
@@ -2150,8 +2178,6 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 4
-    ExplicitLeft = 16
-    ExplicitTop = 168
     DesignSize = (
       334
       65)
@@ -2169,7 +2195,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       AutoSize = False
       Caption = 'Forma de Pagamento'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 3355443
+      Font.Color = 2773792
       Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
@@ -2186,7 +2212,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       Shape = stRoundRect
       ExplicitWidth = 329
     end
-    object btnFPgtoSearch: TImage
+    object btnPagamento: TImage
       AlignWithMargins = True
       Left = 301
       Top = 28
