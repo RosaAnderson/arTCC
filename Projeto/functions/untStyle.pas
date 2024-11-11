@@ -8,7 +8,8 @@ uses
     System.SysUtils,
     System.Classes,
 
-    Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics, Vcl.ComCtrls
+    Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons, Vcl.Graphics, Vcl.ComCtrls,
+    Vcl.DBGrids, Vcl.Grids
 
     ;
 
@@ -22,18 +23,10 @@ uses
     procedure setAtdButton(vfForm: TForm);
 
     procedure setGradient(vfForm: TForm; vfPaint: TPaintBox; vfStartCl, vfEndCl: TColor);
+    procedure setZebraDbg(vfDBGrid: TDBGrid; Sender: TObject;
+        const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 
 
-{
-    function GetBuildInfo(ProgamName: string): string; // função que pega as informações de versão do sistema
-    function setViewPageControl(vfForm: TForm): Boolean; // função para moldar as definições iniciais do pagecontrol
-    function setColorPageControl(vfForm: TForm; vfPageControl: TPageControl): Boolean; // função que define as cores dos botões do pagecontrol
-
-    procedure setMenu(vfForm: TForm); // função que configura o tamanho do menu
-    procedure allMenu(vfForm: TForm); // função que fecha o menu
-
-    procedure ListView(vfForm: TForm); // função que exibe/oculta os itens da lista
-}
 
 var
     vPanel      : TPanel;
@@ -56,7 +49,7 @@ procedure setGradient(vfForm: TForm; vfPaint: TPaintBox; vfStartCl, vfEndCl: TCo
 var
     ACanvas: TCanvas;
     ARect: TRect;
-    i, rc, gc, bc, h: Integer;
+    vI, rc, gc, bc, h: Integer;
 begin
     {Esta dica mostra como criar um efeito degradê em um Canvas qualquer.
     Neste caso, estamos utilizando um componente TPaintBox e o evento OnPaint.
@@ -74,19 +67,19 @@ begin
     h := ARect.Bottom - ARect.Top;
 
     { desenha o degradê }
-    for i := 0 to (ARect.Bottom - ARect.Top) do
+    for vI := 0 to (ARect.Bottom - ARect.Top) do
     begin
         rc := GetRValue(vfStartCl);
         gc := GetGValue(vfStartCl);
         bc := GetBValue(vfStartCl);
 
-        rc := rc + (((GetRValue(vfEndCl) - rc) * (ARect.Top + i)) div h);
-        gc := gc + (((GetGValue(vfEndCl) - gc) * (ARect.Top + i)) div h);
-        bc := bc + (((GetBValue(vfEndCl) - bc) * (ARect.Top + i)) div h);
+        rc := rc + (((GetRValue(vfEndCl) - rc) * (ARect.Top + vI)) div h);
+        gc := gc + (((GetGValue(vfEndCl) - gc) * (ARect.Top + vI)) div h);
+        bc := bc + (((GetBValue(vfEndCl) - bc) * (ARect.Top + vI)) div h);
 
         ACanvas.Brush.Style := bsSolid;
         ACanvas.Brush.Color := RGB(rc, gc, bc);
-        ACanvas.FillRect(Rect(ARect.Left, ARect.Top + i, ARect.Right, ARect.Top + i + 1));
+        ACanvas.FillRect(Rect(ARect.Left, ARect.Top + vI, ARect.Right, ARect.Top + vI + 1));
     end;
 end;
 
@@ -283,6 +276,30 @@ begin
         end;
     end;
 end;
+
+procedure setZebraDbg(vfDBGrid: TDBGrid; Sender: TObject;
+    const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+    // define o padrão da zebra
+    if Odd(vfDBGrid.DataSource.DataSet.RecNo) then
+        vfDBGrid.Canvas.Brush.Color := $00CAEBD1
+    else
+        vfDBGrid.Canvas.Brush.Color := clWhite;
+
+    // cofigura a cor do highligth
+    if (gdSelected in State) then
+    begin
+        vfDBGrid.Canvas.Brush.Color := $0048B74B;
+        vfDBGrid.Canvas.Font.Color  := clWhite;
+        vfDBGrid.Canvas.Font.Style  := [fsBold];
+    end;
+
+    // seta as configurações
+    vfDBGrid.Canvas.FillRect(Rect);
+    vfDBGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+
 
 end.
 
