@@ -158,7 +158,7 @@ begin
         c.atendimentos.atdChange(getId(Sender), 'C');
 
         // recarrega os dados
-        loadSchedule(Self, pnlAtendimentos, gvDate);
+        iSchedulingBox(Self, pnlAtendimentos, gvDate);
     end;
 end;
 
@@ -199,47 +199,43 @@ begin
     if vATD_ID = 0 then
         Exit;
 
+    // verifica se o form foi criado
+    if not Assigned(frmAtd_Cadastro) then
+        frmAtd_Cadastro := TfrmAtd_Cadastro.Create(nil); // cria o form
+
     // faza busca e obtem os dados do cliente
     c.atendimentos.atdSearchClk(FormatDateTime('yyyy-mm-dd', gvDate),
                                 (Sender as TImage).Parent.Hint,
                                  vATD_ID);
 
-    // verifica se o form foi criado
-    if not Assigned(frmAtd_Cadastro) then
-        frmAtd_Cadastro := TfrmAtd_Cadastro.Create(nil); // cria o form
-
     try
-//        frmLst_Registro.Caption := vField;
-//        frmLst_Registro.ShowModal; // exibe o form
+        frmAtd_Cadastro.Tag := vATD_ID;
+
+        frmAtd_Cadastro.pnlCliente.Tag       := gvPES_ID;
+        frmAtd_Cadastro.txtCliente.Text      := gvPES_NOME;
+
+        frmAtd_Cadastro.txtData.Date         := gvATD_DATA;
+        frmAtd_Cadastro.txtHora.Time         := gvATD_HORA;
+
+        frmAtd_Cadastro.pnlProcedimento.Tag  := gvPRC_ID;
+        frmAtd_Cadastro.txtProcedimento.Text := gvPRC_NOME;
+
+        frmAtd_Cadastro.txtDuracao.Text      := IntToStr(gvATD_DURACAO) + ' min.';
+        frmAtd_Cadastro.txtValor.Text        := FormatMoney(gvATD_VALOR);
+
+        frmAtd_Cadastro.pnlPagamento.Tag     := gvFPG_ID;
+        frmAtd_Cadastro.txtPagamento.Text    := gvFPG_NOME;
+
+        frmAtd_Cadastro.txtObservacoes.Text  := gvATD_OBSERVACOES;
+
+        frmAtd_Cadastro.ShowModal; // exibe o form
 
 //        if frmAtd_Cadastro.Tag <> 0 then
-//            vSearch(frmAtd_Cadastro.cdsLst.FieldByName('NOME').AsString, vField) // faz a busca
+//            iSchedulingBox(Self, pnlAtendimentos, gvDate); // recarrega os dados
     finally
         frmAtd_Cadastro := nil;
         frmAtd_Cadastro.Free; // descarrega o objeto
     end;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // inicializa o form
-    ToCreate(frmAtd_Cadastro, TfrmAtd_Cadastro, Self, nil, pnlAgenda);
 end;
 
 procedure TfrmMain.btnNotificacoesClick(Sender: TObject);
@@ -357,7 +353,7 @@ begin
         gvDate := Calendar.Date;
 
         // recarrega os dados
-        loadSchedule(Self, pnlAtendimentos, gvDate);
+        iSchedulingBox(Self, pnlAtendimentos, gvDate);
     end;
 end;
 
@@ -399,7 +395,7 @@ begin
     // define o tempo de atualização
     tmrAgendas.Interval := gvScheduleRefresh;
 
-    loadSchedule(Self, pnlAtendimentos, gvDate);
+    iSchedulingBox(Self, pnlAtendimentos, gvDate);
 end;
 
 procedure TfrmMain.tmrClockTimer(Sender: TObject);
