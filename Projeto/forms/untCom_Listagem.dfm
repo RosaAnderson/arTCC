@@ -2,7 +2,6 @@ inherited frmCom_Listagem: TfrmCom_Listagem
   Caption = 'Lista de Compromissos'
   ClientHeight = 600
   ClientWidth = 350
-  Visible = False
   StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 350
   ExplicitHeight = 600
@@ -61,14 +60,14 @@ inherited frmCom_Listagem: TfrmCom_Listagem
     end
   end
   inherited pnlFooter: TPanel
-    Top = 523
+    Top = 535
     Width = 340
     TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 523
+    ExplicitTop = 535
     ExplicitWidth = 340
     inherited btnExit: TImage
-      Left = 255
+      Left = 265
       ExplicitLeft = 255
     end
   end

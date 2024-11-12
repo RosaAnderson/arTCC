@@ -9,7 +9,7 @@ uses
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.DBCtrls,
   Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.Buttons, Vcl.Imaging.jpeg, Vcl.ComCtrls,
-  ArEdit, Vcl.WinXCtrls;
+  ArEdit, Vcl.WinXCtrls, Vcl.DBCGrids;
 
 type
   TfrmComponents = class(TForm)
@@ -122,6 +122,7 @@ type
     SearchBox1: TSearchBox;
     dgrClock: TPaintBox;
     GridPanel1: TGridPanel;
+    DBCtrlGrid1: TDBCtrlGrid;
   private
     { Private declarations }
   public

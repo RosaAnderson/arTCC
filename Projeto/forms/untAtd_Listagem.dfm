@@ -2,7 +2,6 @@ inherited frmAtd_Listagem: TfrmAtd_Listagem
   Caption = 'frmAtd_Listagem'
   ClientHeight = 600
   ClientWidth = 350
-  Visible = False
   StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 350
   ExplicitHeight = 600
@@ -103,7 +102,7 @@ inherited frmAtd_Listagem: TfrmAtd_Listagem
     end
   end
   inherited pnlFooter: TPanel
-    Top = 523
+    Top = 535
     Width = 340
     TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]

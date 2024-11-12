@@ -34,7 +34,6 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 0
-    ExplicitWidth = 1298
   end
   object pnlPageControl: TPanel
     AlignWithMargins = True
@@ -2665,7 +2664,6 @@ object frmComponents: TfrmComponents
     Align = alRight
     BorderStyle = bsNone
     TabOrder = 6
-    ExplicitLeft = 1040
     object shpTitleDescricao: TShape
       AlignWithMargins = True
       Left = 8
@@ -9378,7 +9376,6 @@ object frmComponents: TfrmComponents
     ParentColor = True
     TabOrder = 8
     Visible = False
-    ExplicitLeft = 706
     object shpEdgeMenu: TShape
       Left = 216
       Top = 1
@@ -10572,7 +10569,6 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 9
-    ExplicitWidth = 1298
     object pnlButtonPri: TPanel
       AlignWithMargins = True
       Left = 1124
@@ -10587,7 +10583,6 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 973
       object shpPrimary: TShape
         Left = 10
         Top = 10
@@ -10632,7 +10627,6 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 1139
       object shpSecondary: TShape
         Left = 10
         Top = 10
@@ -10772,5 +10766,12 @@ object frmComponents: TfrmComponents
       end>
     TabOrder = 12
     Visible = False
+  end
+  object DBCtrlGrid1: TDBCtrlGrid
+    Left = 524
+    Top = 475
+    Width = 217
+    Height = 216
+    TabOrder = 13
   end
 end
