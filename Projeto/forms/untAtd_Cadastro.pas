@@ -99,6 +99,13 @@ uses untDBConnect, untFunctions, untSource,
 
 procedure TfrmAtd_Cadastro.btnCloseFormClick(Sender: TObject);
 begin
+  inherited;
+
+  exit;
+
+
+
+
     // verifica se alguma informação foi alterada
 //    if ((wasChanged) and (requiredField)) then
     if  (requiredField) then
@@ -279,8 +286,8 @@ begin
     Self.ClientHeight := 570;
     Self.ClientWidth  := 350;
 
-    txtData.Date      := Now;
-    txtHora.Time      := Now;
+//    txtData.Date      := Now;
+//    txtHora.Time      := Now;
 
     if Self.Tag = 0 then
     begin
@@ -290,9 +297,9 @@ begin
         gvATD_DURACAO     := 0;
         gvATD_VALOR       := 0.00;
         gvATD_OBSERVACOES := '';
-    end;
 
-    clearFields();
+        clearFields();
+    end;
 
   inherited;
 end;
