@@ -218,6 +218,37 @@ begin
         FCliPanel.Align := alClient;
 //##############################################################################
 //##############################################################################
+//# cria a image de botão enviar mensagem ######################################
+//##############################################################################
+        if vcCLK_PES_NOME <> '' then
+        begin
+            FSenImage          := TImage.Create(vfForm);
+            FSenImage.Parent   := FCliPanel;
+            FSenImage.Name     := 'btnSn_' + vObjName;
+            FSenImage.Cursor   := crHandPoint;
+            FSenImage.Hint     := 'Notificação Enviada';
+            FSenImage.ShowHint := True;
+
+            // posicionamento
+            FSenImage.Top              := 0;
+            FSenImage.Left             := 0;
+            FSenImage.Width            := 15;
+            FSenImage.Align            := alRight;
+            FSenImage.Align            := alLeft;
+            FSenImage.AlignWithMargins := True;
+            FSenImage.Margins.Bottom   := 0;
+            FSenImage.Margins.Left     := 2;
+            FSenImage.Margins.Right    := 10;
+            FSenImage.Margins.Top      := 0;
+
+            //
+            FSenImage.Picture      := frmMain.imgEnv.Picture;
+            FSenImage.Center       := True;
+            FSenImage.Proportional := True;
+            FSenImage.Stretch      := True;
+        end;
+//##############################################################################
+//##############################################################################
 //# cria a label cliente #######################################################
 //##############################################################################
         FCliLabel        := TLabel.Create(vfForm);
@@ -277,7 +308,8 @@ begin
         FDelImage.Margins.Top      := 0;
 
         //
-        FDelImage.Picture      := frmMain.imgDel.Picture;
+        if vcCLK_PES_NOME <> '' then
+            FDelImage.Picture  := frmMain.imgDel.Picture;
         FDelImage.Center       := True;
         FDelImage.Proportional := True;
         FDelImage.Stretch      := True;
@@ -307,7 +339,8 @@ begin
         FEdtImage.Margins.Top      := 0;
 
         //
-        FEdtImage.Picture      := frmMain.imgEdt.Picture;
+        if vcCLK_PES_NOME <> '' then
+            FEdtImage.Picture  := frmMain.imgEdt.Picture;
         FEdtImage.Center       := True;
         FEdtImage.Proportional := True;
         FEdtImage.Stretch      := True;
@@ -315,7 +348,7 @@ begin
         FEdtImage.OnClick      := frmMain.btnEdtClick;
 //##############################################################################
 //##############################################################################
-//# cria a image de botão finalizar ############################################
+//# cria a image de botão adicionar ############################################
 //##############################################################################
         FAddImage          := TImage.Create(vfForm);
         FAddImage.Parent   := FBtnPanel;
@@ -337,7 +370,8 @@ begin
         FAddImage.Margins.Top      := 0;
 
         //
-        FAddImage.Picture      := frmMain.imgAdd.Picture;
+        if vcCLK_PES_NOME = '' then
+            FAddImage.Picture  := frmMain.imgAdd.Picture;
         FAddImage.Center       := True;
         FAddImage.Proportional := True;
         FAddImage.Stretch      := True;
@@ -345,7 +379,7 @@ begin
         FAddImage.OnClick      := frmMain.btnAddClick;
 //##############################################################################
 //##############################################################################
-//# cria a image de botão adicionar ############################################
+//# cria a image de botão finalizar ############################################
 //##############################################################################
         FCloImage          := TImage.Create(vfForm);
         FCloImage.Parent   := FBtnPanel;
@@ -367,7 +401,8 @@ begin
         FCloImage.Margins.Top      := 0;
 
         //
-        FCloImage.Picture      := frmMain.imgClo.Picture;
+        if vcCLK_PES_NOME <> '' then
+            FCloImage.Picture  := frmMain.imgClo.Picture;
         FCloImage.Center       := True;
         FCloImage.Proportional := True;
         FCloImage.Stretch      := True;
@@ -399,7 +434,8 @@ begin
             FSenImage.Margins.Top      := 0;
 
             //
-            FSenImage.Picture      := frmMain.imgSen.Picture;
+            if vcCLK_PES_NOME <> '' then
+                FSenImage.Picture  := frmMain.imgSen.Picture;
             FSenImage.Center       := True;
             FSenImage.Proportional := True;
             FSenImage.Stretch      := True;
