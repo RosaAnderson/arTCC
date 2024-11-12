@@ -224,7 +224,7 @@ begin
         begin
             FSenImage          := TImage.Create(vfForm);
             FSenImage.Parent   := FCliPanel;
-            FSenImage.Name     := 'btnSn_' + vObjName;
+            FSenImage.Name     := 'btnN_' + vObjName;
             FSenImage.Cursor   := crHandPoint;
             FSenImage.Hint     := 'Notificação Enviada';
             FSenImage.ShowHint := True;
