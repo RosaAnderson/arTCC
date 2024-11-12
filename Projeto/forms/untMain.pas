@@ -69,7 +69,7 @@ type
     pnlAgenda: TPanel;
     Panel3: TPanel;
     pboxHoje: TPaintBox;
-    lblHoje: TLabel;
+    lblHoje2: TLabel;
     pnlAtend: TPanel;
     lblAtendimentos: TLabel;
     pnlAtendimentos: TPanel;
@@ -84,6 +84,9 @@ type
     imgEdt: TImage;
     imgClo: TImage;
     imgSen: TImage;
+    imgEnv: TImage;
+    imgCfm: TImage;
+    lblHoje: TLabel;
 
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
@@ -147,8 +150,21 @@ end;
 
 procedure TfrmMain.btnCloClick(Sender: TObject);
 begin
-    // finaliza o atendimento
-    c.atendimentos.atdChange((Sender as TImage).Parent.Tag, 'F');
+    if showMsg({janela de ogigem}    Self.Caption,
+               {título da mensagem}  '',
+               {mensagem ao usuário} 'Deseja realmente marcar o atendimento como finalizado?',
+               {caminho do ícone}    'question', {check/error/question/exclamation}
+               {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+               {nome do link}        '',
+               {link}                '')
+    then
+    begin
+        // finaliza o atendimento
+        c.atendimentos.atdChange((Sender as TImage).Parent.Tag, 'F');
+
+        // recarrega os dados
+        loadSchedule(Self, pnlAtendimentos, gvDate);
+    end;
 end;
 
 procedure TfrmMain.btnCloseClick(Sender: TObject);
