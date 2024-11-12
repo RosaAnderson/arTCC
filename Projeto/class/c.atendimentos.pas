@@ -493,20 +493,21 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
                 SQL.Add(' SELECT                                           ');
-                SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, ATD_OBSERVACOES, ');
+                SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, ATD_HORA,        ');
+                SQL.Add('   ATD_DURACAO, ATD_VALOR, ATD_OBSERVACOES,       ');
                 SQL.Add('   PES_ID, PES_NOME,                              ');
                 SQL.Add('   PRC_ID, PRC_NOME,                              ');
                 SQL.Add('   FPG_ID, FPG_NOME,                              ');
                 SQL.Add('   TEL_ID, TEL_DDI, TEL_DDD, TEL_TELEFONE,        ');
-                SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAO, ');
-                SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORA,  ');
+                SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAOf,');
+                SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORAF, ');
                 SQL.Add('   REPLACE(                                       ');
                 SQL.Add('       REPLACE(                                   ');
                 SQL.Add('           REPLACE(                               ');
                 SQL.Add('               FORMAT(ATD_VALOR, 2),              ');
                 SQL.Add('           ''.'', ''|''),                         ');
                 SQL.Add('       '','', ''.''),                             ');
-                SQL.Add('   ''|'', '','') AS ATD_VALOR                     ');
+                SQL.Add('   ''|'', '','') AS ATD_VALORF                    ');
                 SQL.Add('  FROM ATENDIMENTOS                               ');
                 SQL.Add('  JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
                 SQL.Add('  JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
@@ -538,9 +539,9 @@ begin
                     vcCLK_ATD_ID          := FieldByName('ATD_ID').AsInteger;
                     vcCLK_ATD_STATUS      := FieldByName('ATD_STATUS').AsString;
                     vcCLK_ATD_DATA        := FieldByName('ATD_DATA').AsString;
-                    vcCLK_ATD_HORA        := FieldByName('ATD_HORA').AsString;
-                    vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAO').AsString;
-                    vcCLK_ATD_VALOR       := FieldByName('ATD_VALOR').AsString;
+                    vcCLK_ATD_HORA        := FieldByName('ATD_HORAF').AsString;
+                    vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAOF').AsString;
+                    vcCLK_ATD_VALOR       := FieldByName('ATD_VALORF').AsString;
                     vcCLK_ATD_OBSERVACOES := FieldByName('ATD_OBSERVACOES').AsString;
 
                     vcCLK_PES_ID          := FieldByName('PES_ID').AsInteger;
@@ -552,6 +553,11 @@ begin
                     vcCLK_TEL_TELEFONE    := FieldByName('TEL_DDI').AsString +
                                               FieldByName('TEL_DDD').AsString +
                                                FieldByName('TEL_TELEFONE').AsString;
+
+                    gvATD_DATA            := FieldByName('ATD_DATA').AsDateTime;
+                    gvATD_HORA            := FieldByName('ATD_HORA').AsDateTime;
+                    gvATD_DURACAO         := FieldByName('ATD_DURACAO').AsInteger;
+                    gvATD_VALOR           := FieldByName('ATD_VALOR').AsFloat;
                 end;
 
                 // atualiza as variáveis
