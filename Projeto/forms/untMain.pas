@@ -88,6 +88,8 @@ type
     imgCfm: TImage;
     lblHoje: TLabel;
 
+    function getId(Sender: TObject): Integer;
+
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
     procedure FormCreate(Sender: TObject);
@@ -108,6 +110,7 @@ type
 
   private
     { Private declarations }
+    vATD_ID: Integer;
   public
     { Public declarations }
   end;
@@ -127,6 +130,12 @@ var
     vType: string = 'text';
 
 
+function TfrmMain.getId(Sender: TObject): Integer;
+begin
+    // pega o id do objeto
+    Result := (Sender as TImage).parent.Tag;
+end;
+
 procedure TfrmMain.btnAddClick(Sender: TObject);
 begin
     // inicializa o form
@@ -135,11 +144,22 @@ end;
 
 procedure TfrmMain.btnCanClick(Sender: TObject);
 begin
-    // cansela o atendimento
-    c.atendimentos.atdChange((Sender as TImage).Parent.Tag, 'C');
+    //
+    if showMsg({janela de ogigem}    Self.Caption,
+               {título da mensagem}  '',
+               {mensagem ao usuário} 'Deseja realmente cancelar o atendimento?',
+               {caminho do ícone}    'question', {check/error/question/exclamation}
+               {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+               {nome do link}        '',
+               {link}                '')
+    then
+    begin
+        // cansela o atendimento
+        c.atendimentos.atdChange(getId(Sender), 'C');
 
-    // recarrega os dados
-    loadSchedule(Self, pnlAtendimentos, gvDate);
+        // recarrega os dados
+        loadSchedule(Self, pnlAtendimentos, gvDate);
+    end;
 end;
 
 procedure TfrmMain.btnClienteClick(Sender: TObject);
@@ -160,21 +180,64 @@ begin
     then
     begin
         // finaliza o atendimento
-        c.atendimentos.atdChange((Sender as TImage).Parent.Tag, 'F');
-
-        // recarrega os dados
-        loadSchedule(Self, pnlAtendimentos, gvDate);
+        c.atendimentos.atdChange(getId(Sender), 'F');
     end;
 end;
 
 procedure TfrmMain.btnCloseClick(Sender: TObject);
 begin
-    //
+    // encerra a aplicação
     Application.Terminate;
 end;
 
 procedure TfrmMain.btnEdtClick(Sender: TObject);
 begin
+    // pega o id do atendimento
+    vATD_ID := getId(Sender);
+
+    // verifica se tem atendimento
+    if vATD_ID = 0 then
+        Exit;
+
+    // faza busca e obtem os dados do cliente
+    c.atendimentos.atdSearchClk(FormatDateTime('yyyy-mm-dd', gvDate),
+                                (Sender as TImage).Parent.Hint,
+                                 vATD_ID);
+
+    // verifica se o form foi criado
+    if not Assigned(frmAtd_Cadastro) then
+        frmAtd_Cadastro := TfrmAtd_Cadastro.Create(nil); // cria o form
+
+    try
+//        frmLst_Registro.Caption := vField;
+//        frmLst_Registro.ShowModal; // exibe o form
+
+//        if frmAtd_Cadastro.Tag <> 0 then
+//            vSearch(frmAtd_Cadastro.cdsLst.FieldByName('NOME').AsString, vField) // faz a busca
+    finally
+        frmAtd_Cadastro := nil;
+        frmAtd_Cadastro.Free; // descarrega o objeto
+    end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // inicializa o form
     ToCreate(frmAtd_Cadastro, TfrmAtd_Cadastro, Self, nil, pnlAgenda);
 end;
@@ -191,15 +254,17 @@ var
     vSND_TELEFONE: string;
     vError: Integer;
 begin
+    vATD_ID := getId(Sender);
+
     try
         try
             // se o painel tiver um cliente assossiado
-            if (Sender as TImage).Parent.Tag > 0 then
+            if vATD_ID > 0 then
             begin
                 // faza busca e obtem os dados do cliente
                 c.atendimentos.atdSearchClk(FormatDateTime('yyyy-mm-dd', gvDate),
                                             (Sender as TImage).Parent.Hint,
-                                             (Sender as TImage).parent.Tag);
+                                             vATD_ID);
 
                 // se o atendimento já foi finalizado
                 if gvATD_STATUS = 'N' then
