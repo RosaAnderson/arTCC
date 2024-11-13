@@ -289,6 +289,7 @@ begin
     txtData.Date      := Now;
     txtHora.Time      := Now;
 
+    // limpa as variáveis
     if Self.Tag = 0 then
     begin
         gvATD_ID          := 0;

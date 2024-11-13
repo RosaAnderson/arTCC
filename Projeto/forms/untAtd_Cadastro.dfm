@@ -329,7 +329,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         Margins.Bottom = 0
         Align = alTop
         AutoSize = False
-        Caption = 'Valor'
+        Caption = 'Valor (R$)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2773792
         Font.Height = -15
@@ -441,7 +441,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     Width = 340
     TabOrder = 6
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 493
+    ExplicitTop = 498
     ExplicitWidth = 340
     inherited pnlFootButton02: TPanel
       Left = 265
