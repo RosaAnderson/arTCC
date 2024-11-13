@@ -271,6 +271,7 @@ begin
         txtHora.Time := Now;
     end;
 
+    // inicializa os campos
     txtProcedimento.Text := '';
     pnlProcedimento.Tag  := 0;
     txtDuracao.Text      := '0 min.';

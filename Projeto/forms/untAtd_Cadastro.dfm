@@ -396,7 +396,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
         Margins.Bottom = 0
         Align = alTop
         AutoSize = False
-        Caption = 'Dura'#231#227'o (min)'
+        Caption = 'Dura'#231#227'o (min.)'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2773792
         Font.Height = -15
