@@ -16,7 +16,11 @@ type
     lblTitleForm: TLabel;
     btnCloseForm: TLabel;
     pnlFooter: TPanel;
+    pnlFootButton02: TPanel;
+    label02: TLabel;
     btnExit: TImage;
+    pnlFootButton01: TPanel;
+    Label01: TLabel;
     btnSave: TImage;
 
     procedure btnFormClose;

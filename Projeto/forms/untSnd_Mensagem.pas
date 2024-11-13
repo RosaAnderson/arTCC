@@ -29,7 +29,6 @@ type
     pnlData: TPanel;
     pboxHoje: TPaintBox;
     lblLogDate: TLabel;
-    btnSendAll: TImage;
     dspAtd: TDataSetProvider;
     cdsAtd: TClientDataSet;
     dtsAtd: TDataSource;
@@ -38,7 +37,12 @@ type
     Calendar: TCalendarPicker;
     pnlHistory: TPanel;
     txtHistory: TMemo;
+    pnl01: TPanel;
+    lbl01: TLabel;
     btnRefresh: TImage;
+    Panel1: TPanel;
+    Label1: TLabel;
+    btnSendAll: TImage;
     procedure reLoad(Sender: TObject);
 
     procedure FormCreate(Sender: TObject);

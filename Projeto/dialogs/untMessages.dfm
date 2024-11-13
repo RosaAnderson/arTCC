@@ -1,32 +1,31 @@
 inherited frmMessages: TfrmMessages
   Caption = 'frmMessages'
   ClientHeight = 313
-  ClientWidth = 1235
-  Visible = False
+  ClientWidth = 1242
   StyleElements = [seFont, seClient, seBorder]
   OnActivate = FormActivate
   OnKeyPress = FormKeyPress
-  ExplicitWidth = 1235
+  ExplicitWidth = 1242
   ExplicitHeight = 313
   TextHeight = 23
   inherited lblTitleForm: TLabel
-    Width = 1235
+    Width = 1242
     ExplicitWidth = 600
   end
   inherited btnCloseForm: TLabel
-    Left = 1186
+    Left = 1193
     ExplicitLeft = 551
   end
   object imgIcon: TImage [3]
     AlignWithMargins = True
     Left = 20
-    Top = 60
+    Top = 55
     Width = 150
-    Height = 166
+    Height = 203
     Margins.Left = 20
-    Margins.Top = 30
+    Margins.Top = 25
     Margins.Right = 0
-    Margins.Bottom = 30
+    Margins.Bottom = 55
     Align = alLeft
     Picture.Data = {
       0954506E67496D61676589504E470D0A1A0A0000000D49484452000002000000
@@ -1129,8 +1128,8 @@ inherited frmMessages: TfrmMessages
       000000790804000000009087FC3F69B724ED1691B2830000000049454E44AE42
       6082}
     Stretch = True
-    ExplicitTop = -282
-    ExplicitHeight = 749
+    ExplicitTop = 52
+    ExplicitHeight = 113
   end
   object lblTituloMsg: TLabel [4]
     Left = 190
@@ -1151,7 +1150,7 @@ inherited frmMessages: TfrmMessages
     Left = 190
     Top = 70
     Width = 455
-    Height = 141
+    Height = 198
     Margins.Left = 20
     Margins.Top = 40
     Margins.Right = 0
@@ -1199,19 +1198,139 @@ inherited frmMessages: TfrmMessages
     ExplicitLeft = 720
     ExplicitTop = 183
     ExplicitWidth = 505
-    inherited btnExit: TImage
-      Left = 420
-      ExplicitLeft = 49
+    inherited pnlFootButton02: TPanel
+      Left = 430
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 430
+      ExplicitTop = 0
+      ExplicitHeight = 62
+      inherited label02: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnExit: TImage
+        ExplicitLeft = 49
+      end
+    end
+    inherited pnlFootButton01: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitHeight = 62
+      inherited Label01: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
   end
-  object Panel1: TPanel
+  object pnlStatus: TPanel
+    AlignWithMargins = True
+    Left = 8
+    Top = 264
+    Width = 1219
+    Height = 41
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
+    BevelOuter = bvNone
+    TabOrder = 0
+    Visible = False
+    object pnlButtonPri: TPanel
+      AlignWithMargins = True
+      Left = 895
+      Top = 2
+      Width = 150
+      Height = 37
+      Hint = 'button'
+      Margins.Left = 8
+      Margins.Top = 2
+      Margins.Right = 8
+      Margins.Bottom = 2
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object shpPrimary: TShape
+        Left = 10
+        Top = 10
+        Width = 20
+        Height = 20
+        Hint = 'ButtonPrimary'
+        Brush.Color = 16435360
+        Pen.Style = psClear
+      end
+      object btnPrimary: TSpeedButton
+        Left = 0
+        Top = 0
+        Width = 150
+        Height = 37
+        Cursor = crHandPoint
+        Align = alClient
+        Caption = 'Confirmar'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 16711422
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitLeft = 2
+        ExplicitTop = 2
+        ExplicitWidth = 183
+        ExplicitHeight = 39
+      end
+    end
+    object pnlButtonSec: TPanel
+      AlignWithMargins = True
+      Left = 1061
+      Top = 2
+      Width = 150
+      Height = 37
+      Hint = 'button'
+      Margins.Left = 8
+      Margins.Top = 2
+      Margins.Right = 8
+      Margins.Bottom = 2
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 1
+      object shpSecondary: TShape
+        Left = 10
+        Top = 10
+        Width = 20
+        Height = 20
+        Hint = 'ButtonSecondary'
+        Brush.Color = 9868950
+        Pen.Style = psClear
+      end
+      object btnSecondary: TSpeedButton
+        Left = 0
+        Top = 0
+        Width = 150
+        Height = 37
+        Cursor = crHandPoint
+        Align = alClient
+        Caption = 'Fechar'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 6513507
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        ExplicitLeft = 88
+        ExplicitTop = 16
+        ExplicitHeight = 41
+      end
+    end
+  end
+  object pnlIcons: TPanel
     Left = 720
-    Top = 33
+    Top = 27
     Width = 505
     Height = 142
+    Caption = 'pnlIcons'
     Color = 3947580
     ParentBackground = False
-    TabOrder = 0
+    TabOrder = 2
     object imgQuestion: TImage
       AlignWithMargins = True
       Left = 381
@@ -5955,112 +6074,6 @@ inherited frmMessages: TfrmMessages
         6082}
       Stretch = True
       ExplicitHeight = 89
-    end
-  end
-  object pnlStatus: TPanel
-    AlignWithMargins = True
-    Left = 8
-    Top = 264
-    Width = 1219
-    Height = 41
-    Margins.Left = 8
-    Margins.Top = 8
-    Margins.Right = 8
-    Margins.Bottom = 8
-    Align = alBottom
-    BevelOuter = bvNone
-    TabOrder = 2
-    Visible = False
-    ExplicitTop = 397
-    ExplicitWidth = 1290
-    object pnlButtonPri: TPanel
-      AlignWithMargins = True
-      Left = 895
-      Top = 2
-      Width = 150
-      Height = 37
-      Hint = 'button'
-      Margins.Left = 8
-      Margins.Top = 2
-      Margins.Right = 8
-      Margins.Bottom = 2
-      Align = alRight
-      BevelOuter = bvNone
-      TabOrder = 0
-      ExplicitLeft = 966
-      object shpPrimary: TShape
-        Left = 10
-        Top = 10
-        Width = 20
-        Height = 20
-        Hint = 'ButtonPrimary'
-        Brush.Color = 16435360
-        Pen.Style = psClear
-      end
-      object btnPrimary: TSpeedButton
-        Left = 0
-        Top = 0
-        Width = 150
-        Height = 37
-        Cursor = crHandPoint
-        Align = alClient
-        Caption = 'Confirmar'
-        Flat = True
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 16711422
-        Font.Height = -16
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-        ExplicitLeft = 2
-        ExplicitTop = 2
-        ExplicitWidth = 183
-        ExplicitHeight = 39
-      end
-    end
-    object pnlButtonSec: TPanel
-      AlignWithMargins = True
-      Left = 1061
-      Top = 2
-      Width = 150
-      Height = 37
-      Hint = 'button'
-      Margins.Left = 8
-      Margins.Top = 2
-      Margins.Right = 8
-      Margins.Bottom = 2
-      Align = alRight
-      BevelOuter = bvNone
-      TabOrder = 1
-      ExplicitLeft = 1132
-      object shpSecondary: TShape
-        Left = 10
-        Top = 10
-        Width = 20
-        Height = 20
-        Hint = 'ButtonSecondary'
-        Brush.Color = 9868950
-        Pen.Style = psClear
-      end
-      object btnSecondary: TSpeedButton
-        Left = 0
-        Top = 0
-        Width = 150
-        Height = 37
-        Cursor = crHandPoint
-        Align = alClient
-        Caption = 'Fechar'
-        Flat = True
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 6513507
-        Font.Height = -16
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-        ExplicitLeft = 88
-        ExplicitTop = 16
-        ExplicitHeight = 41
-      end
     end
   end
 end

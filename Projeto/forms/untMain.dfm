@@ -17,15 +17,28 @@ inherited frmMain: TfrmMain
     ExplicitLeft = 1981
   end
   inherited pnlFooter: TPanel
-    Top = 789
+    Top = 787
     Width = 1410
     Visible = False
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 789
+    ExplicitTop = 787
     ExplicitWidth = 1410
-    inherited btnExit: TImage
+    inherited pnlFootButton02: TPanel
       Left = 1335
-      ExplicitLeft = 1942
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 1335
+      inherited label02: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnExit: TImage
+        ExplicitLeft = 1942
+      end
+    end
+    inherited pnlFootButton01: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited Label01: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
   end
   object pnlHoje: TPanel
@@ -119,7 +132,7 @@ inherited frmMain: TfrmMain
     Left = 5
     Top = 100
     Width = 75
-    Height = 623
+    Height = 621
     Hint = 'pnlSideBar'
     Margins.Left = 5
     Margins.Top = 0
@@ -136,7 +149,7 @@ inherited frmMain: TfrmMain
       Left = 74
       Top = 5
       Width = 1
-      Height = 613
+      Height = 611
       Margins.Left = 0
       Margins.Top = 5
       Margins.Right = 0
@@ -152,7 +165,7 @@ inherited frmMain: TfrmMain
       Left = 5
       Top = 0
       Width = 64
-      Height = 623
+      Height = 621
       Margins.Left = 5
       Margins.Top = 0
       Margins.Right = 5
@@ -196,7 +209,7 @@ inherited frmMain: TfrmMain
       object pnlExit: TPanel
         AlignWithMargins = True
         Left = 0
-        Top = 543
+        Top = 541
         Width = 64
         Height = 55
         Margins.Left = 0
@@ -827,7 +840,7 @@ inherited frmMain: TfrmMain
       object pnlConfig: TPanel
         AlignWithMargins = True
         Left = 0
-        Top = 463
+        Top = 461
         Width = 64
         Height = 55
         Margins.Left = 0
@@ -6222,7 +6235,7 @@ inherited frmMain: TfrmMain
       object pnlSideButtonSpace10: TPanel
         AlignWithMargins = True
         Left = 0
-        Top = 603
+        Top = 601
         Width = 64
         Height = 15
         Margins.Left = 0
@@ -6237,7 +6250,7 @@ inherited frmMain: TfrmMain
       object pnlSideButtonSpace09: TPanel
         AlignWithMargins = True
         Left = 0
-        Top = 523
+        Top = 521
         Width = 64
         Height = 15
         Margins.Left = 0
@@ -6251,36 +6264,12 @@ inherited frmMain: TfrmMain
       end
     end
   end
-  object Panel1: TPanel
-    Left = 446
-    Top = 645
-    Width = 521
-    Height = 73
-    BevelOuter = bvNone
-    Caption = 'Panel1'
-    Color = 7521404
-    ParentBackground = False
-    TabOrder = 3
-    Visible = False
-    object Panel2: TPanel
-      Left = 0
-      Top = 0
-      Width = 185
-      Height = 73
-      Align = alLeft
-      BevelOuter = bvNone
-      Caption = 'Panel2'
-      Color = 3770147
-      ParentBackground = False
-      TabOrder = 0
-    end
-  end
   object pnlHome: TPanel
     AlignWithMargins = True
     Left = 85
     Top = 105
     Width = 350
-    Height = 614
+    Height = 612
     Hint = 'pnlForm'
     Margins.Left = 0
     Margins.Top = 5
@@ -6289,13 +6278,13 @@ inherited frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     ParentColor = True
-    TabOrder = 4
+    TabOrder = 3
     DesignSize = (
       350
-      614)
+      612)
     object Label11: TLabel
       Left = 0
-      Top = 584
+      Top = 582
       Width = 350
       Height = 30
       Hint = 'lblLabel'
@@ -6495,7 +6484,7 @@ inherited frmMain: TfrmMain
     object GridPanel2: TGridPanel
       AlignWithMargins = True
       Left = 0
-      Top = 363
+      Top = 361
       Width = 350
       Height = 206
       Margins.Left = 0
@@ -11397,7 +11386,7 @@ inherited frmMain: TfrmMain
     Left = 815
     Top = 105
     Width = 600
-    Height = 614
+    Height = 612
     Margins.Left = 5
     Margins.Top = 5
     Margins.Right = 5
@@ -11406,7 +11395,7 @@ inherited frmMain: TfrmMain
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
-    TabOrder = 5
+    TabOrder = 4
     object Panel3: TPanel
       Left = 0
       Top = 0
@@ -11468,7 +11457,7 @@ inherited frmMain: TfrmMain
       Left = 0
       Top = 41
       Width = 300
-      Height = 573
+      Height = 571
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -11511,7 +11500,7 @@ inherited frmMain: TfrmMain
         Left = 0
         Top = 30
         Width = 300
-        Height = 543
+        Height = 541
         Hint = 'Atendimentos'
         Margins.Left = 0
         Margins.Top = 0
@@ -11529,7 +11518,7 @@ inherited frmMain: TfrmMain
       Left = 300
       Top = 41
       Width = 300
-      Height = 573
+      Height = 571
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -11572,7 +11561,7 @@ inherited frmMain: TfrmMain
         Left = 0
         Top = 30
         Width = 300
-        Height = 543
+        Height = 541
         Hint = 'Compromissos'
         Margins.Left = 0
         Margins.Top = 0
@@ -11588,14 +11577,14 @@ inherited frmMain: TfrmMain
   end
   object pnlAgeButtons: TPanel
     Left = 0
-    Top = 724
+    Top = 722
     Width = 1420
     Height = 60
     Align = alBottom
     BevelOuter = bvNone
     Color = 13298641
     ParentBackground = False
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
     object imgDel: TImage
       AlignWithMargins = True

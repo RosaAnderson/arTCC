@@ -21,11 +21,6 @@ type
     lblMensagem: TLabel;
     btnConfirm: TSpeedButton;
     btnCancel: TSpeedButton;
-    Panel1: TPanel;
-    imgQuestion: TImage;
-    imgError: TImage;
-    imgCheck: TImage;
-    imgExclamation: TImage;
     pnlStatus: TPanel;
     pnlButtonPri: TPanel;
     shpPrimary: TShape;
@@ -33,6 +28,11 @@ type
     pnlButtonSec: TPanel;
     shpSecondary: TShape;
     btnSecondary: TSpeedButton;
+    pnlIcons: TPanel;
+    imgQuestion: TImage;
+    imgError: TImage;
+    imgCheck: TImage;
+    imgExclamation: TImage;
 
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);

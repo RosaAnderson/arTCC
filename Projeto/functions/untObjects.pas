@@ -19,7 +19,7 @@ type
         {Public declarations}
     end;
 
-    procedure loadSchedule(vfForm: TForm; vfParentPanel: TPanel; vfData: TDate);
+    procedure iSchedulingBox(vfForm: TForm; vfParentPanel: TPanel; vfData: TDate);
 
 var
     FScheduleScroll: TScrollBox;
@@ -28,7 +28,7 @@ implementation
 
 uses c.atendimentos, untFunctions, untMain;
 
-procedure loadSchedule(vfForm: TForm; vfParentPanel: TPanel; vfData: TDate);
+procedure iSchedulingBox(vfForm: TForm; vfParentPanel: TPanel; vfData: TDate);
 var
     vHIExp, vHFExp, vH: TTime;
     vHoraE, vI: Integer;
@@ -308,7 +308,7 @@ begin
         FDelImage.Margins.Top      := 0;
 
         //
-        if vcCLK_PES_NOME <> '' then
+//        if vcCLK_PES_NOME <> '' then
             FDelImage.Picture  := frmMain.imgDel.Picture;
         FDelImage.Center       := True;
         FDelImage.Proportional := True;
@@ -339,7 +339,7 @@ begin
         FEdtImage.Margins.Top      := 0;
 
         //
-        if vcCLK_PES_NOME <> '' then
+//        if vcCLK_PES_NOME <> '' then
             FEdtImage.Picture  := frmMain.imgEdt.Picture;
         FEdtImage.Center       := True;
         FEdtImage.Proportional := True;
@@ -370,7 +370,7 @@ begin
         FAddImage.Margins.Top      := 0;
 
         //
-        if vcCLK_PES_NOME = '' then
+//        if vcCLK_PES_NOME = '' then
             FAddImage.Picture  := frmMain.imgAdd.Picture;
         FAddImage.Center       := True;
         FAddImage.Proportional := True;
@@ -401,7 +401,7 @@ begin
         FCloImage.Margins.Top      := 0;
 
         //
-        if vcCLK_PES_NOME <> '' then
+//        if vcCLK_PES_NOME <> '' then
             FCloImage.Picture  := frmMain.imgClo.Picture;
         FCloImage.Center       := True;
         FCloImage.Proportional := True;
@@ -434,7 +434,7 @@ begin
             FSenImage.Margins.Top      := 0;
 
             //
-            if vcCLK_PES_NOME <> '' then
+//            if vcCLK_PES_NOME <> '' then
                 FSenImage.Picture  := frmMain.imgSen.Picture;
             FSenImage.Center       := True;
             FSenImage.Proportional := True;

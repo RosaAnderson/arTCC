@@ -123,6 +123,11 @@ type
     dgrClock: TPaintBox;
     GridPanel1: TGridPanel;
     DBCtrlGrid1: TDBCtrlGrid;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    pnl01: TPanel;
+    lbl01: TLabel;
+    btn01: TImage;
   private
     { Private declarations }
   public

@@ -43,8 +43,6 @@ type
     Label9: TLabel;
     pnlSideButtonSpace10: TPanel;
     pnlSideButtonSpace09: TPanel;
-    Panel1: TPanel;
-    Panel2: TPanel;
     pnlHome: TPanel;
     Label11: TLabel;
     pnlDigClock: TPanel;
@@ -138,12 +136,26 @@ end;
 
 procedure TfrmMain.btnAddClick(Sender: TObject);
 begin
+    // pega o id do atendimento
+    vATD_ID := getId(Sender);
+
+    // verifica se tem atendimento
+    if vATD_ID <> 0 then
+        Exit;
+
     // inicializa o form
     ToCreate(frmAtd_Cadastro, TfrmAtd_Cadastro, Self, nil, pnlAgenda);
 end;
 
 procedure TfrmMain.btnCanClick(Sender: TObject);
 begin
+    // pega o id do atendimento
+    vATD_ID := getId(Sender);
+
+    // verifica se tem atendimento
+    if vATD_ID = 0 then
+        Exit;
+
     //
     if showMsg({janela de ogigem}    Self.Caption,
                {título da mensagem}  '',
@@ -155,7 +167,7 @@ begin
     then
     begin
         // cansela o atendimento
-        c.atendimentos.atdChange(getId(Sender), 'C');
+        c.atendimentos.atdChange(vATD_ID, 'C');
 
         // recarrega os dados
         iSchedulingBox(Self, pnlAtendimentos, gvDate);
@@ -170,6 +182,13 @@ end;
 
 procedure TfrmMain.btnCloClick(Sender: TObject);
 begin
+    // pega o id do atendimento
+    vATD_ID := getId(Sender);
+
+    // verifica se tem atendimento
+    if vATD_ID = 0 then
+        Exit;
+
     if showMsg({janela de ogigem}    Self.Caption,
                {título da mensagem}  '',
                {mensagem ao usuário} 'Deseja realmente marcar o atendimento como finalizado?',
@@ -180,7 +199,7 @@ begin
     then
     begin
         // finaliza o atendimento
-        c.atendimentos.atdChange(getId(Sender), 'F');
+        c.atendimentos.atdChange(vATD_ID, 'F');
     end;
 end;
 
@@ -250,7 +269,12 @@ var
     vSND_TELEFONE: string;
     vError: Integer;
 begin
+    // pega o id do atendimento
     vATD_ID := getId(Sender);
+
+    // verifica se tem atendimento
+    if vATD_ID = 0 then
+        Exit;
 
     try
         try
