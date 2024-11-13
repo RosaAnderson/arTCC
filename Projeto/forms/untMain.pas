@@ -82,16 +82,28 @@ type
     imgCfm: TImage;
     lblHoje: TLabel;
     pnlCenter: TPanel;
-    Panel1: TPanel;
-    Shape1: TShape;
-    Shape2: TShape;
-    Image1: TImage;
+    pnlNext: TPanel;
+    shpBorda: TShape;
+    shpCircle: TShape;
+    imgAvatar: TImage;
+    Label16: TLabel;
+    lblCliente: TLabel;
+    Panel101: TPanel;
+    pnlNext02: TPanel;
+    pnlNextATDData: TPanel;
+    pnlNext01: TPanel;
+    pnlNextATDValor: TPanel;
+    Label22: TLabel;
+    Label23: TLabel;
+    pnlNextATDProc: TPanel;
+    Label24: TLabel;
+    Label25: TLabel;
     Label1: TLabel;
     Label11: TLabel;
+    pnlNextATDHora: TPanel;
     Label13: TLabel;
     Label14: TLabel;
-    Label16: TLabel;
-    Label21: TLabel;
+    Image1: TImage;
 
     function getId(Sender: TObject): Integer;
 
