@@ -162,10 +162,11 @@ begin
         vfShape.Left      := 0;
         vfShape.Width     := vfShape.Parent.Width;
         vfShape.Height    := vfShape.Parent.Height;
-//        vfShape.pen.Color := $00448F0B;
+        vfShape.pen.Color := $00448F0B;
     end;
 
-    vfShape.pen.Color := $00448F0B;
+    if Copy(vfShape.Hint, 1, 7) = 'shpSide' then
+        vfShape.pen.Color := $00448F0B;
 end;
 
 procedure setPSButton(vfForm: TForm; vfShape: TShape);
