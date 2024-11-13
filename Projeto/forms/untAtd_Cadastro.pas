@@ -283,11 +283,11 @@ end;
 procedure TfrmAtd_Cadastro.FormCreate(Sender: TObject);
 begin
     // define o tamanho do form
-    Self.ClientHeight := 570;
+    Self.ClientHeight := 565;
     Self.ClientWidth  := 350;
 
-//    txtData.Date      := Now;
-//    txtHora.Time      := Now;
+    txtData.Date      := Now;
+    txtHora.Time      := Now;
 
     if Self.Tag = 0 then
     begin

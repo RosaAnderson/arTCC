@@ -1,13 +1,13 @@
 inherited frmAtd_Cadastro: TfrmAtd_Cadastro
   Caption = 'Atendimento'
-  ClientHeight = 560
+  ClientHeight = 565
   ClientWidth = 350
   StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 350
-  ExplicitHeight = 560
+  ExplicitHeight = 565
   DesignSize = (
     350
-    560)
+    565)
   TextHeight = 23
   inherited shpEdgeForm: TShape
     Pen.Color = 4493067
@@ -437,18 +437,31 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     end
   end
   inherited pnlFooter: TPanel
-    Top = 495
+    Top = 498
     Width = 340
     TabOrder = 6
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 495
+    ExplicitTop = 493
     ExplicitWidth = 340
-    inherited btnExit: TImage
+    inherited pnlFootButton02: TPanel
       Left = 265
-      ExplicitLeft = 255
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 265
+      inherited label02: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnExit: TImage
+        ExplicitLeft = 255
+      end
     end
-    inherited btnSave: TImage
-      OnClick = btnSaveClick
+    inherited pnlFootButton01: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      inherited Label01: TLabel
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnSave: TImage
+        OnClick = btnSaveClick
+      end
     end
   end
   object pnlProcedimento: TPanel
