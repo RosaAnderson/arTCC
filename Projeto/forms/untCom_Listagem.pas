@@ -9,8 +9,6 @@ uses
 
 type
   TfrmCom_Listagem = class(TfrmStandard)
-    Panel1: TPanel;
-    ArCalendarEmptyNotice1: TArCalendarEmptyNotice;
 
     procedure ArCalendarEmptyNotice1Click(Sender: TObject);
 

@@ -9,10 +9,6 @@ uses
 
 type
   TfrmAtd_Listagem = class(TfrmStandard)
-    pnlAtendimentos: TPanel;
-    Label13: TLabel;
-    ArCalendarAppointmentNotice1: TArCalendarAppointmentNotice;
-    ArCalendarAppointmentNotice2: TArCalendarAppointmentNotice;
     procedure ArCalendarAppointmentNotice1Click(Sender: TObject);
   private
     { Private declarations }

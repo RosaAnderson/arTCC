@@ -15,60 +15,33 @@ inherited frmCom_Listagem: TfrmCom_Listagem
     Visible = False
     ExplicitLeft = 317
   end
-  object Panel1: TPanel [3]
-    AlignWithMargins = True
-    Left = 1
-    Top = 31
-    Width = 348
-    Height = 458
-    Margins.Left = 1
-    Margins.Top = 1
-    Margins.Right = 1
-    Margins.Bottom = 1
-    Align = alTop
-    BevelOuter = bvNone
-    Color = clWhite
-    ParentBackground = False
-    TabOrder = 0
-    object ArCalendarEmptyNotice1: TArCalendarEmptyNotice
-      AlignWithMargins = True
-      Left = 5
-      Top = 5
-      Width = 338
-      Height = 62
-      Margins.Left = 5
-      Margins.Top = 5
-      Margins.Right = 5
-      Margins.Bottom = 5
-      Align = alTop
-      BevelOuter = bvNone
-      Caption = 'ArCalendarEmptyNotice1'
-      Color = 15201770
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 2773792
-      Font.Height = -19
-      Font.Name = 'Open Sans'
-      Font.Style = []
-      ParentBackground = False
-      ParentFont = False
-      ShowCaption = False
-      TabOrder = 0
-      OnClick = ArCalendarEmptyNotice1Click
-      DesignSize = (
-        338
-        62)
-    end
-  end
   inherited pnlFooter: TPanel
-    Top = 535
+    Top = 533
     Width = 340
-    TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 535
+    ExplicitTop = 533
     ExplicitWidth = 340
-    inherited btnExit: TImage
+    inherited pnlFootButton02: TPanel
       Left = 265
-      ExplicitLeft = 255
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 265
+      ExplicitTop = 0
+      ExplicitHeight = 62
+      inherited label02: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnExit: TImage
+        ExplicitLeft = 255
+      end
+    end
+    inherited pnlFootButton01: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitHeight = 62
+      inherited Label01: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
     end
   end
 end
