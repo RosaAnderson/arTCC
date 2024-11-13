@@ -201,7 +201,7 @@ end;
 procedure TfrmCli_Cadastro.FormCreate(Sender: TObject);
 begin
     // define o tamanho do form
-    Self.ClientHeight := 500;
+    Self.ClientHeight := 490;
     Self.ClientWidth  := 350;
 
     // limpa as variáveis

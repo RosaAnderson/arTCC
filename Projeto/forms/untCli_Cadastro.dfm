@@ -1,11 +1,11 @@
 inherited frmCli_Cadastro: TfrmCli_Cadastro
   Caption = 'Cliente'
-  ClientHeight = 533
+  ClientHeight = 490
   ClientWidth = 350
   Font.Height = -16
   StyleElements = [seFont, seClient, seBorder]
   ExplicitWidth = 350
-  ExplicitHeight = 533
+  ExplicitHeight = 490
   TextHeight = 21
   inherited lblTitleForm: TLabel
     Width = 350
@@ -1329,18 +1329,36 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
     end
   end
   inherited pnlFooter: TPanel
-    Top = 468
+    Top = 423
     Width = 340
     TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 468
+    ExplicitTop = 466
     ExplicitWidth = 340
-    inherited btnExit: TImage
+    inherited pnlFootButton02: TPanel
       Left = 265
-      ExplicitLeft = 255
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitLeft = 265
+      ExplicitTop = 0
+      ExplicitHeight = 62
+      inherited label02: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnExit: TImage
+        ExplicitLeft = 255
+      end
     end
-    inherited btnSave: TImage
-      OnClick = btnSaveClick
+    inherited pnlFootButton01: TPanel
+      StyleElements = [seFont, seClient, seBorder]
+      ExplicitHeight = 62
+      inherited Label01: TLabel
+        Width = 50
+        StyleElements = [seFont, seClient, seBorder]
+      end
+      inherited btnSave: TImage
+        OnClick = btnSaveClick
+      end
     end
   end
 end
