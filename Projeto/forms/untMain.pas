@@ -9,7 +9,7 @@ uses
 
 type
   TfrmMain = class(TfrmStandard)
-    pnlHoje: TPanel;
+    pnlTopo: TPanel;
     pboxTopo: TPaintBox;
     lblTitleForm02: TLabel;
     pnlSideBar: TPanel;
@@ -44,7 +44,6 @@ type
     pnlSideButtonSpace10: TPanel;
     pnlSideButtonSpace09: TPanel;
     pnlHome: TPanel;
-    Label11: TLabel;
     pnlDigClock: TPanel;
     dgrClock: TPaintBox;
     pnlHour: TPanel;
@@ -59,15 +58,12 @@ type
     GridPanel2: TGridPanel;
     imgLogo: TImage;
     Calendar: TCalendarView;
-    Panel4: TPanel;
+    pnlRegistered: TPanel;
     Label17: TLabel;
     Label18: TLabel;
     Label19: TLabel;
     Label20: TLabel;
     pnlAgenda: TPanel;
-    Panel3: TPanel;
-    pboxHoje: TPaintBox;
-    lblHoje2: TLabel;
     pnlAtend: TPanel;
     lblAtendimentos: TLabel;
     pnlAtendimentos: TPanel;
@@ -85,6 +81,17 @@ type
     imgEnv: TImage;
     imgCfm: TImage;
     lblHoje: TLabel;
+    pnlCenter: TPanel;
+    Panel1: TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Image1: TImage;
+    Label1: TLabel;
+    Label11: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label16: TLabel;
+    Label21: TLabel;
 
     function getId(Sender: TObject): Integer;
 
@@ -403,6 +410,9 @@ begin
     // seta as definições da janela
     lblTitleForm02.Caption := 'EasyCare';
     Self.Caption           := gcAppTitle;
+
+
+    pnlCenter.Caption := inttostr(pnlCenter.Width);
 end;
 
 procedure TfrmMain.MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
