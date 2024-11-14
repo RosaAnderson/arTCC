@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, untStandard, Vcl.Imaging.pngimage,
-  Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.WinXCalendars;
+  Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.WinXCalendars, Vcl.Imaging.jpeg;
 
 type
   TfrmMain = class(TfrmStandard)
@@ -89,21 +89,20 @@ type
     Label16: TLabel;
     lblCliente: TLabel;
     Panel101: TPanel;
-    pnlNext02: TPanel;
+    pnlNext00: TPanel;
     pnlNextATDData: TPanel;
-    pnlNext01: TPanel;
-    pnlNextATDValor: TPanel;
-    Label22: TLabel;
-    Label23: TLabel;
-    pnlNextATDProc: TPanel;
-    Label24: TLabel;
-    Label25: TLabel;
     Label1: TLabel;
     Label11: TLabel;
     pnlNextATDHora: TPanel;
     Label13: TLabel;
     Label14: TLabel;
     Image1: TImage;
+    pnlNextATDValor: TPanel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Image2: TImage;
 
     function getId(Sender: TObject): Integer;
 
@@ -141,7 +140,7 @@ implementation
 
 uses untFunctions, untSource, untStyle, untObjects,
         c.atendimentos,
-        untAtd_Cadastro, untSnd_Mensagem, untPrepareMessage;
+        untAtd_Cadastro, untSnd_Mensagem, untPrepareMessage, untCli_Cadastro;
 
 var
     vType: string = 'text';
@@ -196,7 +195,7 @@ end;
 procedure TfrmMain.btnClienteClick(Sender: TObject);
 begin
     // inicializa o form
-    ToCreate(frmAtd_Cadastro, TfrmAtd_Cadastro, Self, nil, pnlAgenda);
+    ToCreate(frmCli_Cadastro, TfrmCli_Cadastro, Self, nil, pnlAgenda);
 end;
 
 procedure TfrmMain.btnCloClick(Sender: TObject);
