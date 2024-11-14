@@ -126,8 +126,8 @@ begin
             gvPort   :=            vINIFile.ReadString('DBAccessConfig', 'Port'  , '' );
             gvDriver :=            vINIFile.ReadString('DBAccessConfig', 'Driver', '' );
             gvUser   :=            vINIFile.ReadString('DBAccessConfig', 'User'  , '' );
-    //        gvPass   := Crypto('', vINIFile.ReadString('DBAccessConfig', 'Pass'  , ''));
-            gvPass   :=            vINIFile.ReadString('DBAccessConfig', 'Pass'  , '' );
+            gvPass   :=     Crypto(vINIFile.ReadString('DBAccessConfig', 'Pass'  , ''));
+//            gvPass   :=            vINIFile.ReadString('DBAccessConfig', 'Pass'  , '' );
         finally
             Result  := True;
         end;
@@ -151,7 +151,7 @@ begin
         vINIFile.WriteString('DBAccessConfig', 'Port'  ,            gvPort  );
         vINIFile.WriteString('DBAccessConfig', 'Driver',            gvDriver);
         vINIFile.WriteString('DBAccessConfig', 'User'  ,            gvUser  );
-//        vINIFile.WriteString('DBAccessConfig', 'Pass'  , Crypto('', gvPass) );
+        vINIFile.WriteString('DBAccessConfig', 'Pass'  ,     Crypto(gvPass) );
         vINIFile.WriteString('DBAccessConfig', 'Pass'  ,            gvPass  );
     finally
         vINIFile.free;
