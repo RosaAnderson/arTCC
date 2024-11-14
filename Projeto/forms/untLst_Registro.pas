@@ -18,6 +18,8 @@ type
     cdsLst: TClientDataSet;
     dtsLst: TDataSource;
     dbgList: TDBGrid;
+    pnl01: TPanel;
+    lbl01: TLabel;
     btnSet: TImage;
 
     procedure FormActivate(Sender: TObject);
