@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, untStandard, Vcl.Imaging.pngimage,
-  Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.WinXCalendars, Vcl.Imaging.jpeg;
+  Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.WinXCalendars, Vcl.Imaging.jpeg,
+  System.DateUtils;
 
 type
   TfrmMain = class(TfrmStandard)
@@ -82,26 +83,24 @@ type
     imgCfm: TImage;
     lblHoje: TLabel;
     pnlCenter: TPanel;
-    pnlNext: TPanel;
+    pnlNextATD: TPanel;
     shpBorda: TShape;
-    shpCircle: TShape;
     imgAvatar: TImage;
     Label16: TLabel;
-    lblCliente: TLabel;
-    Panel101: TPanel;
+    lblPES_NOME: TLabel;
     pnlNext00: TPanel;
     pnlNextATDData: TPanel;
     Label1: TLabel;
-    Label11: TLabel;
+    lblATD_DATA: TLabel;
     pnlNextATDHora: TPanel;
     Label13: TLabel;
-    Label14: TLabel;
-    Image1: TImage;
+    lblATD_HORA: TLabel;
+    imgBox: TImage;
     pnlNextATDValor: TPanel;
     Label22: TLabel;
-    Label23: TLabel;
+    lblATD_VALOR: TLabel;
     Label24: TLabel;
-    Label25: TLabel;
+    lblPRC_NOME: TLabel;
     Image2: TImage;
 
     function getId(Sender: TObject): Integer;
@@ -109,6 +108,8 @@ type
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
     procedure FormCreate(Sender: TObject);
+
+    procedure loadNextATD(Sender: TObject);
 
     procedure tmrClockTimer(Sender: TObject);
     procedure tmrAgendasTimer(Sender: TObject);
@@ -386,6 +387,59 @@ begin
     end;
 end;
 
+procedure TfrmMain.loadNextATD(Sender: TObject);
+var
+    vDataI: String;
+    vDataA: TDate;
+    vI    : Integer;
+begin
+  inherited;
+
+    try
+        // inicializa as variaveis
+        vDataA := Date; // pega a data atual
+        vDataI := FormatDateTime('dd/mm/yyyy', vDataA); // armazena a data inicial
+
+        // verifica se a hora atual é maio que a hora final do expediente
+        if Time > StrToTime(gvHExpF) then
+            vDataA := IncDay(Date, 1);
+
+        // faz a busca 50x
+        for vI := 0 to 45 do
+            // se não tiver atendimento na data especificada
+            if not(atdSearchOne(FormatDateTime('yyyy-mm-dd', vDataA), 'A')) then
+                vDataA := IncDay(vDataA, 1) // adiciona um dia à data
+            else
+            begin
+//                showMsg({janela de ogigem}    Self.Caption,
+//                        {título da mensagem}  'Agendamentos',
+//                        {mensagem ao usuário} 'Nenhum agendamento foi encontrato entre os dias ' +
+//                                              vDataI + ' e ' + FormatDateTime('', vDataA),
+//                        {caminho do ícone}    'exclamation', {check/error/question/exclamation}
+//                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+//                        {nome do link}        '',
+//                        {link}                '');
+
+                Break;
+            end;
+
+        // faz a busca do primeiro atendimento do dia
+        if c.atendimentos.getNextATD(FormatDateTime('yyyy-mm-dd', vDataA),
+                                      FormatDateTime('hh:MM', Time)) then
+        begin
+        //    imgAvatar.Picture;
+            lblPES_NOME.Caption  :=                         vcCLK_PES_NOME;
+            lblPRC_NOME.Caption  :=                         vcCLK_PRC_NOME;
+            lblATD_DATA.Caption  :=                         vcCLK_ATD_DATA;
+            lblATD_HORA.Caption  :=                    Copy(vcCLK_ATD_HORA, 1, 5);
+            lblATD_VALOR.Caption := FormatMoney((StrToFloat(vcCLK_ATD_VALOR)));
+
+            pnlNextATD.Visible   := True;
+        end;
+    finally
+    end;
+end;
+
 procedure TfrmMain.CalendarClick(Sender: TObject);
 begin
     // compara as dastas do sistema e do calendario
@@ -421,9 +475,6 @@ begin
     // seta as definições da janela
     lblTitleForm02.Caption := 'EasyCare';
     Self.Caption           := gcAppTitle;
-
-
-    pnlCenter.Caption := inttostr(pnlCenter.Width);
 end;
 
 procedure TfrmMain.MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -440,6 +491,10 @@ begin
     // define o tempo de atualização
     tmrAgendas.Interval := gvScheduleRefresh;
 
+    // carrega o proximo aendimento no card
+    loadNextATD(Sender);
+
+    // carrega as agendas
     iSchedulingBox(Self, pnlAtendimentos, gvDate);
 end;
 
@@ -451,3 +506,39 @@ end;
 
 end.
 
+
+
+
+var
+  V_Hora,V_Hora_1,V_Nova_Hora :TDateTime;
+  V_Qt_Segundos,V_Qt_Minutos,V_Qt_Horas: integer;
+
+SOMA SEGUNDOS A UMA HORA
+v_Nova_Hora := IncSecond(V_Hora,V_Qt_Segundos);
+
+SUBTRAI SEGUNDOS DE UMA HORA
+v_Nova_Hora := IncSecond(V_Hora,(V_Qt_Segundos*(-1)));
+
+SOMA MINUTOS A UMA HORA
+v_Nova_Hora := IncMinute(V_Hora,V_Qt_Minutos);
+
+SUBTRAI MINUTOS DE UMA HORA
+v_Nova_Hora := IncMinute(V_Hora,(V_Qt_Minutos*(-1)));
+
+SOMA HORAS A UMA HORA
+v_Nova_Hora := IncHour(V_Hora,V_Qt_Horas);
+
+SUBTRAI HORAS DE UMA HORA
+v_Nova_Hora := IncHour(V_Hora,(V_Qt_Horas*(-1)));
+
+DIFERENÇA DE SEGUNDOS ENTRE DUAS HORAS
+V_Nova_Hora := IntToStr(SecondsBetween(V_Hora,V_Hora_1));
+
+DIFERENÇA DE MINUTOS ENTRE DUAS HORAS
+V_Nora_Nova := IntToStr(MinutesBetween(V_Hora,V_Hora_1));
+
+DIFERENÇA DE HORAS ENTRE DUAS HORAS
+V_Nora_Nova := IntToStr(HoursBetween(V_Hora,V_Hora_1));
+
+DIFERENÇA ENTRE DUAS HORAS
+V_Nova_Hora := (StrToTime('23:59:59') + StrToTime('00:00:01')-V_Hora)+V_Hora_1;

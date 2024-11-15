@@ -27,10 +27,10 @@ type
     end;
 
         procedure cDisconnect();
-        procedure getNextClient(vpData, vpHora: string);
 
+        function getNextATD(vpData, vpHora: string): Boolean;
         function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
-        function atdSearchOne(vfValue: string): Boolean;
+        function atdSearchOne(vfValue, vfStatus: string): Boolean;
         function atdSearchAll(vfValue: string): Boolean;
         function atdGetID(vfValue: string): Integer;
         function atdUpdate(vfValue: Integer): Boolean;
@@ -97,8 +97,11 @@ begin
     frmDBConnect.DBDisconnect; // desconecta
 end;
 
-procedure getNextClient(vpData, vpHora: string);
+function getNextATD(vpData, vpHora: string): Boolean;
 begin
+    //
+    Result := True;
+
     try
         // conecta
         if not(frmDBConnect.DBConnect) then
@@ -120,8 +123,9 @@ begin
                 SQL.Add('   JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
                 SQL.Add('   JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
                 SQL.Add('   JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)     ');
-                SQL.Add('  WHERE ATD_DATA = ' + QuotedStr(vpData)            );
-                SQL.Add('    AND ATD_HORA > ' + QuotedStr(vpHora + ':00')    );
+                SQL.Add('  WHERE ATD_STATUS = ''A''                         ');
+                SQL.Add('    AND ATD_DATA   = ' + QuotedStr(vpData)          );
+                SQL.Add('    AND ATD_HORA   > ' + QuotedStr(vpHora + ':00')  );
                 SQL.Add('  ORDER BY ATD_HORA                                ');
                 SQL.Add('  LIMIT 1                                          ');
                 Open;
@@ -137,14 +141,18 @@ begin
                     vcCLK_PRC_NOME  := FieldByName('PRC_NOME').AsString;
                 end;
             end;
+
+            Result := not(qryAuxATD.IsEmpty); // derfine o resultado
         except
+            //
+            Result := False;
         end;
     finally
         cDisconnect(); // desconecta
     end;
 end;
 
-function atdSearchOne(vfValue: string): Boolean;
+function atdSearchOne(vfValue, vfStatus: string): Boolean;
 begin
     //
     Result := True;
@@ -165,9 +173,13 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
                 // insere o sql
-                SQL.Add(' SELECT * FROM ATENDIMENTOS ');
-                SQL.Add(' WHERE ATD_ID = :ATD_BUSCA  ');
-//                SQL.Add('   AND ATD_STATUS = ''A''   ');
+                SQL.Add(' SELECT * FROM ATENDIMENTOS  ');
+                SQL.Add(' WHERE ATD_ID   = :ATD_BUSCA ');
+                SQL.Add('    OR ATD_DATA = :ATD_BUSCA ');
+
+                if vfStatus <> '' then
+                    SQL.Add(' AND ATD_STATUS = ' +
+                               QuotedStr(vfStatus));
 
                 ParamByName('ATD_BUSCA').AsString := vfValue; // passa o valor do parametro
                 Open; // faz a pesquisa
