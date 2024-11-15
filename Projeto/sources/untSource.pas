@@ -35,15 +35,18 @@ uses e.log,
     sysColorGradientEnd           : TColor  = $002A5320;
 
     // variaveis de ambiente e sistema
-    gvDate                        : TDate;
     gcAppName                     : string  = 'EasyCare'; // nome do sistema/aplicativo
     gcAppTitle                    : string  = 'AR EasyCare - Sistema Gestão de Clínica Estética';
     gcSymbolLine                  : string  = '%0A'; // caracteres para mudança de linha em uma url
     gcSymbolSpace                 : string  = '%20'; // caracteres para espaço em uma url
     gcPosResult                   : Integer = Length('result:') + 1; // valor para encontrar o result no json
     gcPosMessId                   : Integer = Length('result:') + 1; // valor para encontrar o id da mensagem no json
-    gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
     gvResponse                    : Integer = 0; // armazena um codigo do banco de dados da tabela config para checar se coletou os dados de configuração
+
+    gvDate                        : TDate; // armazena a data do sistema
+    gvHExpI                       : string = '08:00'; // define a hora inicial do expediente
+    gvHExpF                       : string = '18:00'; // define a hora final do expediente
+    gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
     gvScheduleInterval            : Integer = 30; // define o intervalo minimo de cada atendimento
     gvScheduleRefresh             : Integer = (1000 * 60) * 30; // define o intervalo entre cada atualização da agenda
 

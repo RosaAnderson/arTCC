@@ -26,7 +26,7 @@ var
 
 implementation
 
-uses c.atendimentos, untFunctions, untMain;
+uses c.atendimentos, untFunctions, untMain, untSource;
 
 procedure iSchedulingBox(vfForm: TForm; vfParentPanel: TPanel; vfData: TDate);
 var
@@ -50,8 +50,8 @@ begin
     vFComponent  := vfForm.FindComponent(vBoxName);
 
     // define a hora inicial e final
-    vHIExp := StrToTime('08:00');
-    vHFExp := StrToTime('18:00');
+    vHIExp := StrToTime(gvHExpI);
+    vHFExp := StrToTime(gvHExpF);
 
     // calcula o expediente
     vHoraE := StrToInt(FormatDateTime('hh', (vHFExp - vHIExp)));// * 2;
