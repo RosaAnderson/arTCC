@@ -27,6 +27,7 @@ type
     end;
 
         procedure cDisconnect();
+        procedure getNextClient(vpData, vpHora: string);
 
         function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
         function atdSearchOne(vfValue: string): Boolean;
@@ -34,6 +35,8 @@ type
         function atdGetID(vfValue: string): Integer;
         function atdUpdate(vfValue: Integer): Boolean;
         function atdChange(vfValue: Integer; vfTo: string): Boolean;
+
+
 
 var
     qryAuxATD            : TFDQuery;
@@ -92,6 +95,53 @@ begin
     qryAuxATD.Free; // descarrega a query
 
     frmDBConnect.DBDisconnect; // desconecta
+end;
+
+procedure getNextClient(vpData, vpHora: string);
+begin
+    try
+        // conecta
+        if not(frmDBConnect.DBConnect) then
+            Exit
+        else
+            qryAuxATD := TFDQuery.Create(nil); // cria a query
+
+        try
+            with qryAuxATD do
+            begin
+                Connection := frmDBConnect.FDConnect; // define o bando de dados
+                SQL.Clear;
+                SQL.Add(' SELECT                                            ');
+            	SQL.Add('     ATD_DATA, ATD_HORA, ATD_VALOR,                ');
+            	SQL.Add('     PES_NOME, PES_AVATAR,                         ');
+            	SQL.Add('     PRC_NOME                                      ');
+                SQL.Add('   FROM ATENDIMENTOS                               ');
+                SQL.Add('   JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
+                SQL.Add('   JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
+                SQL.Add('   JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
+                SQL.Add('   JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)     ');
+                SQL.Add('  WHERE ATD_DATA = ' + QuotedStr(vpData)            );
+                SQL.Add('    AND ATD_HORA > ' + QuotedStr(vpHora + ':00')    );
+                SQL.Add('  ORDER BY ATD_HORA                                ');
+                SQL.Add('  LIMIT 1                                          ');
+                Open;
+
+                if not(IsEmpty) then
+                begin
+                    // insere os dados nos campos
+                    vcCLK_ATD_DATA  := FieldByName('ATD_DATA').AsString;
+                    vcCLK_ATD_HORA  := FieldByName('ATD_HORA').AsString;
+                    vcCLK_ATD_VALOR := FieldByName('ATD_VALOR').AsString;
+                    vcCLK_PES_NOME  := FieldByName('PES_NOME').AsString;
+//                    vcCLK_PRC_ID    := FieldByName('PRC_ID').AsInteger;
+                    vcCLK_PRC_NOME  := FieldByName('PRC_NOME').AsString;
+                end;
+            end;
+        except
+        end;
+    finally
+        cDisconnect(); // desconecta
+    end;
 end;
 
 function atdSearchOne(vfValue: string): Boolean;
