@@ -1,0 +1,4 @@
+ALTER TABLE ATENDIMENTOS # nome da tabela q será alterada
+CHANGE ATD_DATA_ATUALIZADO # nome do campo que será reordenado
+ATD_DATA_ATUALIZADO TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP # dados do campo que será reordenado (mesmo dados usados para criar o campo)
+AFTER ATD_VALOR # nome do campo que de referencia (campo que ficará acima do campo q será reordenado)
