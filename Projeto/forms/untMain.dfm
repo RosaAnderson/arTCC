@@ -20799,6 +20799,7 @@ inherited frmMain: TfrmMain
         Font.Name = 'Open Sans'
         Font.Style = []
         ParentFont = False
+        Layout = tlCenter
         ExplicitTop = 155
       end
       object imgBox: TImage
@@ -22315,6 +22316,7 @@ inherited frmMain: TfrmMain
       Color = 2773792
       ParentBackground = False
       TabOrder = 1
+      Visible = False
     end
     object Panel2: TPanel
       AlignWithMargins = True

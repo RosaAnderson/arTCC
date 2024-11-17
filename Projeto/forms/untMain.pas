@@ -446,15 +446,18 @@ begin
         // verifica se a hora atual é maior que a hora final do expediente
         if Time > StrToTime(gvHExpF) then
         begin
-            vDataA := IncDay(Date, 1);
-            vTimeI := IncHour(StrToTime(gvHExpI), -1);
+            vDataA := IncDay(Date, 1); // incrementa a data
+            vTimeI := IncHour(StrToTime(gvHExpI), -1); // seta a hora para a primeira hora do expediente
         end;
 
         // faz a busca 50x
         for vI := 0 to 45 do
             // se não tiver atendimento na data especificada
             if not(atdSearchOne(FormatDateTime('yyyy-mm-dd', vDataA), 'A')) then
-                vDataA := IncDay(vDataA, 1) // adiciona um dia à data
+            begin
+                vDataA := IncDay(vDataA, 1); // incrementa a data
+                vTimeI := IncHour(StrToTime(gvHExpI), -1); // seta a hora para a primeira hora do expediente
+            end
             else
             begin
 //                showMsg({janela de ogigem}    Self.Caption,
