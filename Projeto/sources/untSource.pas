@@ -135,6 +135,7 @@ uses e.log,
     gvATD_FPG_ID                  : Integer = 0;
     gvATD_INC                     : TDateTime;
     gvATD_STATUS                  : string = '';
+    gvATD_NOTIFICADO              : string = '';
     gvATD_DATA                    : TDate;
     gvATD_HORA                    : TTime;
     gvATD_DURACAO                 : Integer = 0;

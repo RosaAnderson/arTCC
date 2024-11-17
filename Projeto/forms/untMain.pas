@@ -306,7 +306,7 @@ begin
                                              vATD_ID);
 
                 // se o atendimento já foi finalizado
-                if gvATD_STATUS = 'N' then
+                if gvATD_STATUS = 'F' then
                 begin
                     vError := -5;
                     Exit;
@@ -335,9 +335,17 @@ begin
                 end;
 
                 // envia a mensagem
-                if not(getSendResult(SendToWhatsapp(vSND_TELEFONE, 'single-notification',
+                if (getSendResult(SendToWhatsapp(vSND_TELEFONE, 'single-notification',
                                               vType, '', '', vSND_MESSAGE))) then
-                vError := 1;
+                begin
+                    // marca o atendimento como nofificado
+                    c.atendimentos.atdSetNotified(vATD_ID);
+
+                    // recarrega os dados
+                    iSchedulingBox(Self, pnlAtendimentos, gvDate);
+                end
+                else
+                    vError := 1; // muda o status
             end;
         finally
             // exibe a mensagem

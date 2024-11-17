@@ -35,6 +35,7 @@ type
         function atdGetID(vfValue: string): Integer;
         function atdUpdate(vfValue: Integer): Boolean;
         function atdChange(vfValue: Integer; vfTo: string): Boolean;
+        function atdSetNotified(vfValue: Integer): Boolean;
 
 
 
@@ -70,6 +71,7 @@ var
 
     vcCLK_ATD_ID         : Integer;
     vcCLK_ATD_STATUS     : string;
+    vcCLK_ATD_NOTIFICADO : string;
     vcCLK_ATD_DATA       : string;
     vcCLK_ATD_DURACAO    : string;
     vcCLK_ATD_HORA       : string;
@@ -490,6 +492,39 @@ begin
     end;
 end;
 
+function atdSetNotified(vfValue: Integer): Boolean;
+begin
+    Result := True;
+
+    try
+        // conecta
+        if not(frmDBConnect.DBConnect) then
+        begin
+            Result := False;
+            Exit;
+        end
+        else
+            qryAuxATD := TFDQuery.Create(nil); // cria a query
+
+        try
+            with qryAuxATD do
+            begin
+                Connection := frmDBConnect.FDConnect; // define o bando de dados
+                SQL.Clear;
+                SQL.Add(' UPDATE ATENDIMENTOS SET    ');
+                SQL.Add(' ATD_NOTIFICADO = ''S''     ');
+                SQL.Add(' WHERE ATD_ID = ' +
+                          QuotedStr(IntToStr(vfValue)));
+                ExecSQL;
+            end;
+        except
+            Result := False;
+        end;
+    finally
+        cDisconnect(); // desconecta
+    end;
+end;
+
 function atdChange(vfValue: Integer; vfTo: string): Boolean;
 begin
     Result := True;
@@ -510,7 +545,7 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
                 SQL.Clear;
                 SQL.Add(' UPDATE ATENDIMENTOS SET    ');
-                SQL.Add(' ATD_STATUS = ''C'',        ');
+//                SQL.Add(' ATD_STATUS = ''C'',        ');
                 SQL.Add(' ATD_STATUS = ' +
                           QuotedStr(UpperCase(vfTo))  );
                 SQL.Add(' WHERE ATD_ID = ' +
@@ -528,16 +563,17 @@ end;
 function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
 begin
     //
-    Result             := True;
-    vcCLK_ATD_ID       := 0;
-    vcCLK_ATD_STATUS   := '';
-    vcCLK_ATD_DATA     := '';
-    vcCLK_ATD_DURACAO  := '';
-    vcCLK_ATD_HORA     := '';
-    vcCLK_ATD_VALOR    := '';
-    vcCLK_PRC_NOME     := '';
-    vcCLK_TEL_TELEFONE := '';
-    vcCLK_PES_NOME     := '';
+    Result               := True;
+    vcCLK_ATD_ID         := 0;
+    vcCLK_ATD_STATUS     := '';
+    vcCLK_ATD_NOTIFICADO := '';
+    vcCLK_ATD_DATA       := '';
+    vcCLK_ATD_DURACAO    := '';
+    vcCLK_ATD_HORA       := '';
+    vcCLK_ATD_VALOR      := '';
+    vcCLK_PRC_NOME       := '';
+    vcCLK_TEL_TELEFONE   := '';
+    vcCLK_PES_NOME       := '';
 
    try
         // conecta
@@ -555,7 +591,8 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
                 SQL.Add(' SELECT                                           ');
-                SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, ATD_HORA,        ');
+                SQL.Add('   ATD_ID, ATD_STATUS, ATD_NOTIFICADO,            ');
+                SQL.Add('   ATD_DATA, ATD_HORA,                            ');
                 SQL.Add('   ATD_DURACAO, ATD_VALOR, ATD_OBSERVACOES,       ');
                 SQL.Add('   PES_ID, PES_NOME,                              ');
                 SQL.Add('   PRC_ID, PRC_NOME,                              ');
@@ -600,6 +637,7 @@ begin
                     // insere os dados nos campos
                     vcCLK_ATD_ID          := FieldByName('ATD_ID').AsInteger;
                     vcCLK_ATD_STATUS      := FieldByName('ATD_STATUS').AsString;
+                    vcCLK_ATD_NOTIFICADO  := FieldByName('ATD_NOTIFICADO').AsString;
                     vcCLK_ATD_DATA        := FieldByName('ATD_DATA').AsString;
                     vcCLK_ATD_HORA        := FieldByName('ATD_HORAF').AsString;
                     vcCLK_ATD_DURACAO     := FieldByName('ATD_DURACAOF').AsString;
@@ -626,6 +664,7 @@ begin
                 gvATD_ID          := vcCLK_ATD_ID;
 //                gvATD_INC         := vcATD_INC;
                 gvATD_STATUS      := vcCLK_ATD_STATUS;
+                gvATD_NOTIFICADO  := vcCLK_ATD_NOTIFICADO;
 //                gvATD_DATA        := vcATD_DATA;
 //                gvATD_HORA        := vcATD_HORA;
 //                gvATD_DURACAO     := vcATD_DURACAO;

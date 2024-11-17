@@ -220,7 +220,7 @@ begin
 //##############################################################################
 //# cria a image de botão enviar mensagem ######################################
 //##############################################################################
-        if vcCLK_PES_NOME <> '' then
+        if vcCLK_ATD_NOTIFICADO = 'S' then
         begin
             FSenImage          := TImage.Create(vfForm);
             FSenImage.Parent   := FCliPanel;

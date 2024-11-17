@@ -20796,7 +20796,6 @@ inherited frmMain: TfrmMain
         Font.Style = [fsBold]
         ParentFont = False
         Layout = tlCenter
-        ExplicitTop = 136
         ExplicitWidth = 43
       end
       object lblPES_NOME: TLabel
@@ -20989,7 +20988,6 @@ inherited frmMain: TfrmMain
         Font.Style = [fsBold]
         ParentFont = False
         Layout = tlCenter
-        ExplicitTop = 192
         ExplicitWidth = 84
       end
       object lblPRC_NOME: TLabel
@@ -21043,7 +21041,6 @@ inherited frmMain: TfrmMain
           Color = clWhite
           ParentBackground = False
           TabOrder = 0
-          ExplicitHeight = 50
           object Label1: TLabel
             AlignWithMargins = True
             Left = 5
@@ -21103,7 +21100,6 @@ inherited frmMain: TfrmMain
           Color = clWhite
           ParentBackground = False
           TabOrder = 1
-          ExplicitHeight = 50
           object Label13: TLabel
             AlignWithMargins = True
             Left = 5
@@ -21163,7 +21159,6 @@ inherited frmMain: TfrmMain
           Color = clWhite
           ParentBackground = False
           TabOrder = 2
-          ExplicitHeight = 50
           object Label22: TLabel
             AlignWithMargins = True
             Left = 5

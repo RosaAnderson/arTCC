@@ -26,8 +26,9 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     inherited pnlFootButton02: TPanel
       Left = 765
       StyleElements = [seFont, seClient, seBorder]
-      ExplicitLeft = 665
+      ExplicitLeft = 765
       inherited label02: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnExit: TImage
@@ -38,6 +39,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
       inherited Label01: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
     end
@@ -56,7 +58,6 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       Color = clWhite
       ParentBackground = False
       TabOrder = 2
-      ExplicitLeft = 25
       object lbl01: TLabel
         Left = 0
         Top = 50
@@ -1166,8 +1167,6 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       Color = clWhite
       ParentBackground = False
       TabOrder = 3
-      ExplicitLeft = 25
-      ExplicitWidth = 50
       object Label1: TLabel
         Left = 0
         Top = 50
@@ -1709,6 +1708,21 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
         ExplicitHeight = 52
       end
     end
+    object btnNotified: TToggleSwitch
+      Left = 96
+      Top = 16
+      Width = 203
+      Height = 25
+      Color = clMoneyGreen
+      FrameColor = 2773792
+      State = tssOn
+      StateCaptions.CaptionOn = 'Ocultar Notificados'
+      StateCaptions.CaptionOff = 'Ocultar Notificados'
+      TabOrder = 4
+      TabStop = False
+      ThumbColor = 2773792
+      OnClick = reLoad
+    end
   end
   object dbgList: TDBGrid
     AlignWithMargins = True
@@ -1837,7 +1851,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
         Title.Font.Height = -21
         Title.Font.Name = 'Segoe UI'
         Title.Font.Style = [fsBold]
-        Width = 320
+        Width = 330
         Visible = True
       end
       item

@@ -43,6 +43,7 @@ type
     Panel1: TPanel;
     Label1: TLabel;
     btnSendAll: TImage;
+    btnNotified: TToggleSwitch;
     procedure reLoad(Sender: TObject);
 
     procedure FormCreate(Sender: TObject);
@@ -69,7 +70,8 @@ implementation
 
 {$R *.dfm}
 
-uses untStyle, untDBConnect, untFunctions, untPrepareMessage, untSource;
+uses untStyle, untDBConnect, untFunctions, untPrepareMessage, untSource,
+  c.atendimentos;
 
 var
     vType : string  = 'text';
@@ -99,6 +101,7 @@ begin
   inherited;
     // oculta a barra de rolagem horizontal
     ShowScrollBar(dbgList.handle, SB_HORZ, False);
+    ShowScrollBar(dbgList.handle, SB_VERT, False);
 end;
 
 procedure TfrmSnd_Mensagem.FormCreate(Sender: TObject);
@@ -139,6 +142,11 @@ begin
         SQL.Add('  JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)        ');
         SQL.Add(' WHERE ATD_DATA = :ATD_DATA                          ');
         SQL.Add('   AND ATD_STATUS = ''A''                            ');
+
+        // vrifica se vai ocultar/exibir clientes já notificados
+        if btnNotified.State = tssOn then
+            SQL.Add(' AND ATD_NOTIFICADO = ''N'' ');
+
         SQL.Add(' ORDER BY ATD_HORA                                   ');
         ParamByName('ATD_DATA').AsDate := Calendar.Date;
         Open;
@@ -147,6 +155,12 @@ begin
     // carrega os dados no CDS
     cdsAtd.Open;
     cdsAtd.Refresh;
+
+    // exibe/oculta o dbgrid
+    dbgList.Visible := not(cdsAtd.IsEmpty);
+
+    // oculta a barra de rolagem horizontal
+    ShowScrollBar(dbgList.handle, SB_HORZ, False);
 end;
 
 procedure TfrmSnd_Mensagem.btnSendAllClick(Sender: TObject);
@@ -204,6 +218,9 @@ begin
                 SendToWhatsapp(vSND_TELEFONE, 'mult-notification',
                                 vType, '', '', vSND_MESSAGE)) then
             begin
+                // marca o atendimento como nofificado
+                c.atendimentos.atdSetNotified(cdsAtd.FieldByName('ATD_ID').AsInteger);
+
                 // adiciona o historico
                 txtHistory.Lines.Add('    - ' + vPES_NOME + ' => enviada com sucesso.')
             end
