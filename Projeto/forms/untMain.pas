@@ -82,12 +82,16 @@ type
     imgEnv: TImage;
     imgCfm: TImage;
     lblHoje: TLabel;
+    Image2: TImage;
     pnlCenter: TPanel;
     pnlNextATD: TPanel;
-    shpBorda: TShape;
     imgAvatar: TImage;
+    shpBorda: TShape;
     Label16: TLabel;
     lblPES_NOME: TLabel;
+    imgBox: TImage;
+    Label24: TLabel;
+    lblPRC_NOME: TLabel;
     pnlNext00: TPanel;
     pnlNextATDData: TPanel;
     Label1: TLabel;
@@ -95,13 +99,9 @@ type
     pnlNextATDHora: TPanel;
     Label13: TLabel;
     lblATD_HORA: TLabel;
-    imgBox: TImage;
     pnlNextATDValor: TPanel;
     Label22: TLabel;
     lblATD_VALOR: TLabel;
-    Label24: TLabel;
-    lblPRC_NOME: TLabel;
-    Image2: TImage;
 
     function getId(Sender: TObject): Integer;
 
@@ -398,6 +398,7 @@ end;
 procedure TfrmMain.loadNextATD(Sender: TObject);
 var
     vDataI: String;
+    vTimeI: TTime;
     vDataA: TDate;
     vI    : Integer;
 begin
@@ -406,11 +407,15 @@ begin
     try
         // inicializa as variaveis
         vDataA := Date; // pega a data atual
+        vTimeI := Time; // pega a hora atual
         vDataI := FormatDateTime('dd/mm/yyyy', vDataA); // armazena a data inicial
 
-        // verifica se a hora atual é maio que a hora final do expediente
+        // verifica se a hora atual é maior que a hora final do expediente
         if Time > StrToTime(gvHExpF) then
+        begin
             vDataA := IncDay(Date, 1);
+            vTimeI := IncHour(StrToTime(gvHExpI), -1);
+        end;
 
         // faz a busca 50x
         for vI := 0 to 45 do
@@ -433,7 +438,7 @@ begin
 
         // faz a busca do primeiro atendimento do dia
         if c.atendimentos.getNextATD(FormatDateTime('yyyy-mm-dd', vDataA),
-                                      FormatDateTime('hh:MM', Time)) then
+                                      FormatDateTime('hh:MM', vTimeI)) then
         begin
         //    imgAvatar.Picture;
             lblPES_NOME.Caption  :=                         vcCLK_PES_NOME;

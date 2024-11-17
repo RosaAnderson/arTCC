@@ -101,6 +101,7 @@ inherited frmMain: TfrmMain
       Transparent = True
       Layout = tlBottom
       WordWrap = True
+      OnMouseMove = MoveForm
       ExplicitLeft = 5
       ExplicitTop = 7
       ExplicitWidth = 578
@@ -14231,13 +14232,13 @@ inherited frmMain: TfrmMain
     end
     object Calendar: TCalendarView
       AlignWithMargins = True
-      Left = 0
+      Left = 5
       Top = 125
-      Width = 350
+      Width = 340
       Height = 263
-      Margins.Left = 0
+      Margins.Left = 5
       Margins.Top = 5
-      Margins.Right = 0
+      Margins.Right = 5
       Margins.Bottom = 4
       Align = alTop
       BorderColor = 13298641
@@ -14268,6 +14269,8 @@ inherited frmMain: TfrmMain
       SelectionColor = 2773792
       TabOrder = 2
       TodayColor = 2773792
+      ExplicitLeft = 0
+      ExplicitWidth = 350
     end
     object pnlRegistered: TPanel
       Left = 3
@@ -17719,7 +17722,7 @@ inherited frmMain: TfrmMain
     Margins.Top = 5
     Margins.Right = 0
     Margins.Bottom = 5
-    Align = alClient
+    Align = alLeft
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
@@ -21095,7 +21098,7 @@ inherited frmMain: TfrmMain
           Margins.Top = 5
           Margins.Right = 0
           Margins.Bottom = 5
-          Align = alLeft
+          Align = alClient
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
@@ -21154,7 +21157,7 @@ inherited frmMain: TfrmMain
           Margins.Top = 5
           Margins.Right = 0
           Margins.Bottom = 5
-          Align = alClient
+          Align = alRight
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
@@ -21163,7 +21166,7 @@ inherited frmMain: TfrmMain
             AlignWithMargins = True
             Left = 5
             Top = 5
-            Width = 80
+            Width = 90
             Height = 17
             Margins.Left = 5
             Margins.Top = 5
@@ -21185,7 +21188,7 @@ inherited frmMain: TfrmMain
             AlignWithMargins = True
             Left = 5
             Top = 22
-            Width = 80
+            Width = 90
             Height = 17
             Margins.Left = 5
             Margins.Top = 0
