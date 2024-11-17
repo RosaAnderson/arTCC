@@ -117,7 +117,7 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
                 SQL.Clear;
                 SQL.Add(' SELECT                                            ');
-            	SQL.Add('     ATD_DATA, ATD_HORA, ATD_VALOR,                ');
+            	SQL.Add('     ATD_ID, ATD_DATA, ATD_HORA, ATD_VALOR,        ');
             	SQL.Add('     PES_NOME, PES_AVATAR,                         ');
             	SQL.Add('     PRC_NOME                                      ');
                 SQL.Add('   FROM ATENDIMENTOS                               ');
@@ -135,6 +135,7 @@ begin
                 if not(IsEmpty) then
                 begin
                     // insere os dados nos campos
+                    vcCLK_ATD_ID    := FieldByName('ATD_ID').AsInteger;
                     vcCLK_ATD_DATA  := FieldByName('ATD_DATA').AsString;
                     vcCLK_ATD_HORA  := FieldByName('ATD_HORA').AsString;
                     vcCLK_ATD_VALOR := FieldByName('ATD_VALOR').AsString;

@@ -87,7 +87,6 @@ type
     pnlNextATD: TPanel;
     imgAvatar: TImage;
     shpBorda: TShape;
-    Label16: TLabel;
     lblPES_NOME: TLabel;
     imgBox: TImage;
     Label24: TLabel;
@@ -102,8 +101,13 @@ type
     pnlNextATDValor: TPanel;
     Label22: TLabel;
     lblATD_VALOR: TLabel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    btnConfirmN: TImage;
+    btnCancelN: TImage;
 
     function getId(Sender: TObject): Integer;
+    function getName(Sender: TObject): string;
 
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 
@@ -124,6 +128,7 @@ type
     procedure btnCanClick(Sender: TObject);
     procedure btnNotificacoesClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
+    procedure btnCompromissoClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -153,6 +158,25 @@ begin
     Result := (Sender as TImage).parent.Tag;
 end;
 
+function TfrmMain.getName(Sender: TObject): string;
+var
+    vComponent: TComponent;
+begin
+    try
+        // pega o nome do cliente
+        vComponent := nil;
+        vComponent := Self.FindComponent('lblC_' + Copy((Sender as TImage).Parent.Name, 6, 30));
+        Result     := (vComponent as TLabel).Caption;
+
+        if Result = '' then
+            Result := ' de ' + lblPES_NOME.Caption
+        else
+            Result := ' de ' + Result;
+    finally
+        vComponent := nil;
+    end;
+end;
+
 procedure TfrmMain.btnAddClick(Sender: TObject);
 begin
     // pega o id do atendimento
@@ -178,7 +202,8 @@ begin
     //
     if showMsg({janela de ogigem}    Self.Caption,
                {título da mensagem}  '',
-               {mensagem ao usuário} 'Deseja realmente cancelar o atendimento?',
+               {mensagem ao usuário} 'Deseja realmente cancelar o atendimento' +
+                                     getName(Sender) + '?',
                {caminho do ícone}    'question', {check/error/question/exclamation}
                {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
                {nome do link}        '',
@@ -210,7 +235,8 @@ begin
 
     if showMsg({janela de ogigem}    Self.Caption,
                {título da mensagem}  '',
-               {mensagem ao usuário} 'Deseja realmente marcar o atendimento como finalizado?',
+               {mensagem ao usuário} 'Deseja realmente marcar o atendimento' +
+                                     getName(Sender) + ' como finalizado?',
                {caminho do ícone}    'question', {check/error/question/exclamation}
                {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
                {nome do link}        '',
@@ -226,6 +252,13 @@ procedure TfrmMain.btnCloseClick(Sender: TObject);
 begin
     // encerra a aplicação
     Application.Terminate;
+end;
+
+procedure TfrmMain.btnCompromissoClick(Sender: TObject);
+begin
+  inherited;
+    // exibe/oculta a agenda
+    pnlAgenda.Visible := not(pnlAgenda.Visible);
 end;
 
 procedure TfrmMain.btnEdtClick(Sender: TObject);
@@ -440,6 +473,7 @@ begin
         if c.atendimentos.getNextATD(FormatDateTime('yyyy-mm-dd', vDataA),
                                       FormatDateTime('hh:MM', vTimeI)) then
         begin
+            pnlNextATD.Tag       :=                         vcCLK_ATD_ID;
         //    imgAvatar.Picture;
             lblPES_NOME.Caption  :=                         vcCLK_PES_NOME;
             lblPRC_NOME.Caption  :=                         vcCLK_PRC_NOME;
