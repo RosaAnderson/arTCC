@@ -198,6 +198,10 @@
         <DCCReference Include="forms\untSnd_Mensagem.pas">
             <Form>frmSnd_Mensagem</Form>
         </DCCReference>
+        <DCCReference Include="dialogs\untAlarm.pas">
+            <Form>frmAlarm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

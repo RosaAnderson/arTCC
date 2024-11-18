@@ -33,7 +33,8 @@ uses
   untCom_Cadastro in 'forms\untCom_Cadastro.pas' {frmCom_Cadastro},
   untCom_Listagem in 'forms\untCom_Listagem.pas' {frmCom_Listagem},
   untLst_Registro in 'forms\untLst_Registro.pas' {frmLst_Registro},
-  untSnd_Mensagem in 'forms\untSnd_Mensagem.pas' {frmSnd_Mensagem};
+  untSnd_Mensagem in 'forms\untSnd_Mensagem.pas' {frmSnd_Mensagem},
+  untAlarm in 'dialogs\untAlarm.pas' {frmAlarm};
 
 {$R *.res}
 
@@ -41,14 +42,21 @@ var
     vDBDriver: string = 'MySQL';
 
 begin
-    ReportMemoryLeaksOnShutdown := True;
-
     Application.Initialize;
+    // se estiver em Debug
+    if (DebugHook <> 0) then
+    begin
+        gvScheduleRefresh := (1000 * 45);
+        gvHExpI           := '06:00';
+        gvHExpF           := '23:00';
+    end;
+
 //    sysDevTools := (DebugHook <> 0);
     ReportMemoryLeaksOnShutdown := (DebugHook <> 0);
 
     Application.CreateForm(TfrmDBConnect, frmDBConnect);
-  Application.MainFormOnTaskbar := True;
+
+    Application.MainFormOnTaskbar := True;
     Application.Title := gcAppTitle;
 
     // define a data inicial

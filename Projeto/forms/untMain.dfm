@@ -14363,9 +14363,9 @@ inherited frmMain: TfrmMain
   end
   object pnlAgenda: TPanel
     AlignWithMargins = True
-    Left = 695
+    Left = 995
     Top = 105
-    Width = 600
+    Width = 300
     Height = 612
     Margins.Left = 5
     Margins.Top = 5
@@ -14441,7 +14441,7 @@ inherited frmMain: TfrmMain
       AlignWithMargins = True
       Left = 300
       Top = 0
-      Width = 300
+      Width = 0
       Height = 612
       Margins.Left = 0
       Margins.Top = 0
@@ -14452,11 +14452,13 @@ inherited frmMain: TfrmMain
       Color = clWhite
       ParentBackground = False
       TabOrder = 1
+      Visible = False
+      ExplicitWidth = 300
       object lblCompromisso: TLabel
         AlignWithMargins = True
         Left = 0
         Top = 0
-        Width = 299
+        Width = -1
         Height = 30
         Hint = 'lblTitleForm'
         Margins.Left = 0
@@ -14484,7 +14486,7 @@ inherited frmMain: TfrmMain
         AlignWithMargins = True
         Left = 0
         Top = 30
-        Width = 300
+        Width = 0
         Height = 582
         Hint = 'Compromissos'
         Margins.Left = 0
@@ -14496,6 +14498,7 @@ inherited frmMain: TfrmMain
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 300
       end
     end
   end
@@ -22304,9 +22307,9 @@ inherited frmMain: TfrmMain
     object Panel1: TPanel
       AlignWithMargins = True
       Left = 0
-      Top = 393
+      Top = 505
       Width = 250
-      Height = 103
+      Height = 100
       Margins.Left = 0
       Margins.Top = 15
       Margins.Right = 0
@@ -22321,9 +22324,9 @@ inherited frmMain: TfrmMain
     object Panel2: TPanel
       AlignWithMargins = True
       Left = 0
-      Top = 275
+      Top = 390
       Width = 250
-      Height = 103
+      Height = 100
       Margins.Left = 0
       Margins.Top = 15
       Margins.Right = 0
@@ -22333,6 +22336,493 @@ inherited frmMain: TfrmMain
       Color = 2773792
       ParentBackground = False
       TabOrder = 2
+      object Label11: TLabel
+        AlignWithMargins = True
+        Left = 10
+        Top = 2
+        Width = 239
+        Height = 22
+        Margins.Left = 10
+        Margins.Top = 2
+        Margins.Right = 1
+        Margins.Bottom = 2
+        Align = alTop
+        Caption = 'Recebimentos do M'#234's'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Open Sans'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitWidth = 173
+      end
+      object Panel3: TPanel
+        Left = 0
+        Top = 26
+        Width = 250
+        Height = 74
+        Margins.Left = 0
+        Margins.Top = 15
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alClient
+        BevelOuter = bvNone
+        Color = 2773792
+        ParentBackground = False
+        TabOrder = 0
+        ExplicitLeft = 5
+        ExplicitHeight = 79
+        object Panel7: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 0
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Dinheiro'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 0
+          ExplicitTop = 1
+          object Label28: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 121
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Dinheiro'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+          end
+        end
+        object Panel6: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 18
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  PIX'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 1
+          ExplicitTop = 21
+          object Label27: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 105
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  PIX'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+          end
+        end
+        object Panel5: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 36
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Cart'#227'o de Cr'#233'dito'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 2
+          ExplicitTop = 41
+          object Label26: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 137
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Cart'#227'o de Cr'#233'dito'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+          end
+        end
+        object Panel4: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 54
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Cart'#227'o de D'#233'bito'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 3
+          ExplicitTop = 61
+          object Label25: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 129
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Cart'#227'o de D'#233'bito'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+          end
+        end
+      end
+    end
+    object Panel8: TPanel
+      AlignWithMargins = True
+      Left = 0
+      Top = 275
+      Width = 250
+      Height = 100
+      Margins.Left = 0
+      Margins.Top = 15
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Align = alTop
+      BevelOuter = bvNone
+      Color = 2773792
+      ParentBackground = False
+      TabOrder = 3
+      object Label14: TLabel
+        AlignWithMargins = True
+        Left = 10
+        Top = 2
+        Width = 239
+        Height = 22
+        Margins.Left = 10
+        Margins.Top = 2
+        Margins.Right = 1
+        Margins.Bottom = 2
+        Align = alTop
+        Caption = 'Recebimentos de Hoje'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Open Sans'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitWidth = 176
+      end
+      object Panel9: TPanel
+        Left = 0
+        Top = 26
+        Width = 250
+        Height = 74
+        Margins.Left = 0
+        Margins.Top = 15
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alClient
+        BevelOuter = bvNone
+        Color = 2773792
+        ParentBackground = False
+        TabOrder = 0
+        ExplicitHeight = 79
+        object Panel10: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 0
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Dinheiro'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 0
+          ExplicitTop = 1
+          object Label16: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 89
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Dinheiro'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+            ExplicitHeight = 18
+          end
+        end
+        object Panel11: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 18
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  PIX'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 1
+          ExplicitTop = 20
+          object Label21: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 185
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  PIX'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+            ExplicitHeight = 18
+          end
+        end
+        object Panel12: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 36
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Cart'#227'o de Cr'#233'dito'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 2
+          ExplicitTop = 39
+          object Label23: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 57
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Cart'#227'o de Cr'#233'dito'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+            ExplicitHeight = 18
+          end
+        end
+        object Panel13: TPanel
+          AlignWithMargins = True
+          Left = 1
+          Top = 54
+          Width = 248
+          Height = 18
+          Margins.Left = 1
+          Margins.Top = 0
+          Margins.Right = 1
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Cart'#227'o de D'#233'bito'
+          Color = 2773792
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 3
+          ExplicitTop = 58
+          object Label29: TLabel
+            AlignWithMargins = True
+            Left = 0
+            Top = 1
+            Width = 121
+            Height = 16
+            Margins.Left = 0
+            Margins.Top = 1
+            Margins.Right = 0
+            Margins.Bottom = 1
+            Align = alLeft
+            AutoSize = False
+            Caption = '  Cart'#227'o de D'#233'bito'
+            Color = 13298641
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Open Sans'
+            Font.Style = []
+            ParentColor = False
+            ParentFont = False
+            Transparent = False
+            Layout = tlCenter
+            ExplicitHeight = 18
+          end
+        end
+      end
     end
   end
   object tmrClock: TTimer

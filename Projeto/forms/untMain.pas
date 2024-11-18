@@ -105,6 +105,27 @@ type
     Panel2: TPanel;
     btnConfirmN: TImage;
     btnCancelN: TImage;
+    Panel3: TPanel;
+    Label11: TLabel;
+    Panel7: TPanel;
+    Label28: TLabel;
+    Panel6: TPanel;
+    Label27: TLabel;
+    Panel5: TPanel;
+    Label26: TLabel;
+    Panel4: TPanel;
+    Label25: TLabel;
+    Panel8: TPanel;
+    Label14: TLabel;
+    Panel9: TPanel;
+    Panel10: TPanel;
+    Label16: TLabel;
+    Panel11: TPanel;
+    Label21: TLabel;
+    Panel12: TPanel;
+    Label23: TLabel;
+    Panel13: TPanel;
+    Label29: TLabel;
 
     function getId(Sender: TObject): Integer;
     function getName(Sender: TObject): string;
@@ -259,7 +280,11 @@ procedure TfrmMain.btnCompromissoClick(Sender: TObject);
 begin
   inherited;
     // exibe/oculta a agenda
-    pnlAgenda.Visible := not(pnlAgenda.Visible);
+//    pnlAgenda.Visible := not(pnlAgenda.Visible);
+    if pnlAgenda.Width < 10 then
+        pnlAgenda.Width := 300
+    else
+        pnlAgenda.Width := 1;
 end;
 
 procedure TfrmMain.btnEdtClick(Sender: TObject);
