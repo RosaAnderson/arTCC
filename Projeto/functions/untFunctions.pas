@@ -64,9 +64,11 @@ uses untMessages, untDBConnect, untSource;
 //##############################################################################
 procedure ATime(vpHH, vpMM, vpSS: TLabel);
 begin
-    vpHH.Caption := FormatDateTime('hh', Now);
-    vpMM.Caption := FormatDateTime('mm', Now);
-    vpSS.Caption := FormatDateTime('ss', Now);
+var
+    fullTime     := FormatDateTime('hh:MM:ss', Now); // pega a hora completa
+    vpHH.Caption := Copy(fullTime, 1, 2); // separa a hora
+    vpMM.Caption := Copy(fullTime, 4, 2); // separa o minuto
+    vpSS.Caption := Copy(fullTime, 7, 2); // separa o segundo
 end;
 
 procedure ToCreate(vpForm: TForm; vpTForm: TFormClass; vpParent: TComponent; vpPParent, vpPanel: TPanel);
@@ -3157,7 +3159,7 @@ begin
 
             // carrega os dados nas variáveis
             gvCLI_ID          := FieldByName('CLI_ID').AsInteger;
-            gvCLI_INC         := FieldByName('CLI_INC').AsDateTime;
+            gvCLI_INCLUSAO    := FieldByName('CLI_INCLUSAO').AsDateTime;
             gvCLI_STATUS      := FieldByName('CLI_STATUS').AsInteger;
             gvCLI_DOC         := FieldByName('CLI_DOC').AsString;
             gvCLI_NOME        := FieldByName('CLI_NOME').AsString;
@@ -3220,7 +3222,7 @@ begin
 
             // carrega os dados nas variáveis
             gvCAM_ID                := FieldByName('CAM_ID').AsInteger;
-            gvCAM_INC               := FieldByName('CAM_INC').AsDateTime;
+            gvCAM_INCLUSAO          := FieldByName('CAM_INCLUSAO').AsDateTime;
             gvCAM_STATUS            := FieldByName('CAM_STATUS').AsInteger;
             gvCAM_D_INICIO          := FieldByName('CAM_D_INICIO').AsDateTime;
             gvCAM_H_INICIO          := FieldByName('CAM_H_INICIO').AsDateTime;
@@ -3274,7 +3276,7 @@ begin
 
             // carrega os dados nas variáveis
             gvEMP_ID          := FieldByName('EMP_ID').AsInteger;
-            gvEMP_INC         := FieldByName('EMP_INC').AsDateTime;
+            gvEMP_INCLUSAO    := FieldByName('EMP_INCLUSAO').AsDateTime;
             gvEMP_STATUS      := FieldByName('EMP_STATUS').AsInteger;
             gvEMP_DOC         := FieldByName('EMP_DOC').AsString;
             gvEMP_LOGO        := FieldByName('EMP_LOGO').AsString;

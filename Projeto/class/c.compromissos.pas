@@ -41,7 +41,7 @@ var
 
     vcATD_ID             : Integer;
     vcATD_FPG_ID         : Integer;
-    vcATD_INC            : TDateTime;
+    vcATD_INCLUSAO       : TDateTime;
     vcATD_STATUS         : string;
     vcATD_DATA           : TDate;
     vcATD_HORA           : TTime;
@@ -116,7 +116,7 @@ begin
                     // insere os dados nos campos
                     gvATD_ID              :=      FieldByName('ATD_ID').AsInteger;
                     gvATD_FPG_ID          :=      FieldByName('ATD_FPG_ID').AsInteger;
-                    gvATD_INC             :=      FieldByName('ATD_INC').AsDateTime;
+                    gvATD_INCLUSAO        :=      FieldByName('ATD_INCLUSAO').AsDateTime;
                     gvATD_STATUS          := Trim(FieldByName('ATD_STATUS').AsString);
                     gvATD_DATA            :=      FieldByName('ATD_DATA').AsDateTime;
                     gvATD_HORA            :=      FieldByName('ATD_HORA').AsDateTime;
@@ -328,7 +328,7 @@ begin
             // atualiza as variáveis
             gvATD_ID          := vfValue;
             gvATD_FPG_ID      := vcATD_FPG_ID;
-            gvATD_INC         := vcATD_INC;
+            gvATD_INCLUSAO    := vcATD_INCLUSAO;
             gvATD_STATUS      := vcATD_STATUS;
             gvATD_DATA        := vcATD_DATA;
             gvATD_HORA        := vcATD_HORA;
@@ -396,7 +396,7 @@ begin
                     // insere os dados nos campos
                     gvATD_ID              :=      FieldByName('ATD_ID').AsInteger;
                     gvATD_FPG_ID          :=      FieldByName('ATD_FPG_ID').AsInteger;
-                    gvATD_INC             :=      FieldByName('ATD_INC').AsDateTime;
+                    gvATD_INCLUSAO        :=      FieldByName('ATD_INCLUSAO').AsDateTime;
                     gvATD_STATUS          := Trim(FieldByName('ATD_STATUS').AsString);
                     gvATD_DATA            :=      FieldByName('ATD_DATA').AsDateTime;
                     gvATD_HORA            :=      FieldByName('ATD_HORA').AsDateTime;

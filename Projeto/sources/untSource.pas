@@ -73,7 +73,7 @@ uses e.log,
 
     // Cliente
     gvPES_ID                      : Integer = 0;
-    gvPES_INC                     : TDateTime;
+    gvPES_INCLUSAO                : TDateTime;
     gvPES_STATUS                  : string  = '';
     gvPES_TIPO                    : string  = '';
     gvPES_USER                    : string  = '';
@@ -119,7 +119,7 @@ uses e.log,
     gvPRC_CAT_ID                  : Integer = 0;
     gvPRC_PRF_ID                  : Integer = 0;
     gvPRC_EQP_ID                  : Integer = 0;
-    gvPRC_INC                     : TDateTime;
+    gvPRC_INCLUSAO                : TDateTime;
     gvPRC_STATUS                  : string  = '';
     gvPRC_NOME                    : string  = '';
     gvPRC_DESC                    : string  = '';
@@ -133,7 +133,7 @@ uses e.log,
     // Atendimento
     gvATD_ID                      : Integer = 0;
     gvATD_FPG_ID                  : Integer = 0;
-    gvATD_INC                     : TDateTime;
+    gvATD_INCLUSAO                : TDateTime;
     gvATD_STATUS                  : string = '';
     gvATD_NOTIFICADO              : string = '';
     gvATD_DATA                    : TDate;

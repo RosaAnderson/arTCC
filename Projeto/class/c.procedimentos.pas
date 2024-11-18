@@ -82,7 +82,7 @@ begin
                     gvPRC_PRF_ID          :=               FieldByName('PRC_PRF_ID').AsInteger;
                     gvPRC_EQP_ID          :=               FieldByName('PRC_EQP_ID').AsInteger;
                     gvPRC_CAT_ID          :=               FieldByName('PRC_CAT_ID').AsInteger;
-                    gvPRC_INC             :=               FieldByName('PRC_INC').AsDateTime;
+                    gvPRC_INCLUSAO        :=               FieldByName('PRC_INCLUSAO').AsDateTime;
                     gvPRC_STATUS          :=          Trim(FieldByName('PRC_STATUS').AsString);
                     gvPRC_NOME            := NameCase(Trim(FieldByName('PRC_NOME').AsString), 'y');
                     gvPRC_DESC            :=          Trim(FieldByName('PRC_DESC').AsString);

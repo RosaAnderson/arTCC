@@ -39,7 +39,7 @@ var
     vOutCount            : Integer;
 
     vcPES_ID             : Integer;
-    vcPES_INC            : TDateTime;
+    vcPES_INCLUSAO       : TDateTime;
     vcPES_STATUS         : string;
     vcPES_TIPO           : string;
     vcPES_USER           : string;
@@ -156,7 +156,7 @@ begin
                 begin
                     // insere os dados nos campos
                     gvPES_ID              :=                FieldByName('PES_ID').AsInteger;
-                    gvPES_INC             :=                FieldByName('PES_INC').AsDateTime;
+                    gvPES_INCLUSAO        :=                FieldByName('PES_INCLUSAO').AsDateTime;
                     gvPES_STATUS          :=           Trim(FieldByName('PES_STATUS').AsString);
                     gvPES_TIPO            :=           Trim(FieldByName('PES_TIPO').AsString);
                     gvPES_USER            :=           Trim(FieldByName('PES_USER').AsString);

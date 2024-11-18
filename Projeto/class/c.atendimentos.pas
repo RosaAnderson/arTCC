@@ -45,7 +45,7 @@ var
 
     vcATD_ID             : Integer;
     vcATD_FPG_ID         : Integer;
-    vcATD_INC            : TDateTime;
+    vcATD_INCLUSAO       : TDateTime;
     vcATD_STATUS         : string;
     vcATD_DATA           : TDate;
     vcATD_HORA           : TTime;
@@ -78,6 +78,7 @@ var
     vcCLK_ATD_VALOR      : string;
     vcCLK_PES_ID         : Integer;
     vcCLK_PES_NOME       : string;
+    vcCLK_PES_AVATAR     : string;
     vcCLK_PRC_ID         : Integer;
     vcCLK_PRC_NOME       : string;
     vcCLK_FPG_ID         : Integer;
@@ -135,13 +136,15 @@ begin
                 if not(IsEmpty) then
                 begin
                     // insere os dados nos campos
-                    vcCLK_ATD_ID    := FieldByName('ATD_ID').AsInteger;
-                    vcCLK_ATD_DATA  := FieldByName('ATD_DATA').AsString;
-                    vcCLK_ATD_HORA  := FieldByName('ATD_HORA').AsString;
-                    vcCLK_ATD_VALOR := FieldByName('ATD_VALOR').AsString;
-                    vcCLK_PES_NOME  := FieldByName('PES_NOME').AsString;
-//                    vcCLK_PRC_ID    := FieldByName('PRC_ID').AsInteger;
-                    vcCLK_PRC_NOME  := FieldByName('PRC_NOME').AsString;
+                    vcCLK_ATD_ID     := FieldByName('ATD_ID').AsInteger;
+                    vcCLK_ATD_DATA   := FieldByName('ATD_DATA').AsString;
+                    vcCLK_ATD_HORA   := FieldByName('ATD_HORA').AsString;
+                    vcCLK_ATD_VALOR  := FieldByName('ATD_VALOR').AsString;
+                    vcCLK_PES_NOME   := FieldByName('PES_NOME').AsString;
+                    vcCLK_PES_AVATAR := FieldByName('PES_AVATAR').AsString;
+
+//                    vcCLK_PRC_ID     := FieldByName('PRC_ID').AsInteger;
+                    vcCLK_PRC_NOME   := FieldByName('PRC_NOME').AsString;
                 end;
             end;
 
@@ -192,7 +195,7 @@ begin
                     // insere os dados nos campos
                     gvATD_ID              :=      FieldByName('ATD_ID').AsInteger;
                     gvATD_FPG_ID          :=      FieldByName('ATD_FPG_ID').AsInteger;
-                    gvATD_INC             :=      FieldByName('ATD_INC').AsDateTime;
+                    gvATD_INCLUSAO        :=      FieldByName('ATD_INCLUSAO').AsDateTime;
                     gvATD_STATUS          := Trim(FieldByName('ATD_STATUS').AsString);
                     gvATD_DATA            :=      FieldByName('ATD_DATA').AsDateTime;
                     gvATD_HORA            :=      FieldByName('ATD_HORA').AsDateTime;
@@ -404,7 +407,7 @@ begin
             // atualiza as variáveis
             gvATD_ID          := vfValue;
             gvATD_FPG_ID      := vcATD_FPG_ID;
-            gvATD_INC         := vcATD_INC;
+            gvATD_INCLUSAO    := vcATD_INCLUSAO;
             gvATD_STATUS      := vcATD_STATUS;
             gvATD_DATA        := vcATD_DATA;
             gvATD_HORA        := vcATD_HORA;
@@ -472,7 +475,7 @@ begin
                     // insere os dados nos campos
                     gvATD_ID              :=      FieldByName('ATD_ID').AsInteger;
                     gvATD_FPG_ID          :=      FieldByName('ATD_FPG_ID').AsInteger;
-                    gvATD_INC             :=      FieldByName('ATD_INC').AsDateTime;
+                    gvATD_INCLUSAO        :=      FieldByName('ATD_INCLUSAO').AsDateTime;
                     gvATD_STATUS          := Trim(FieldByName('ATD_STATUS').AsString);
                     gvATD_DATA            :=      FieldByName('ATD_DATA').AsDateTime;
                     gvATD_HORA            :=      FieldByName('ATD_HORA').AsDateTime;
@@ -546,7 +549,6 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
                 SQL.Clear;
                 SQL.Add(' UPDATE ATENDIMENTOS SET    ');
-//                SQL.Add(' ATD_STATUS = ''C'',        ');
                 SQL.Add(' ATD_STATUS = ' +
                           QuotedStr(UpperCase(vfTo))  );
                 SQL.Add(' WHERE ATD_ID = ' +
@@ -663,7 +665,7 @@ begin
 
                 // atualiza as variáveis
                 gvATD_ID          := vcCLK_ATD_ID;
-//                gvATD_INC         := vcATD_INC;
+//                gvATD_INCLUSAO    := vcATD_INCLUSAO;
                 gvATD_STATUS      := vcCLK_ATD_STATUS;
                 gvATD_NOTIFICADO  := vcCLK_ATD_NOTIFICADO;
 //                gvATD_DATA        := vcATD_DATA;
