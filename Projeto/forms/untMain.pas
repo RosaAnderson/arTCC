@@ -114,6 +114,7 @@ type
     procedure FormCreate(Sender: TObject);
 
     procedure loadNextATD(Sender: TObject);
+    procedure finishPreviousATD(Sender: TObject);
 
     procedure tmrClockTimer(Sender: TObject);
     procedure tmrAgendasTimer(Sender: TObject);
@@ -435,8 +436,6 @@ var
     vDataA: TDate;
     vI    : Integer;
 begin
-  inherited;
-
     try
         // inicializa as variaveis
         vDataA := Date; // pega a data atual
@@ -477,16 +476,25 @@ begin
                                       FormatDateTime('hh:MM', vTimeI)) then
         begin
             pnlNextATD.Tag       :=                         vcCLK_ATD_ID;
-        //    imgAvatar.Picture;
             lblPES_NOME.Caption  :=                         vcCLK_PES_NOME;
             lblPRC_NOME.Caption  :=                         vcCLK_PRC_NOME;
             lblATD_DATA.Caption  :=                         vcCLK_ATD_DATA;
             lblATD_HORA.Caption  :=                    Copy(vcCLK_ATD_HORA, 1, 5);
             lblATD_VALOR.Caption := FormatMoney((StrToFloat(vcCLK_ATD_VALOR)));
 
-            pnlNextATD.Visible   := True;
+            try
+                if vcCLK_PES_AVATAR <> '' then
+                    imgAvatar.Picture.LoadFromFile(exePathRequest +
+                        'images\pessoas\' + vcCLK_PES_AVATAR + '.jpg')
+                else
+                    imgAvatar.Picture.LoadFromFile(exePathRequest +
+                        'images\pessoas\00.png');
+            except
+                imgAvatar.Visible := not(vcCLK_PES_AVATAR = '');
+            end;
         end;
     finally
+        pnlNextATD.Visible := not(vcCLK_ATD_ID = 0);
     end;
 end;
 
@@ -500,6 +508,46 @@ begin
 
         // recarrega os dados
         iSchedulingBox(Self, pnlAtendimentos, gvDate);
+    end;
+end;
+
+procedure TfrmMain.finishPreviousATD(Sender: TObject);
+var
+    vDataI: String;
+//    vTimeI: TTime;
+    vDataA: TDate;
+    vI    : Integer;
+begin
+    try
+        // inicializa as variaveis
+        vDataA := Date; // pega a data atual
+//        vTimeI := Time; // pega a hora atual
+        vDataI := FormatDateTime('dd/mm/yyyy', vDataA); // armazena a data inicial
+
+        // verifica se a hora atual é maior que a hora final do expediente
+        if Time < StrToTime(gvHExpI) then
+        begin
+            vDataA := IncDay(Date, -1); // decrementa a data
+//            vTimeI := IncHour(StrToTime(gvHExpF), 1); // seta a hora para a primeira hora do expediente
+        end;
+
+        // faz a busca 50x
+        for vI := 0 to 45 do
+            // se não tiver atendimento na data especificada
+            if not(atdSearchOne(FormatDateTime('yyyy-mm-dd', vDataA), 'A')) then
+            begin
+                vDataA := IncDay(vDataA, - 1); // decrementa a data
+//                vTimeI := IncHour(StrToTime(gvHExpI), 1); // seta a hora para a primeira hora do expediente
+            end
+            else
+            begin
+                // verifica se o atendimento já passou
+                if gvATD_HORA < Time then
+                    c.atendimentos.atdChange(gvATD_ID, 'F'); // atualiza atendimento para finalizado
+
+                Break;
+            end;
+    finally
     end;
 end;
 
@@ -540,6 +588,9 @@ procedure TfrmMain.tmrAgendasTimer(Sender: TObject);
 begin
     // define o tempo de atualização
     tmrAgendas.Interval := gvScheduleRefresh;
+
+    // atualiza o atendimento para finalizado
+    finishPreviousATD(Sender);
 
     // carrega o proximo aendimento no card
     loadNextATD(Sender);
