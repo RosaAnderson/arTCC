@@ -101,31 +101,31 @@ type
     pnlNextATDValor: TPanel;
     Label22: TLabel;
     lblATD_VALOR: TLabel;
-    Panel1: TPanel;
+    pnl001: TPanel;
     Panel2: TPanel;
     btnConfirmN: TImage;
     btnCancelN: TImage;
     Panel3: TPanel;
     Label11: TLabel;
-    Panel7: TPanel;
-    Label28: TLabel;
-    Panel6: TPanel;
-    Label27: TLabel;
-    Panel5: TPanel;
-    Label26: TLabel;
-    Panel4: TPanel;
-    Label25: TLabel;
+    pnl001_M: TPanel;
+    lbl001_M: TLabel;
+    pnl002_M: TPanel;
+    lbl002_M: TLabel;
+    pnl003_M: TPanel;
+    lbl003_M: TLabel;
+    pnl000_M: TPanel;
+    lbl000_M: TLabel;
     Panel8: TPanel;
     Label14: TLabel;
     Panel9: TPanel;
     Panel10: TPanel;
-    Label16: TLabel;
+    lblDinheiroH: TLabel;
     Panel11: TPanel;
-    Label21: TLabel;
+    lblPIXH: TLabel;
     Panel12: TPanel;
-    Label23: TLabel;
+    lblCreditoH: TLabel;
     Panel13: TPanel;
-    Label29: TLabel;
+    lblDebitoH: TLabel;
 
     function getId(Sender: TObject): Integer;
     function getName(Sender: TObject): string;
@@ -134,6 +134,7 @@ type
 
     procedure FormCreate(Sender: TObject);
 
+    procedure loadGraphic();
     procedure loadNextATD(Sender: TObject);
     procedure finishPreviousATD(Sender: TObject);
 
@@ -454,6 +455,95 @@ begin
     end;
 end;
 
+procedure TfrmMain.loadGraphic();
+var
+    numDaysM, // numero de dias do mes
+    numAtenD, // numero de atendimentos por dia
+    totAtend, // total de atendimentos no mes
+    maxWidth: // largura dopanel
+              Integer;
+    stepSize: Double;  // tamanho do passo
+    yearMonth: string;
+begin
+    //
+    yearMonth := FormatDateTime('/mm/yyyy', Now);
+
+    // pega a largura do panel
+    maxWidth := pnl001_M.Width;
+
+    // pega o numero de dias
+    numDaysM := MonthDays[IsLeapYear(
+                    StrToInt(FormatDateTime('yyyy', Now))),
+                        StrToInt(FormatDateTime('mm', Now))];
+
+    // calcula o numero de atendimentos do dia
+    numAtenD := StrToInt(FormatDateTime('hh', (StrToTime(gvHExpF) - StrToTime(gvHExpI))));
+
+    // calcula o numero de atendimentos no mes
+    totAtend := numDaysM * numAtenD;
+
+    // calcula o passo
+    stepSize := totAtend / maxWidth;
+
+    // faz a busca
+    getVoG(StrToDate('01' + yearMonth), StrToDate('30' + yearMonth));
+
+// monta o grafico
+//##############################################################################
+    // primeira linha
+    if Length(Matriz) > 0 then
+    begin
+        lbl000_M.Width   := Trunc(((StrToInt(Matriz[0,1]) / totAtend) * 100) * stepSize) * 15;
+        lbl000_M.Caption := '  ' + Matriz[0,0];
+        pnl000_M.Caption := '  ' + Matriz[0,0];
+        pnl000_M.Visible := True;
+    end
+    else
+        pnl000_M.Visible := False;
+
+    // segunda linha
+    if Length(Matriz) > 1 then
+    begin
+        lbl001_M.Width   := Trunc(((StrToInt(Matriz[1,1]) / totAtend) * 100) * stepSize) * 15;
+        lbl001_M.Caption := '  ' + Matriz[1,0];
+        pnl001_M.Caption := '  ' + Matriz[1,0];
+        pnl001_M.Visible := True;
+    end
+    else
+        pnl001_M.Visible := False;
+
+    // terceira linha
+    if Length(Matriz) > 2 then
+    begin
+        lbl002_M.Width   := Trunc(((StrToInt(Matriz[2,1]) / totAtend) * 100) * stepSize) * 15;
+        lbl002_M.Caption := '  ' + Matriz[2,0];
+        pnl002_M.Caption := '  ' + Matriz[2,0];
+        pnl002_M.Visible := True;
+    end
+    else
+        pnl002_M.Visible := False;
+
+    // quarta linha
+    if Length(Matriz) > 3 then
+    begin
+        lbl003_M.Width   := Trunc(((StrToInt(Matriz[3,1]) / totAtend) * 100) * stepSize) * 15;
+        lbl003_M.Caption := '  ' + Matriz[3,0];
+        pnl003_M.Caption := '  ' + Matriz[3,0];
+        pnl003_M.Visible := True;
+    end
+    else
+        pnl003_M.Visible := False;
+//##############################################################################
+
+    c.atendimentos.Matriz := nil ;
+{
+PIX      := 170;
+Crédito  := 170;
+dinheiro := 85;
+debito   := 85;
+}
+end;
+
 procedure TfrmMain.loadNextATD(Sender: TObject);
 var
     vDataI: String;
@@ -614,6 +704,9 @@ begin
     // define o tempo de atualização
     tmrAgendas.Interval := gvScheduleRefresh;
 
+    // carrega as informações no grafico
+    loadGraphic();
+
     // atualiza o atendimento para finalizado
     finishPreviousATD(Sender);
 
@@ -631,9 +724,6 @@ begin
 end;
 
 end.
-
-
-
 
 var
   V_Hora,V_Hora_1,V_Nova_Hora :TDateTime;
@@ -668,3 +758,4 @@ V_Nora_Nova := IntToStr(HoursBetween(V_Hora,V_Hora_1));
 
 DIFERENÇA ENTRE DUAS HORAS
 V_Nova_Hora := (StrToTime('23:59:59') + StrToTime('00:00:01')-V_Hora)+V_Hora_1;
+

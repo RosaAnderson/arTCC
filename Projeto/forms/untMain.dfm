@@ -14453,7 +14453,6 @@ inherited frmMain: TfrmMain
       ParentBackground = False
       TabOrder = 1
       Visible = False
-      ExplicitWidth = 300
       object lblCompromisso: TLabel
         AlignWithMargins = True
         Left = 0
@@ -14498,7 +14497,6 @@ inherited frmMain: TfrmMain
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 300
       end
     end
   end
@@ -22304,7 +22302,7 @@ inherited frmMain: TfrmMain
         end
       end
     end
-    object Panel1: TPanel
+    object pnl001: TPanel
       AlignWithMargins = True
       Left = 0
       Top = 505
@@ -22317,7 +22315,13 @@ inherited frmMain: TfrmMain
       Align = alTop
       BevelOuter = bvNone
       Color = 2773792
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -17
+      Font.Name = 'Segoe UI'
+      Font.Style = []
       ParentBackground = False
+      ParentFont = False
       TabOrder = 1
       Visible = False
     end
@@ -22371,12 +22375,10 @@ inherited frmMain: TfrmMain
         Color = 2773792
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 5
-        ExplicitHeight = 79
-        object Panel7: TPanel
+        object pnl001_M: TPanel
           AlignWithMargins = True
           Left = 1
-          Top = 0
+          Top = 18
           Width = 248
           Height = 18
           Margins.Left = 1
@@ -22396,12 +22398,13 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
-          ExplicitTop = 1
-          object Label28: TLabel
+          Visible = False
+          ExplicitTop = 0
+          object lbl001_M: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 121
+            Width = 10
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22412,7 +22415,7 @@ inherited frmMain: TfrmMain
             Caption = '  Dinheiro'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22422,10 +22425,10 @@ inherited frmMain: TfrmMain
             Layout = tlCenter
           end
         end
-        object Panel6: TPanel
+        object pnl002_M: TPanel
           AlignWithMargins = True
           Left = 1
-          Top = 18
+          Top = 36
           Width = 248
           Height = 18
           Margins.Left = 1
@@ -22445,12 +22448,13 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 1
-          ExplicitTop = 21
-          object Label27: TLabel
+          Visible = False
+          ExplicitTop = 18
+          object lbl002_M: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 105
+            Width = 10
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22461,7 +22465,7 @@ inherited frmMain: TfrmMain
             Caption = '  PIX'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22471,10 +22475,10 @@ inherited frmMain: TfrmMain
             Layout = tlCenter
           end
         end
-        object Panel5: TPanel
+        object pnl003_M: TPanel
           AlignWithMargins = True
           Left = 1
-          Top = 36
+          Top = 54
           Width = 248
           Height = 18
           Margins.Left = 1
@@ -22494,12 +22498,13 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 2
-          ExplicitTop = 41
-          object Label26: TLabel
+          Visible = False
+          ExplicitTop = 36
+          object lbl003_M: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 137
+            Width = 10
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22510,7 +22515,7 @@ inherited frmMain: TfrmMain
             Caption = '  Cart'#227'o de Cr'#233'dito'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22520,10 +22525,10 @@ inherited frmMain: TfrmMain
             Layout = tlCenter
           end
         end
-        object Panel4: TPanel
+        object pnl000_M: TPanel
           AlignWithMargins = True
           Left = 1
-          Top = 54
+          Top = 0
           Width = 248
           Height = 18
           Margins.Left = 1
@@ -22543,12 +22548,13 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 3
-          ExplicitTop = 61
-          object Label25: TLabel
+          Visible = False
+          ExplicitTop = 54
+          object lbl000_M: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 129
+            Width = 10
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22559,7 +22565,7 @@ inherited frmMain: TfrmMain
             Caption = '  Cart'#227'o de D'#233'bito'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22621,7 +22627,6 @@ inherited frmMain: TfrmMain
         Color = 2773792
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 79
         object Panel10: TPanel
           AlignWithMargins = True
           Left = 1
@@ -22645,12 +22650,11 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
-          ExplicitTop = 1
-          object Label16: TLabel
+          object lblDinheiroH: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 89
+            Width = 17
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22661,7 +22665,7 @@ inherited frmMain: TfrmMain
             Caption = '  Dinheiro'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22669,7 +22673,6 @@ inherited frmMain: TfrmMain
             ParentFont = False
             Transparent = False
             Layout = tlCenter
-            ExplicitHeight = 18
           end
         end
         object Panel11: TPanel
@@ -22695,12 +22698,11 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 1
-          ExplicitTop = 20
-          object Label21: TLabel
+          object lblPIXH: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 185
+            Width = 17
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22711,7 +22713,7 @@ inherited frmMain: TfrmMain
             Caption = '  PIX'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22719,7 +22721,6 @@ inherited frmMain: TfrmMain
             ParentFont = False
             Transparent = False
             Layout = tlCenter
-            ExplicitHeight = 18
           end
         end
         object Panel12: TPanel
@@ -22745,12 +22746,11 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 2
-          ExplicitTop = 39
-          object Label23: TLabel
+          object lblCreditoH: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 57
+            Width = 17
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22761,7 +22761,7 @@ inherited frmMain: TfrmMain
             Caption = '  Cart'#227'o de Cr'#233'dito'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22769,7 +22769,7 @@ inherited frmMain: TfrmMain
             ParentFont = False
             Transparent = False
             Layout = tlCenter
-            ExplicitHeight = 18
+            ExplicitLeft = -1
           end
         end
         object Panel13: TPanel
@@ -22795,12 +22795,11 @@ inherited frmMain: TfrmMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 3
-          ExplicitTop = 58
-          object Label29: TLabel
+          object lblDebitoH: TLabel
             AlignWithMargins = True
             Left = 0
             Top = 1
-            Width = 121
+            Width = 17
             Height = 16
             Margins.Left = 0
             Margins.Top = 1
@@ -22811,7 +22810,7 @@ inherited frmMain: TfrmMain
             Caption = '  Cart'#227'o de D'#233'bito'
             Color = 13298641
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
+            Font.Color = 2773792
             Font.Height = -12
             Font.Name = 'Open Sans'
             Font.Style = []
@@ -22819,7 +22818,6 @@ inherited frmMain: TfrmMain
             ParentFont = False
             Transparent = False
             Layout = tlCenter
-            ExplicitHeight = 18
           end
         end
       end

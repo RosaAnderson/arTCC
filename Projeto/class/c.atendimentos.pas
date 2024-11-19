@@ -27,6 +27,7 @@ type
     end;
 
         procedure cDisconnect();
+        procedure getVoG(vpDataI, vpDataF: TDate);
 
         function getNextATD(vpData, vpHora: string): Boolean;
         function atdSearchClk(vfData, vfHora: string; vfATD_ID: Integer): Boolean;
@@ -41,6 +42,9 @@ type
 
 var
     qryAuxATD            : TFDQuery;
+
+    Matriz               : array of array of string;
+
     vFound               : Boolean;
 
     vcATD_ID             : Integer;
@@ -693,4 +697,105 @@ begin
     end;
 end;
 
+procedure getVoG(vpDataI, vpDataF: TDate);
+var
+    vI    : Integer;
+    vMReg : Integer;
+begin
+    try
+        // conecta
+        if not(frmDBConnect.DBConnect) then
+            Exit
+        else
+            qryAuxATD := TFDQuery.Create(nil); // cria a query
+
+        vI := 0;
+
+        try
+            with qryAuxATD do
+            begin
+                Connection := frmDBConnect.FDConnect; // define o bando de dados
+                SQL.Clear;
+                SQL.Add(' SELECT                                       ');
+            	SQL.Add('     SUM(ATD_FPG_ID) AS FPG_QTDE, FPG_NOME    ');
+                SQL.Add('   FROM ATENDIMENTOS                          ');
+                SQL.Add('   JOIN FORMA_PGTO ON (FPG_ID = ATD_FPG_ID)   ');
+                SQL.Add('   WHERE ATD_DATA BETWEEN :DATA_I AND :DATA_F ');
+                SQL.Add('  GROUP BY FPG_NOME                           ');
+                SQL.Add('  ORDER BY FPG_QTDE DESC                      ');
+
+                ParamByName('DATA_I').AsDate := vpDataI;
+                ParamByName('DATA_F').AsDate := vpDataF;
+
+                Open;
+
+                // conta o numero de registros na query
+                vMReg := RecordCount;
+
+                //
+                if not(IsEmpty) then
+                begin
+                    // rearanja o resultato para mover para o primeiro registro
+                    Last;
+                    First;
+
+                    // Nome do Objeto, Linha,Coluna
+                    SetLength(Matriz, vMReg, 2);  // --> 8 linhas "O indice sempre começa do Zero" e 2 Colunas
+
+                    // passa por todos os registrso montando a matriz
+                    while not Eof do
+                    begin
+                        // insere o conteudo a query na matriz
+                        Matriz[vI, 0] := FieldByName('FPG_NOME').AsString;
+                        Matriz[vI, 1] := FieldByName('FPG_QTDE').AsString;
+
+                        inc(vI); // incrementa o contador
+
+                        Next; //move para o proximo registro
+                    end;
+                end;
+            end;
+        except
+        //
+        end;
+    finally
+        cDisconnect(); // desconecta
+    end;
+end;
+
 end.
+
+
+
+{
+    Cont  : Integer;
+begin
+  // Definindo as Dimensoes da Matriz
+
+  // Nome do Objeto, Linha,Coluna
+  SetLength(Matriz, 7, 2);  // --> 8 linhas "O indice sempre começa do Zero" e 2 Colunas
+
+  for Cont := 0 to 7 do begin
+    Matriz[Cont, 0]:= IntToStr(Cont) + ' ª Linha' + ' -- 1ª Coluna';
+    Matriz[Cont, 1]:= IntToStr(Cont) + ' ª Linha' + ' -- 2ª Coluna';
+
+    ListBox1.Items.Add(Matriz[Cont, 0]);
+    ListBox2.Items.Add(Matriz[Cont, 1]);
+  end;
+}
+
+
+
+
+  SetLength( Matriz, 8 );
+
+  for Cont := 0 to Length(Matriz) - 1 do
+  begin
+    SetLength( Matriz[Cont], 2 );
+
+    Matriz[Cont,0]:= IntToStr(Cont) + ' ª Linha' + ' -- 1ª Coluna';
+    Matriz[Cont,1]:= IntToStr(Cont) + ' ª Linha' + ' -- 2ª Coluna';
+
+    ListBox1.Items.Add(Matriz[Cont,0]);
+    ListBox2.Items.Add(Matriz[Cont,1]);
+  end;
