@@ -77,7 +77,7 @@ uses e.log,
     gvPES_STATUS                  : string  = '';
     gvPES_TIPO                    : string  = '';
     gvPES_USER                    : string  = '';
-    gvPES_DOC                     : string  = '';
+    gvPES_DOCUMENTO               : string  = '';
     gvPES_NOME                    : string  = '';
     gvPES_NASCIMENTO              : TDate;
     gvPES_GENERO                  : string  = '';
@@ -122,7 +122,7 @@ uses e.log,
     gvPRC_INCLUSAO                : TDateTime;
     gvPRC_STATUS                  : string  = '';
     gvPRC_NOME                    : string  = '';
-    gvPRC_DESC                    : string  = '';
+    gvPRC_DESCRICAO               : string  = '';
     gvPRC_DURACAO                 : Integer = 0;
     gvPRC_VALOR                   : Double  = 0.00;
     gvPRC_REQUISITO               : string  = '';

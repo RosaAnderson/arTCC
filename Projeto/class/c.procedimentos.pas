@@ -85,7 +85,7 @@ begin
                     gvPRC_INCLUSAO        :=               FieldByName('PRC_INCLUSAO').AsDateTime;
                     gvPRC_STATUS          :=          Trim(FieldByName('PRC_STATUS').AsString);
                     gvPRC_NOME            := NameCase(Trim(FieldByName('PRC_NOME').AsString), 'y');
-                    gvPRC_DESC            :=          Trim(FieldByName('PRC_DESC').AsString);
+                    gvPRC_DESCRICAO       :=          Trim(FieldByName('PRC_DESCRICAO').AsString);
                     gvPRC_DURACAO         :=               FieldByName('PRC_DURACAO').AsInteger;
                     gvPRC_VALOR           :=               FieldByName('PRC_VALOR').AsFloat;
                     gvPRC_REQUISITO       :=          Trim(FieldByName('PRC_REQUISITO').AsString);

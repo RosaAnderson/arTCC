@@ -3161,7 +3161,7 @@ begin
             gvCLI_ID          := FieldByName('CLI_ID').AsInteger;
             gvCLI_INCLUSAO    := FieldByName('CLI_INCLUSAO').AsDateTime;
             gvCLI_STATUS      := FieldByName('CLI_STATUS').AsInteger;
-            gvCLI_DOC         := FieldByName('CLI_DOC').AsString;
+            gvCLI_DOCUMENTO   := FieldByName('CLI_DOCUMENTO').AsString;
             gvCLI_NOME        := FieldByName('CLI_NOME').AsString;
             gvCLI_CEL         := FieldByName('CLI_CEL').AsString;
             gvCLI_TEL         := FieldByName('CLI_TEL').AsString;
@@ -3278,7 +3278,7 @@ begin
             gvEMP_ID          := FieldByName('EMP_ID').AsInteger;
             gvEMP_INCLUSAO    := FieldByName('EMP_INCLUSAO').AsDateTime;
             gvEMP_STATUS      := FieldByName('EMP_STATUS').AsInteger;
-            gvEMP_DOC         := FieldByName('EMP_DOC').AsString;
+            gvEMP_DOCUMENTO   := FieldByName('EMP_DOCUMENTO').AsString;
             gvEMP_LOGO        := FieldByName('EMP_LOGO').AsString;
             gvEMP_RSOCIAL     := FieldByName('EMP_RSOCIAL').AsString;
             gvEMP_NFANTASIA   := FieldByName('EMP_NFANTASIA').AsString;

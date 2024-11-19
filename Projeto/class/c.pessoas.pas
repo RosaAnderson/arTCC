@@ -43,7 +43,7 @@ var
     vcPES_STATUS         : string;
     vcPES_TIPO           : string;
     vcPES_USER           : string;
-    vcPES_DOC            : string;
+    vcPES_DOCUMENTO      : string;
     vcPES_NOME           : string;
     vcPES_NASCIMENTO     : TDate;
     vcPES_GENERO         : string;
@@ -137,16 +137,16 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
                 // insere o sql
-                SQL.Add(' SELECT P.*, T.*, M.*            ');
-                SQL.Add(' FROM PESSOAS AS P               ');
-                SQL.Add(' LEFT JOIN TELEFONES AS T        ');
-                SQL.Add('        ON (TEL_PES_ID = PES_ID) ');
-                SQL.Add(' LEFT JOIN MAILS AS M            ');
-                SQL.Add('        ON (MAI_PES_ID = PES_ID) ');
-                SQL.Add(' WHERE PES_ID       = :CLI_BUSCA ');
-                SQL.ADD(' OR    PES_DOC      = :CLI_BUSCA ');
-                SQL.Add(' OR    MAI_EMAIL    = :CLI_BUSCA ');
-                SQL.ADD(' OR    TEL_TELEFONE = :CLI_BUSCA ');
+                SQL.Add(' SELECT P.*, T.*, M.*             ');
+                SQL.Add(' FROM PESSOAS AS P                ');
+                SQL.Add(' LEFT JOIN TELEFONES AS T         ');
+                SQL.Add('        ON (TEL_PES_ID = PES_ID)  ');
+                SQL.Add(' LEFT JOIN MAILS AS M             ');
+                SQL.Add('        ON (MAI_PES_ID = PES_ID)  ');
+                SQL.Add(' WHERE PES_ID        = :CLI_BUSCA ');
+                SQL.ADD(' OR    PES_DOCUMENTO = :CLI_BUSCA ');
+                SQL.Add(' OR    MAI_EMAIL     = :CLI_BUSCA ');
+                SQL.ADD(' OR    TEL_TELEFONE  = :CLI_BUSCA ');
                 SQL.Add(' OR    PES_NOME LIKE' +
                               QuotedStr('%' + vfValue + '%'));
                 ParamByName('CLI_BUSCA').AsString := vfValue; // passa o valor do parametro
@@ -160,7 +160,7 @@ begin
                     gvPES_STATUS          :=           Trim(FieldByName('PES_STATUS').AsString);
                     gvPES_TIPO            :=           Trim(FieldByName('PES_TIPO').AsString);
                     gvPES_USER            :=           Trim(FieldByName('PES_USER').AsString);
-                    gvPES_DOC             :=           Trim(FieldByName('PES_DOC').AsString);
+                    gvPES_DOCUMENTO       :=           Trim(FieldByName('PES_DOCUMENTO').AsString);
                     gvPES_NOME            :=  NameCase(Trim(FieldByName('PES_NOME').AsString), 'y');
                     gvPES_NASCIMENTO      :=                FieldByName('PES_NASCIMENTO').AsDateTime;
                     gvPES_GENERO          :=           Trim(FieldByName('PES_GENERO').AsString);
@@ -219,7 +219,7 @@ begin
 //                SQL.Add(' PES_STATUS     = :PES_STATUS,     ');
 //                SQL.Add(' PES_TIPO       = :PES_TIPO,       ');
 //                SQL.Add(' PES_USER       = :PES_USER,       ');
-                SQL.Add(' PES_DOC        = :PES_DOC,        ');
+                SQL.Add(' PES_DOCUMENTO  = :PES_DOCUMENTO,  ');
                 SQL.Add(' PES_NOME       = :PES_NOME,       ');
                 SQL.Add(' PES_NASCIMENTO = :PES_NASCIMENTO, ');
 //                SQL.Add(' PES_GENERO     = :PES_GENERO,     ');
@@ -232,7 +232,7 @@ begin
 //                ParamByName('PES_STATUS').AsString    := vcPES_STATUS;
 //                ParamByName('PES_TIPO').AsString      := vcPES_TIPO;
 //                ParamByName('PES_USER').AsString      := vcPES_USER;
-                ParamByName('PES_DOC').AsString       := vcPES_DOC;
+                ParamByName('PES_DOCUMENTO').AsString := vcPES_DOCUMENTO;
                 ParamByName('PES_NOME').AsString      := vcPES_NOME;
                 ParamByName('PES_NASCIMENTO').AsDate  := vcPES_NASCIMENTO;
 //                ParamByName('PES_GENERO').AsString    := vcPES_GENERO;
@@ -333,7 +333,7 @@ begin
             gvPES_STATUS     := vcPES_STATUS;
             gvPES_TIPO       := vcPES_TIPO;
             gvPES_USER       := vcPES_USER;
-            gvPES_DOC        := vcPES_DOC;
+            gvPES_DOCUMENTO  := vcPES_DOCUMENTO;
             gvPES_NOME       := vcPES_NOME;
             gvPES_NASCIMENTO := vcPES_NASCIMENTO;
             gvPES_GENERO     := vcPES_GENERO;

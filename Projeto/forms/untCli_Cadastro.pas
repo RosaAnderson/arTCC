@@ -101,7 +101,7 @@ begin
     vCount := 0;
 
     // compara os dados
-    if removeChar(gvPES_DOC) <> removeChar(txtCPF.Text) then
+    if removeChar(gvPES_DOCUMENTO) <> removeChar(txtCPF.Text) then
         inc(vCount);
     if Trim(gvPES_NOME) <> Trim(txtNome.Text) then
         inc(vCount);
@@ -206,7 +206,7 @@ begin
 
     // limpa as variáveis
     gvPES_ID         := 0;
-    gvPES_DOC        := '';
+    gvPES_DOCUMENTO  := '';
     gvPES_NOME       := '';
     gvPES_NASCIMENTO := Now - 1830;
     gvTEL_DDD        := '';
@@ -271,7 +271,7 @@ begin
             end;
         finally
             // preenche os campos
-            txtCPF.Text        := formatDocs(gvPES_DOC);
+            txtCPF.Text        := formatDocs(gvPES_DOCUMENTO);
             txtNome.Text       := gvPES_NOME;
             txtNascimento.Date := gvPES_NASCIMENTO;
             txtDDD.Text        := gvTEL_DDD;
@@ -284,7 +284,7 @@ end;
 procedure TfrmCli_Cadastro.vTransfer;
 begin
     // transfere o valor dos campos para a classe
-    c.pessoas.vcPES_DOC        := Trim(txtCPF.Text);
+    c.pessoas.vcPES_DOCUMENTO  := Trim(txtCPF.Text);
     c.pessoas.vcPES_NOME       := NameCase(Trim(txtNome.Text), 'y');
     c.pessoas.vcPES_NASCIMENTO := txtNascimento.Date;
 

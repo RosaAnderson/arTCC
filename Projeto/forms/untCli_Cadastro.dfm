@@ -1342,7 +1342,6 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
       ExplicitTop = 0
       ExplicitHeight = 62
       inherited label02: TLabel
-        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnExit: TImage
@@ -1353,7 +1352,6 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
       StyleElements = [seFont, seClient, seBorder]
       ExplicitHeight = 62
       inherited Label01: TLabel
-        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnSave: TImage
