@@ -448,6 +448,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
       StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 265
       inherited label02: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnExit: TImage
@@ -457,6 +458,7 @@ inherited frmAtd_Cadastro: TfrmAtd_Cadastro
     inherited pnlFootButton01: TPanel
       StyleElements = [seFont, seClient, seBorder]
       inherited Label01: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnSave: TImage

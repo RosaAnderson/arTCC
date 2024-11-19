@@ -433,13 +433,13 @@ begin
                         frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
 
                     try
-                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Hint    := vpSearch; // carrega os dados no form
                         frmLst_Registro.Caption := vpField;
 
                         frmLst_Registro.ShowModal; // exibe o form
 
                         if frmLst_Registro.Tag <> 0 then
-                            txtCliente.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
+                            txtCliente.Text    := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
                     finally
                         frmLst_Registro := nil;
                         frmLst_Registro.Free; // descarrega o objeto
@@ -460,12 +460,12 @@ begin
                         frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
 
                     try
-                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Hint    := vpSearch; // carrega os dados no form
                         frmLst_Registro.Caption := vpField;
 
                         frmLst_Registro.ShowModal; // exibe o form
 
-                        if frmLst_Registro.Tag <> 0 then
+                        if frmLst_Registro.Tag   <> 0 then
                             txtProcedimento.Text := frmLst_Registro.cdsLst.FieldByName('NOME').AsString;
                     finally
                         frmLst_Registro := nil;
@@ -487,7 +487,7 @@ begin
                         frmLst_Registro := TfrmLst_Registro.Create(nil); // cria o form
 
                     try
-                        frmLst_Registro.Hint := vpSearch; // carrega os dados no form
+                        frmLst_Registro.Hint    := vpSearch; // carrega os dados no form
                         frmLst_Registro.Caption := vpField;
 
                         frmLst_Registro.ShowModal; // exibe o form
@@ -505,29 +505,37 @@ begin
         end;
 
         // preenche os campos
-        pnlCliente.Tag := gvPES_ID;
-        if gvPES_ID <> 0 then
-            txtCliente.Text := gvPES_NOME;
-
-        pnlProcedimento.Tag := gvPRC_ID;
-        if gvPRC_ID <> 0 then
-            txtProcedimento.Text := gvPRC_NOME;
-
-        pnlPagamento.Tag := gvFPG_ID;
-        if gvFPG_ID <> 0 then
-            txtPagamento.Text := gvFPG_NOME;
-
-        txtDuracao.Text := IntToStr(gvPRC_DURACAO) + ' min.';
-        txtValor.Text   := FormatMoney(gvPRC_VALOR);
-
-        if ((vpField = 'Cliente') and (gvPES_ID <> 0)) then // se for cliente
-            txtProcedimento.SetFocus
+        if vpField = 'Cliente' then
+        begin
+            pnlCliente.Tag := gvPES_ID;
+            if gvPES_ID <> 0 then
+            begin
+                txtCliente.Text := gvPES_NOME;
+                txtProcedimento.SetFocus
+            end;
+        end
         else
-        if ((vpField = 'Procedimento') and (gvPRC_ID <> 0)) then // se for procedimento
-            txtDuracao.SetFocus
+        if vpField = 'Procedimento' then
+        begin
+            pnlProcedimento.Tag := gvPRC_ID;
+            if gvPRC_ID <> 0 then
+            begin
+                txtProcedimento.Text := gvPRC_NOME;
+                txtDuracao.Text      := IntToStr(gvPRC_DURACAO) + ' min.';
+                txtValor.Text        := FormatMoney(gvPRC_VALOR);
+                txtDuracao.SetFocus;
+            end;
+        end
         else
-        if ((vpField = 'Pagamento') and (gvFPG_ID <> 0)) then // se for procedimento
-            txtObservacoes.SetFocus;
+        if vpField = 'Pagamento' then
+        begin
+            pnlPagamento.Tag := gvFPG_ID;
+            if gvFPG_ID <> 0 then
+            begin
+                txtPagamento.Text := gvFPG_NOME;
+                txtObservacoes.SetFocus;
+            end;
+        end;
     end;
 end;
 
