@@ -78,10 +78,43 @@ var
     RESTRequest : TRESTRequest;
     RESTResponse: TRESTResponse;
 begin
+
+
+
+
+if sysDevShortcut then Exit;
+
+
+
+
     try
         // verifica o tipo de envio
         if vfType = 'text' then
         begin
+            if gvAPIKey = '' then
+            begin
+                //
+
+                //
+                Exit
+            end;
+
+            if gvPhoneFrom = '' then
+            begin
+                //
+
+                //
+                Exit;
+            end;
+
+            if vfTo = '' then
+            begin
+                //
+
+                //
+                Exit;
+            end;
+
             try
                 // cria os objetos
                 RESTClient   := TRESTClient.Create(nil);
@@ -105,6 +138,14 @@ begin
                 vfBody := StringReplace(vfBody, '#$D#$A', gcSymbolLine , [rfReplaceAll, rfIgnoreCase]);
 
                 vURL   := vURL + '&message_body=' + vfBody; // insere a mensagem na url
+
+                if vfBody = '' then
+                begin
+                    //
+
+                    //
+                    Exit;
+                end;
 
                 try
                     // envia a url
