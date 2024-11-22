@@ -629,7 +629,7 @@ begin
                 begin
                     SQL.Add(' AND ATD_ID = ' + QuotedStr(IntToStr(vfATD_ID)));
                     SQL.Add(' AND ATD_STATUS = ''A''                       ');
-                    vcCLK_ATD_STATUS := 'N';
+//                    vcCLK_ATD_STATUS := 'N';
                 end
                 else
                 begin

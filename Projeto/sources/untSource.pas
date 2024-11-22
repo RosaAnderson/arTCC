@@ -13,6 +13,8 @@ uses e.log,
   function exePathRequest: string;
 
   var
+    sysDevShortcut                : Boolean = False;
+
     // conexão
     gvServer                      : string  = ''; // local do servidor
     gvBase                        : string  = ''; // nome da base de dados
@@ -46,9 +48,9 @@ uses e.log,
     gvDate                        : TDate; // armazena a data do sistema
     gvHExpI                       : string = '08:00'; // define a hora inicial do expediente
     gvHExpF                       : string = '18:00'; // define a hora final do expediente
-    gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
     gvScheduleInterval            : Integer = 30; // define o intervalo minimo de cada atendimento
     gvScheduleRefresh             : Integer = (1000 * 60) * 30; // define o intervalo entre cada atualização da agenda
+    gvInterval                    : Integer = 5; // intervalo entre cada requisição de dados para o servidor
 
     gvAttachPath                  : string  = 'D:\'; // caminho da pasta de armazenamento de anexos
     gvSysPatch                    : string  = ''; // caminho do executavel do sistema

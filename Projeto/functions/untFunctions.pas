@@ -57,7 +57,11 @@ var
 
 implementation
 
-uses untMessages, untDBConnect, untSource;
+uses untMessages, untDBConnect, untSource
+
+
+
+, untMain;
 
 //##############################################################################
 //### Procedures ###############################################################
@@ -75,6 +79,8 @@ procedure ToCreate(vpForm: TForm; vpTForm: TFormClass; vpParent: TComponent; vpP
 begin
     if Assigned(vpPanel) then
         vpPanel.Visible := False; // fecha a dashboard
+
+frmMain.pnlCenter.Visible := vpPanel.Visible; // tecer melhorias no futuro
 
     // verifica se o form foi criado
     if not Assigned(vpForm) then
@@ -102,6 +108,8 @@ begin
 
     if Assigned(vpPanel) then
         vpPanel.Visible := True; // fecha a dashboard
+
+frmMain.pnlCenter.Visible := vpPanel.Visible; // tecer melhorias no futuro
 end;
 
 //##############################################################################

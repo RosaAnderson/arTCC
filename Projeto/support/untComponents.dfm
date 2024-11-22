@@ -5,7 +5,7 @@ object frmComponents: TfrmComponents
   BorderStyle = bsNone
   Caption = 'frmComponents'
   ClientHeight = 875
-  ClientWidth = 1465
+  ClientWidth = 1421
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,7 +13,7 @@ object frmComponents: TfrmComponents
   Font.Name = 'Segoe UI'
   Font.Style = []
   DesignSize = (
-    1465
+    1421
     875)
   TextHeight = 15
   object dgrClock: TPaintBox
@@ -26,7 +26,7 @@ object frmComponents: TfrmComponents
     AlignWithMargins = True
     Left = 8
     Top = 778
-    Width = 1449
+    Width = 1405
     Height = 89
     Margins.Left = 8
     Margins.Top = 8
@@ -34,6 +34,7 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 0
+    ExplicitWidth = 1449
     object pnl01: TPanel
       AlignWithMargins = True
       Left = 26
@@ -3234,7 +3235,7 @@ object frmComponents: TfrmComponents
   end
   object pnlAdditional: TScrollBox
     AlignWithMargins = True
-    Left = 1191
+    Left = 1147
     Top = 0
     Width = 266
     Height = 709
@@ -3245,6 +3246,7 @@ object frmComponents: TfrmComponents
     Align = alRight
     BorderStyle = bsNone
     TabOrder = 6
+    ExplicitLeft = 1191
     object shpTitleDescricao: TShape
       AlignWithMargins = True
       Left = 8
@@ -9943,7 +9945,7 @@ object frmComponents: TfrmComponents
     end
   end
   object pnlMenuCad: TPanel
-    Left = 857
+    Left = 813
     Top = 7
     Width = 270
     Height = 745
@@ -9957,6 +9959,7 @@ object frmComponents: TfrmComponents
     ParentColor = True
     TabOrder = 8
     Visible = False
+    ExplicitLeft = 857
     object shpEdgeMenu: TShape
       Left = 216
       Top = 1
@@ -11142,7 +11145,7 @@ object frmComponents: TfrmComponents
     AlignWithMargins = True
     Left = 8
     Top = 721
-    Width = 1449
+    Width = 1405
     Height = 41
     Margins.Left = 8
     Margins.Top = 8
@@ -11150,9 +11153,10 @@ object frmComponents: TfrmComponents
     Margins.Bottom = 8
     Align = alBottom
     TabOrder = 9
+    ExplicitWidth = 1449
     object pnlButtonPri: TPanel
       AlignWithMargins = True
-      Left = 1124
+      Left = 1080
       Top = 3
       Width = 150
       Height = 35
@@ -11164,6 +11168,7 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 1124
       object shpPrimary: TShape
         Left = 10
         Top = 10
@@ -11196,7 +11201,7 @@ object frmComponents: TfrmComponents
     end
     object pnlButtonSec: TPanel
       AlignWithMargins = True
-      Left = 1290
+      Left = 1246
       Top = 3
       Width = 150
       Height = 35
@@ -11208,6 +11213,7 @@ object frmComponents: TfrmComponents
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitLeft = 1290
       object shpSecondary: TShape
         Left = 10
         Top = 10
@@ -11267,8 +11273,8 @@ object frmComponents: TfrmComponents
     end
   end
   object Panel2: TPanel
-    Left = 470
-    Top = 69
+    Left = 424
+    Top = 8
     Width = 361
     Height = 121
     BevelOuter = bvNone
