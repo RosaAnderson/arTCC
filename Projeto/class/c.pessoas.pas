@@ -223,7 +223,7 @@ begin
                 SQL.Add(' PES_NOME       = :PES_NOME,       ');
                 SQL.Add(' PES_NASCIMENTO = :PES_NASCIMENTO, ');
 //                SQL.Add(' PES_GENERO     = :PES_GENERO,     ');
-                SQL.Add(' PES_PROFISSAO  = :PES_PROFISSAO,  ');
+                SQL.Add(' PES_PROFISSAO  = :PES_PROFISSAO  ');
 //                SQL.Add(' PES_AVATAR     = :PES_AVATAR      ');
                 SQL.Add(' WHERE PES_ID   = :PES_ID          ');
 
