@@ -182,9 +182,31 @@ begin
 
     // se não houver um cadastro
     if gvPES_ID = 0 then
-        pesUpdate(pesGetID(txtNome.Text)) // atualiza o cadastro
+        if (pesUpdate(pesGetID(txtNome.Text))) then // atualiza o cadastro
+        begin
+            // exibe a mensagem para o usuario
+            showMsg({janela de ogigem}    Self.Caption,
+                        {título da mensagem}  'Cadastro de Cliente.',
+                        {mensagem ao usuário} 'Cliente cadastrado com sucesso!',
+                        {caminho do ícone}    'check', {check/error/question/exclamation}
+                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                        {nome do link}        '',
+                        {link}                ''
+                       );
+        end
     else
-        pesUpdate(gvPES_ID); // atualiza o cadastro
+        if (pesUpdate(gvPES_ID)) then // atualiza o cadastro
+        begin
+            // exibe a mensagem para o usuario
+            showMsg({janela de ogigem}    Self.Caption,
+                        {título da mensagem}  'Cadastro de Cliente.',
+                        {mensagem ao usuário} 'Cliente atualizado com sucesso!',
+                        {caminho do ícone}    'check', {check/error/question/exclamation}
+                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                        {nome do link}        '',
+                        {link}                ''
+                       );
+        end;
 end;
 
 procedure TfrmCli_Cadastro.clearFields();

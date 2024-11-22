@@ -1333,7 +1333,7 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
     Width = 340
     TabOrder = 1
     StyleElements = [seFont, seClient, seBorder]
-    ExplicitTop = 466
+    ExplicitTop = 423
     ExplicitWidth = 340
     inherited pnlFootButton02: TPanel
       Left = 265
@@ -1342,6 +1342,7 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
       ExplicitTop = 0
       ExplicitHeight = 62
       inherited label02: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnExit: TImage
@@ -1352,6 +1353,7 @@ inherited frmCli_Cadastro: TfrmCli_Cadastro
       StyleElements = [seFont, seClient, seBorder]
       ExplicitHeight = 62
       inherited Label01: TLabel
+        Width = 50
         StyleElements = [seFont, seClient, seBorder]
       end
       inherited btnSave: TImage
