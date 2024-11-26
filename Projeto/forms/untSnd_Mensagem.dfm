@@ -27,6 +27,8 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
       Left = 765
       StyleElements = [seFont, seClient, seBorder]
       ExplicitLeft = 765
+      ExplicitTop = 0
+      ExplicitHeight = 62
       inherited label02: TLabel
         Width = 50
         StyleElements = [seFont, seClient, seBorder]
@@ -38,6 +40,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     inherited pnlFootButton01: TPanel
       Visible = False
       StyleElements = [seFont, seClient, seBorder]
+      ExplicitHeight = 62
       inherited Label01: TLabel
         Width = 50
         StyleElements = [seFont, seClient, seBorder]
@@ -1727,9 +1730,9 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
   object dbgList: TDBGrid
     AlignWithMargins = True
     Left = 1
-    Top = 90
+    Top = 91
     Width = 848
-    Height = 376
+    Height = 375
     Margins.Left = 1
     Margins.Top = 0
     Margins.Right = 1
@@ -1941,11 +1944,11 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
   object pnlData: TPanel
     AlignWithMargins = True
     Left = 1
-    Top = 30
+    Top = 31
     Width = 848
     Height = 60
     Margins.Left = 1
-    Margins.Top = 0
+    Margins.Top = 1
     Margins.Right = 1
     Margins.Bottom = 0
     Align = alTop
@@ -1953,6 +1956,7 @@ inherited frmSnd_Mensagem: TfrmSnd_Mensagem
     Color = clBlack
     ParentBackground = False
     TabOrder = 2
+    ExplicitTop = 30
     object pboxHoje: TPaintBox
       Left = 0
       Top = 0

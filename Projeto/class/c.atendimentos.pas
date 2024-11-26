@@ -597,32 +597,32 @@ begin
             begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
-                SQL.Add(' SELECT                                           ');
-                SQL.Add('   ATD_ID, ATD_STATUS, ATD_NOTIFICADO,            ');
-                SQL.Add('   ATD_DATA, ATD_HORA,                            ');
-                SQL.Add('   ATD_DURACAO, ATD_VALOR, ATD_OBSERVACOES,       ');
-                SQL.Add('   PES_ID, PES_NOME,                              ');
-                SQL.Add('   PRC_ID, PRC_NOME,                              ');
-                SQL.Add('   FPG_ID, FPG_NOME,                              ');
-                SQL.Add('   TEL_ID, TEL_DDI, TEL_DDD, TEL_TELEFONE,        ');
-                SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAOf,');
-                SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORAF, ');
-                SQL.Add('   REPLACE(                                       ');
-                SQL.Add('       REPLACE(                                   ');
-                SQL.Add('           REPLACE(                               ');
-                SQL.Add('               FORMAT(ATD_VALOR, 2),              ');
-                SQL.Add('           ''.'', ''|''),                         ');
-                SQL.Add('       '','', ''.''),                             ');
-                SQL.Add('   ''|'', '','') AS ATD_VALORF                    ');
-                SQL.Add('  FROM ATENDIMENTOS                               ');
-                SQL.Add('  JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
-                SQL.Add('  JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
-                SQL.Add('  JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
-                SQL.Add('  JOIN TELEFONES ON (TEL_PES_ID = PES_ID)         ');
-                SQL.Add('  JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)     ');
-                SQL.Add('  JOIN FORMA_PGTO ON (FPG_ID = ATD_FPG_ID)        ');
-                SQL.Add('  WHERE ATD_DATA = ' + QuotedStr(vfData)           );
-                SQL.Add('    AND ATD_HORA = ' + QuotedStr(vfHora + ':00')   );
+                SQL.Add('    SELECT                                            ');
+                SQL.Add('       ATD_ID, ATD_STATUS, ATD_NOTIFICADO,            ');
+                SQL.Add('       ATD_DATA, ATD_HORA,                            ');
+                SQL.Add('       ATD_DURACAO, ATD_VALOR, ATD_OBSERVACOES,       ');
+                SQL.Add('       PES_ID, PES_NOME,                              ');
+                SQL.Add('       PRC_ID, PRC_NOME,                              ');
+                SQL.Add('       FPG_ID, FPG_NOME,                              ');
+                SQL.Add('       TEL_ID, TEL_DDI, TEL_DDD, TEL_TELEFONE,        ');
+                SQL.Add('       CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAOf,');
+                SQL.Add('       TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORAF, ');
+                SQL.Add('       REPLACE(                                       ');
+                SQL.Add('           REPLACE(                                   ');
+                SQL.Add('               REPLACE(                               ');
+                SQL.Add('                   FORMAT(ATD_VALOR, 2),              ');
+                SQL.Add('               ''.'', ''|''),                         ');
+                SQL.Add('           '','', ''.''),                             ');
+                SQL.Add('       ''|'', '','') AS ATD_VALORF                    ');
+                SQL.Add('      FROM ATENDIMENTOS                               ');
+                SQL.Add('      JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID) ');
+                SQL.Add('      JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID) ');
+                SQL.Add('      JOIN PESSOAS ON (PES_ID = APS_PES_ID)           ');
+                SQL.Add(' LEFT JOIN TELEFONES ON (TEL_PES_ID = PES_ID)         ');
+                SQL.Add('      JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)     ');
+                SQL.Add('      JOIN FORMA_PGTO ON (FPG_ID = ATD_FPG_ID)        ');
+                SQL.Add('     WHERE ATD_DATA = ' + QuotedStr(vfData)           );
+                SQL.Add('       AND ATD_HORA = ' + QuotedStr(vfHora + ':00')   );
 
                 //
                 if vfATD_ID > 0 then

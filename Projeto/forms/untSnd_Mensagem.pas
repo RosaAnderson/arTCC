@@ -122,26 +122,26 @@ begin
         Close;
         SQL.Clear;
 
-        SQL.Add(' SELECT                                              ');
-        SQL.Add('   ATD_ID, ATD_STATUS, ATD_DATA, PES_NOME, PRC_NOME, ');
-        SQL.Add('   TEL_DDI, TEL_DDD, TEL_TELEFONE,                   ');
-        SQL.Add('   CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAO,    ');
-        SQL.Add('   TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORA,     ');
-        SQL.Add('   REPLACE(                                          ');
-        SQL.Add('       REPLACE(                                      ');
-        SQL.Add('           REPLACE(                                  ');
-        SQL.Add('               FORMAT(ATD_VALOR, 2),                 ');
-        SQL.Add('           ''.'', ''|''),                            ');
-        SQL.Add('       '','', ''.''),                                ');
-        SQL.Add('   ''|'', '','') AS ATD_VALOR                        ');
-        SQL.Add('  FROM ATENDIMENTOS                                  ');
-        SQL.Add('  JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID)    ');
-        SQL.Add('  JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID)    ');
-        SQL.Add('  JOIN PESSOAS ON (PES_ID = APS_PES_ID)              ');
-        SQL.Add('  JOIN TELEFONES ON (TEL_PES_ID = PES_ID)            ');
-        SQL.Add('  JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)        ');
-        SQL.Add(' WHERE ATD_DATA = :ATD_DATA                          ');
-        SQL.Add('   AND ATD_STATUS = ''A''                            ');
+        SQL.Add('    SELECT                                               ');
+        SQL.Add('       ATD_ID, ATD_STATUS, ATD_DATA, PES_NOME, PRC_NOME, ');
+        SQL.Add('       TEL_DDI, TEL_DDD, TEL_TELEFONE,                   ');
+        SQL.Add('       CONCAT(ATD_DURACAO, '' min.'') AS ATD_DURACAO,    ');
+        SQL.Add('       TIME_FORMAT(ATD_HORA, ''%H:%i'') AS ATD_HORA,     ');
+        SQL.Add('       REPLACE(                                          ');
+        SQL.Add('           REPLACE(                                      ');
+        SQL.Add('               REPLACE(                                  ');
+        SQL.Add('                   FORMAT(ATD_VALOR, 2),                 ');
+        SQL.Add('               ''.'', ''|''),                            ');
+        SQL.Add('           '','', ''.''),                                ');
+        SQL.Add('       ''|'', '','') AS ATD_VALOR                        ');
+        SQL.Add('      FROM ATENDIMENTOS                                  ');
+        SQL.Add('      JOIN ATENDIMENTOS_PESS ON (APS_ATD_ID = ATD_ID)    ');
+        SQL.Add('      JOIN ATENDIMENTOS_PROC ON (APC_ATD_ID = ATD_ID)    ');
+        SQL.Add('      JOIN PESSOAS ON (PES_ID = APS_PES_ID)              ');
+        SQL.Add(' LEFT JOIN TELEFONES ON (TEL_PES_ID = PES_ID)            ');
+        SQL.Add('      JOIN PROCEDIMENTOS ON (PRC_ID = APC_PRC_ID)        ');
+        SQL.Add('     WHERE ATD_DATA = :ATD_DATA                          ');
+        SQL.Add('       AND ATD_STATUS = ''A''                            ');
 
         // vrifica se vai ocultar/exibir clientes já notificados
         if btnNotified.State = tssOn then
@@ -174,7 +174,7 @@ begin
         // verifica se tem algum registro listado
         if cdsAtd.IsEmpty then
         begin
-            vError := -27; // define o erro
+            vError := -1927; // define o erro
             Exit; // encerra a execução
         end;
 
@@ -213,24 +213,31 @@ begin
             // valida o numero
             vSND_TELEFONE := ValidarPhone(vSND_TELEFONE);
 
-            // envia a mensagem
-            if getSendResult(
-                SendToWhatsapp(vSND_TELEFONE, 'mult-notification',
-                                vType, '', '', vSND_MESSAGE)) then
+            if vSND_TELEFONE = '' then
             begin
-                // marca o atendimento como nofificado
-                c.atendimentos.atdSetNotified(cdsAtd.FieldByName('ATD_ID').AsInteger);
-
                 // adiciona o historico
-                txtHistory.Lines.Add('    - ' + vPES_NOME + ' => enviada com sucesso.')
+                txtHistory.Lines.Add('    - ' + vPES_NOME + ' => não enviada. Telefone inválido ou não cadastrado!');
             end
             else
             begin
-                // adiciona o historico
-                txtHistory.Lines.Add('    - ' + vPES_NOME + ' => não enviada.');
+                if getSendResult(
+                    SendToWhatsapp(vSND_TELEFONE, 'mult-notification',
+                                    vType, '', '', vSND_MESSAGE)) then // envia a mensagem
+                begin
+                    // marca o atendimento como nofificado
+                    c.atendimentos.atdSetNotified(cdsAtd.FieldByName('ATD_ID').AsInteger);
 
-                // registra o erro
-                Inc(vError);
+                    // adiciona o historico
+                    txtHistory.Lines.Add('    - ' + vPES_NOME + ' => enviada com sucesso.')
+                end
+                else
+                begin
+                    // adiciona o historico
+                    txtHistory.Lines.Add('    - ' + vPES_NOME + ' => não enviada.');
+
+                    // registra o erro
+                    Inc(vError);
+                end;
             end;
 
             // move para o proximo registro
@@ -241,16 +248,19 @@ begin
         cdsAtd.First;
     finally
         // exibe a mensagem
-        if vError = -27 then
+        if vError = -1927 then
+        begin
             showMsg({janela de ogigem}    Self.Caption,
                     {título da mensagem}  'Lista vazia!',
                     {mensagem ao usuário} 'Nenhum cliente listado na data selecionada!',
                     {caminho do ícone}    'exclamation', {check/error/question/exclamation}
                     {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
                     {nome do link}        '',
-                    {link}                '')
+                    {link}                '');
+        end
         else
         if vError = 0 then
+        begin
             showMsg({janela de ogigem}    Self.Caption,
                     {título da mensagem}  'Notificações de Agendamento',
                     {mensagem ao usuário} 'Todas as notificações foram enviadas com sucesso!',
@@ -259,8 +269,22 @@ begin
                     {nome do link}        '',
                     {link}                '');
 
-        // fecha a ajanela
-        Close;
+            // fecha a ajanela
+            Close;
+        end
+        else
+        if vError <> 0 then
+        begin
+            showMsg({janela de ogigem}    Self.Caption,
+                    {título da mensagem}  'Envio Incompleto',
+                    {mensagem ao usuário} 'Um ou mais clientes não puderam ser notificados!'
+                                          + sLineBreak + sLineBreak +
+                                          'Veja o histórico para ver o motivo.',
+                    {caminho do ícone}    'exclamation', {check/error/question/exclamation}
+                    {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                    {nome do link}        '',
+                    {link}                '');
+        end;
     end;
 end;
 
