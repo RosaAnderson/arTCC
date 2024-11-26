@@ -7237,6 +7237,7 @@ inherited frmMain: TfrmMain
         Color = clWhite
         ParentBackground = False
         TabOrder = 6
+        Visible = False
         object btnDashboard: TImage
           Left = 0
           Top = 0
@@ -7548,6 +7549,7 @@ inherited frmMain: TfrmMain
             200A00000082FE3F42708C2D1BF5E28B0000000049454E44AE426082}
           Proportional = True
           Stretch = True
+          OnClick = btnDashboardClick
           ExplicitWidth = 72
         end
         object Label7: TLabel
@@ -8431,6 +8433,7 @@ inherited frmMain: TfrmMain
         Color = clWhite
         ParentBackground = False
         TabOrder = 8
+        Visible = False
         object btnBuscar: TImage
           Left = 0
           Top = 0
@@ -9208,7 +9211,6 @@ inherited frmMain: TfrmMain
             CE41665F81DB02640000000049454E44AE426082}
           Proportional = True
           Stretch = True
-          OnClick = btnCloseFormClick
           ExplicitWidth = 72
         end
         object Label9: TLabel
@@ -22325,7 +22327,7 @@ inherited frmMain: TfrmMain
       TabOrder = 1
       Visible = False
     end
-    object Panel2: TPanel
+    object pnlGraficoMes: TPanel
       AlignWithMargins = True
       Left = 0
       Top = 390
@@ -22361,7 +22363,7 @@ inherited frmMain: TfrmMain
         Layout = tlCenter
         ExplicitWidth = 173
       end
-      object Panel3: TPanel
+      object pnlGraficoM: TPanel
         Left = 0
         Top = 26
         Width = 250
@@ -22399,7 +22401,6 @@ inherited frmMain: TfrmMain
           ParentFont = False
           TabOrder = 0
           Visible = False
-          ExplicitTop = 0
           object lbl001_M: TLabel
             AlignWithMargins = True
             Left = 0
@@ -22449,7 +22450,6 @@ inherited frmMain: TfrmMain
           ParentFont = False
           TabOrder = 1
           Visible = False
-          ExplicitTop = 18
           object lbl002_M: TLabel
             AlignWithMargins = True
             Left = 0
@@ -22499,7 +22499,6 @@ inherited frmMain: TfrmMain
           ParentFont = False
           TabOrder = 2
           Visible = False
-          ExplicitTop = 36
           object lbl003_M: TLabel
             AlignWithMargins = True
             Left = 0
@@ -22549,7 +22548,6 @@ inherited frmMain: TfrmMain
           ParentFont = False
           TabOrder = 3
           Visible = False
-          ExplicitTop = 54
           object lbl000_M: TLabel
             AlignWithMargins = True
             Left = 0
@@ -22577,7 +22575,7 @@ inherited frmMain: TfrmMain
         end
       end
     end
-    object Panel8: TPanel
+    object pnlGraficoDia: TPanel
       AlignWithMargins = True
       Left = 0
       Top = 275
@@ -22592,6 +22590,7 @@ inherited frmMain: TfrmMain
       Color = 2773792
       ParentBackground = False
       TabOrder = 3
+      Visible = False
       object Label14: TLabel
         AlignWithMargins = True
         Left = 10
@@ -22613,7 +22612,7 @@ inherited frmMain: TfrmMain
         Layout = tlCenter
         ExplicitWidth = 176
       end
-      object Panel9: TPanel
+      object pnlGraficoD: TPanel
         Left = 0
         Top = 26
         Width = 250

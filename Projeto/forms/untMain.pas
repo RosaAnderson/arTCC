@@ -102,10 +102,10 @@ type
     Label22: TLabel;
     lblATD_VALOR: TLabel;
     pnl001: TPanel;
-    Panel2: TPanel;
+    pnlGraficoMes: TPanel;
     btnConfirmN: TImage;
     btnCancelN: TImage;
-    Panel3: TPanel;
+    pnlGraficoM: TPanel;
     Label11: TLabel;
     pnl001_M: TPanel;
     lbl001_M: TLabel;
@@ -115,9 +115,9 @@ type
     lbl003_M: TLabel;
     pnl000_M: TPanel;
     lbl000_M: TLabel;
-    Panel8: TPanel;
+    pnlGraficoDia: TPanel;
     Label14: TLabel;
-    Panel9: TPanel;
+    pnlGraficoD: TPanel;
     Panel10: TPanel;
     lblDinheiroH: TLabel;
     Panel11: TPanel;
@@ -131,12 +131,13 @@ type
     function getName(Sender: TObject): string;
 
     procedure MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-
     procedure FormCreate(Sender: TObject);
 
     procedure loadGraphic();
     procedure loadNextATD(Sender: TObject);
     procedure finishPreviousATD(Sender: TObject);
+
+    procedure visiblePanel(vpStatus: Boolean);
 
     procedure tmrClockTimer(Sender: TObject);
     procedure tmrAgendasTimer(Sender: TObject);
@@ -152,6 +153,7 @@ type
     procedure btnNotificacoesClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure btnCompromissoClick(Sender: TObject);
+    procedure btnDashboardClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -288,8 +290,15 @@ begin
         pnlAgenda.Width := 1;
 end;
 
+procedure TfrmMain.btnDashboardClick(Sender: TObject);
+begin
+  inherited;
+//
+end;
+
 procedure TfrmMain.btnEdtClick(Sender: TObject);
 begin
+visiblePanel(False);
     // pega o id do atendimento
     vATD_ID := getId(Sender);
 
@@ -307,7 +316,10 @@ begin
                                  vATD_ID);
 
     try
-        frmAtd_Cadastro.Tag := vATD_ID;
+        if gvATD_STATUS <> 'A' then
+            Exit;
+
+        frmAtd_Cadastro.Tag                  := vATD_ID;
 
         frmAtd_Cadastro.pnlCliente.Tag       := gvPES_ID;
         frmAtd_Cadastro.txtCliente.Text      := gvPES_NOME;
@@ -333,6 +345,7 @@ begin
     finally
         frmAtd_Cadastro := nil;
         frmAtd_Cadastro.Free; // descarrega o objeto
+visiblePanel(True);
     end;
 end;
 
@@ -721,6 +734,15 @@ procedure TfrmMain.tmrClockTimer(Sender: TObject);
 begin
     // define a hora
     ATime(lblHou, lblMin, lblSec);
+
+    tmrAgendas.Enabled := pnlAgenda.Visible;
+end;
+
+procedure TfrmMain.visiblePanel(vpStatus: Boolean);
+begin
+// tecer melhorias no futuro
+    pnlCenter.Visible := vpStatus;
+    pnlAgenda.Visible := vpStatus;
 end;
 
 end.
