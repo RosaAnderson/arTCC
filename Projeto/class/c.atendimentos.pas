@@ -183,9 +183,9 @@ begin
                 Connection := frmDBConnect.FDConnect; // define o bando de dados
 
                 // insere o sql
-                SQL.Add(' SELECT * FROM ATENDIMENTOS  ');
-                SQL.Add(' WHERE ATD_ID   = :ATD_BUSCA ');
-                SQL.Add('    OR ATD_DATA = :ATD_BUSCA ');
+                SQL.Add(' SELECT * FROM ATENDIMENTOS   ');
+                SQL.Add(' WHERE (ATD_ID   = :ATD_BUSCA ');
+                SQL.Add('    OR ATD_DATA = :ATD_BUSCA) ');
 
                 if vfStatus <> '' then
                     SQL.Add(' AND ATD_STATUS = ' +
