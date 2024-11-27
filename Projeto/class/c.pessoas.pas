@@ -352,7 +352,7 @@ begin
             gvMAI_TIPO       := 'P'; //vcMAI_TIPO;
             gvMAI_EMAIL      := vcMAI_EMAIL;
 
-            Result := not(qryAuxPES.IsEmpty); // derfine o resultado
+//            Result := not(qryAuxPES.IsEmpty); // derfine o resultado
         except
             //
             Result := False;
