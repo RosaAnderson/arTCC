@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, untStandard, Vcl.Imaging.pngimage,
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.WinXCalendars, Vcl.Imaging.jpeg,
-  System.DateUtils;
+  System.DateUtils, Vcl.WinXCtrls;
 
 type
   TfrmMain = class(TfrmStandard)
@@ -262,25 +262,28 @@ begin
     if vATD_ID = 0 then
         Exit;
 
-    //
-    if showMsg({janela de ogigem}    Self.Caption,
-               {título da mensagem}  '',
-               {mensagem ao usuário} 'Deseja realmente cancelar o atendimento' +
-                                     getName(Sender) + '?',
-               {caminho do ícone}    'question', {check/error/question/exclamation}
-               {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-               {nome do link}        '',
-               {link}                '')
-    then
+    // verifica o status do atendimento
+    if c.atendimentos.atdSearchOne(IntToStr(vATD_ID), 'A') then
     begin
-        // cansela o atendimento
-        c.atendimentos.atdChange(vATD_ID, 'C');
+        //
+        if showMsg({janela de ogigem}    Self.Caption,
+                   {título da mensagem}  '',
+                   {mensagem ao usuário} 'Deseja realmente cancelar o atendimento' +
+                                         getName(Sender) + '?',
+                   {caminho do ícone}    'question', {check/error/question/exclamation}
+                   {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                   {nome do link}        '',
+                   {link}                '') then
+        begin
+            // cansela o atendimento
+            c.atendimentos.atdChange(vATD_ID, 'C');
 
-        // recarrega os dados
-        iSchedulingBox(Self, pnlAtendimentos, gvDate);
+            // recarrega os dados
+            iSchedulingBox(Self, pnlAtendimentos, gvDate);
 
-        // carrega o proximo aendimento no card
-        loadNextATD(Sender);
+            // carrega o proximo aendimento no card
+            loadNextATD(Sender);
+        end;
     end;
 end;
 
@@ -299,21 +302,25 @@ begin
     if vATD_ID = 0 then
         Exit;
 
-    if showMsg({janela de ogigem}    Self.Caption,
-               {título da mensagem}  '',
-               {mensagem ao usuário} 'Deseja realmente marcar o atendimento' +
-                                     getName(Sender) + ' como finalizado?',
-               {caminho do ícone}    'question', {check/error/question/exclamation}
-               {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-               {nome do link}        '',
-               {link}                '')
-    then
+    // verifica o status do atendimento
+    if c.atendimentos.atdSearchOne(IntToStr(vATD_ID), 'A') then
     begin
-        // finaliza o atendimento
-        c.atendimentos.atdChange(vATD_ID, 'F');
+        if showMsg({janela de ogigem}    Self.Caption,
+                   {título da mensagem}  '',
+                   {mensagem ao usuário} 'Deseja realmente marcar o atendimento' +
+                                         getName(Sender) + ' como finalizado?',
+                   {caminho do ícone}    'question', {check/error/question/exclamation}
+                   {botão}               'y/n', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                   {nome do link}        '',
+                   {link}                '')
+        then
+        begin
+            // finaliza o atendimento
+            c.atendimentos.atdChange(vATD_ID, 'F');
 
-        // carrega o proximo aendimento no card
-        loadNextATD(Sender);
+            // carrega o proximo aendimento no card
+            loadNextATD(Sender);
+        end;
     end;
 end;
 
@@ -421,103 +428,107 @@ begin
     if vATD_ID = 0 then
         Exit;
 
-    try
+    // verifica o status do atendimento
+    if c.atendimentos.atdSearchOne(IntToStr(vATD_ID), 'A') then
+    begin
         try
-            // se o painel tiver um cliente assossiado
-            if vATD_ID > 0 then
-            begin
-                // faza busca e obtem os dados do cliente
-                c.atendimentos.atdSearchClk(FormatDateTime('yyyy-mm-dd', gvDate),
-                                            (Sender as TImage).Parent.Hint,
-                                             vATD_ID);
-
-                // se o atendimento já foi finalizado
-                if gvATD_STATUS = 'F' then
+            try
+                // se o painel tiver um cliente assossiado
+                if vATD_ID > 0 then
                 begin
-                    vError := -5;
-                    Exit;
+                    // faza busca e obtem os dados do cliente
+                    c.atendimentos.atdSearchClk(FormatDateTime('yyyy-mm-dd', gvDate),
+                                                (Sender as TImage).Parent.Hint,
+                                                 vATD_ID);
+
+                    // se o atendimento já foi finalizado
+                    if gvATD_STATUS = 'F' then
+                    begin
+                        vError := -5;
+                        Exit;
+                    end;
+
+                    // gera a mensagem
+                    vSND_MESSAGE := createMessage('confirma', gvPES_NOME,
+                                                               vcCLK_ATD_DATA,
+                                                                vcCLK_ATD_HORA,
+                                                                 gvPRC_NOME);
+
+                    // verifica o conteudo da variavel
+                    if vcCLK_TEL_TELEFONE <> '' then
+                        vSND_TELEFONE := vcCLK_TEL_TELEFONE // pega o telefone
+                    else
+                        vSND_TELEFONE := gvTEL_DDI + gvTEL_DDD + gvTEL_TELEFONE; // pega o telefone
+
+                    // valida o numero
+                    vSND_TELEFONE := ValidarPhone(vSND_TELEFONE);
+
+                    // verifica se o numero é válido
+                    if vSND_TELEFONE = '' then
+                    begin
+                        vError := -1;
+                        Exit;
+                    end;
+
+                    // envia a mensagem
+                    if (getSendResult(SendToWhatsapp(vSND_TELEFONE, 'single-notification',
+                                                  vType, '', '', vSND_MESSAGE))) then
+                    begin
+                        // marca o atendimento como nofificado
+                        c.atendimentos.atdSetNotified(vATD_ID);
+
+                        // recarrega os dados
+                        iSchedulingBox(Self, pnlAtendimentos, gvDate);
+                    end
+                    else
+                        vError := 1; // muda o status
                 end;
-
-                // gera a mensagem
-                vSND_MESSAGE := createMessage('confirma', gvPES_NOME,
-                                                           vcCLK_ATD_DATA,
-                                                            vcCLK_ATD_HORA,
-                                                             gvPRC_NOME);
-
-                // verifica o conteudo da variavel
-                if vcCLK_TEL_TELEFONE <> '' then
-                    vSND_TELEFONE := vcCLK_TEL_TELEFONE // pega o telefone
+            finally
+                // exibe a mensagem
+                if vError = -5 then
+                    showMsg({janela de ogigem}    Self.Caption,
+                            {título da mensagem}  'Inpossível notificar!',
+                            {mensagem ao usuário} 'O atendimento selecionado já foi finalizado!',
+                            {caminho do ícone}    'exclamation', {check/error/question/exclamation}
+                            {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                            {nome do link}        '',
+                            {link}                '')
                 else
-                    vSND_TELEFONE := gvTEL_DDI + gvTEL_DDD + gvTEL_TELEFONE; // pega o telefone
-
-                // valida o numero
-                vSND_TELEFONE := ValidarPhone(vSND_TELEFONE);
-
-                // verifica se o numero é válido
-                if vSND_TELEFONE = '' then
-                begin
-                    vError := -1;
-                    Exit;
-                end;
-
-                // envia a mensagem
-                if (getSendResult(SendToWhatsapp(vSND_TELEFONE, 'single-notification',
-                                              vType, '', '', vSND_MESSAGE))) then
-                begin
-                    // marca o atendimento como nofificado
-                    c.atendimentos.atdSetNotified(vATD_ID);
-
-                    // recarrega os dados
-                    iSchedulingBox(Self, pnlAtendimentos, gvDate);
-                end
+                if vError = -1 then
+                    showMsg({janela de ogigem}    Self.Caption,
+                            {título da mensagem}  'Inpossível notificar!',
+                            {mensagem ao usuário} 'O número registrado para esse cliente não é válido!' + sLineBreak +
+                                                  sLineBreak +
+                                                  'Verifique o cadastro do cliente e tente novamente!' ,
+                            {caminho do ícone}    'error', {check/error/question/exclamation}
+                            {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                            {nome do link}        '',
+                            {link}                '')
                 else
-                    vError := 1; // muda o status
+                if vError > 1 then
+                    showMsg({janela de ogigem}    Self.Caption,
+                            {título da mensagem}  'Inpossível notificar!',
+                            {mensagem ao usuário} 'Um erro ocorreu ao tentar enviar a notificação!' + sLineBreak +
+                                                  sLineBreak +
+                                                  'Tente novamente mais tarde!' ,
+                            {caminho do ícone}    'error', {check/error/question/exclamation}
+                            {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                            {nome do link}        '',
+                            {link}                '')
+                else
+                if vError = 0 then
+                    showMsg({janela de ogigem}    Self.Caption,
+                            {título da mensagem}  'Notificações de Agendamento',
+                            {mensagem ao usuário} 'Notificação de ' + gvPES_NOME +
+                                                  ' enviada com sucesso!',
+                            {caminho do ícone}    'check', {check/error/question/exclamation}
+                            {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                            {nome do link}        '',
+                            {link}                '');
             end;
-        finally
-            // exibe a mensagem
-            if vError = -5 then
-                showMsg({janela de ogigem}    Self.Caption,
-                        {título da mensagem}  'Inpossível notificar!',
-                        {mensagem ao usuário} 'O atendimento selecionado já foi finalizado!',
-                        {caminho do ícone}    'exclamation', {check/error/question/exclamation}
-                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-                        {nome do link}        '',
-                        {link}                '')
-            else
-            if vError = -1 then
-                showMsg({janela de ogigem}    Self.Caption,
-                        {título da mensagem}  'Inpossível notificar!',
-                        {mensagem ao usuário} 'O número registrado para esse cliente não é válido!' + sLineBreak +
-                                              sLineBreak +
-                                              'Verifique o cadastro do cliente e tente novamente!' ,
-                        {caminho do ícone}    'error', {check/error/question/exclamation}
-                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-                        {nome do link}        '',
-                        {link}                '')
-            else
-            if vError > 1 then
-                showMsg({janela de ogigem}    Self.Caption,
-                        {título da mensagem}  'Inpossível notificar!',
-                        {mensagem ao usuário} 'Um erro ocorreu ao tentar enviar a notificação!' + sLineBreak +
-                                              sLineBreak +
-                                              'Tente novamente mais tarde!' ,
-                        {caminho do ícone}    'error', {check/error/question/exclamation}
-                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-                        {nome do link}        '',
-                        {link}                '')
-            else
-            if vError = 0 then
-                showMsg({janela de ogigem}    Self.Caption,
-                        {título da mensagem}  'Notificações de Agendamento',
-                        {mensagem ao usuário} 'Notificação de ' + gvPES_NOME +
-                                              ' enviada com sucesso!',
-                        {caminho do ícone}    'check', {check/error/question/exclamation}
-                        {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
-                        {nome do link}        '',
-                        {link}                '');
+        except
+            //
         end;
-    except
-        //
     end;
 end;
 
@@ -686,6 +697,9 @@ begin
     begin
         // define a data do sistema
         gvDate := Calendar.Date;
+
+        //
+        lblHoje.Caption := fullDAte(gvDate);
 
         // recarrega os dados
         iSchedulingBox(Self, pnlAtendimentos, gvDate);
