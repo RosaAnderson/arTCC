@@ -182,6 +182,7 @@ begin
 
     // se não houver um cadastro
     if gvPES_ID = 0 then
+    begin
         if (pesUpdate(pesGetID(txtNome.Text))) then // atualiza o cadastro
         begin
             // exibe a mensagem para o usuario
@@ -193,8 +194,10 @@ begin
                         {nome do link}        '',
                         {link}                ''
                        );
-        end
+        end;
+    end
     else
+    begin
         if (pesUpdate(gvPES_ID)) then // atualiza o cadastro
         begin
             // exibe a mensagem para o usuario
@@ -207,6 +210,7 @@ begin
                         {link}                ''
                        );
         end;
+    end;
 end;
 
 procedure TfrmCli_Cadastro.clearFields();

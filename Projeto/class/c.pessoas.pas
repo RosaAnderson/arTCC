@@ -199,6 +199,8 @@ end;
 function pesUpdate(vfValue: Integer): Boolean;
 begin
     try
+        Result := True;
+
         // conecta
         if not(frmDBConnect.DBConnect) then
             Exit
