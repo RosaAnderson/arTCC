@@ -139,6 +139,7 @@ var
     vSuccess    : Boolean;
     vActMsg     : string;
     vSND_MESSAGE: string;
+    vSND_ID     : string;
 begin
   inherited;
 {
@@ -159,11 +160,13 @@ begin
     begin
         vSuccess := (atdUpdate(atdGetID(txtCliente.Text))); // atualiza o cadastro
         vActMsg := 'question';
+        vSND_ID := 'service-registration';
     end
     else
     begin
         vSuccess := (atdUpdate(gvATD_ID)); // atualiza o cadastro
         vActMsg := 'check';
+        vSND_ID := 'service-update';
     end;
 
     //
@@ -234,7 +237,7 @@ begin
 
             // envia a mensagem
             vSuccess := getSendResult(SendToWhatsapp(vcCLK_TEL_TELEFONE,
-                                                     'mult-notification', 'text', '', '',
+                                                     vSND_ID, 'text', '', '',
                                                      vSND_MESSAGE));
         end;
 end;
