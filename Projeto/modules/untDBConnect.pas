@@ -105,8 +105,11 @@ begin
 end;
 
 function TfrmDBConnect.ReadINI: Boolean;
+var
+    vScheduleInterval,
+    vScheduleRefresh: string;
 begin
-    Result := False;
+    Result := True;
 
     // pega o caminho e o nome do executavel e troca a extensão pra 'ini'
     vINIPath := ChangeFileExt(Application.ExeName, '.ini');
@@ -121,15 +124,24 @@ begin
 
         try
             // passa os valores do arquivo ini para as variaveis
-            gvServer :=            vINIFile.ReadString('DBAccessConfig', 'Server', '' );
-            gvBase   :=            vINIFile.ReadString('DBAccessConfig', 'Base'  , '' );
-            gvPort   :=            vINIFile.ReadString('DBAccessConfig', 'Port'  , '' );
-            gvDriver :=            vINIFile.ReadString('DBAccessConfig', 'Driver', '' );
-            gvUser   :=            vINIFile.ReadString('DBAccessConfig', 'User'  , '' );
-            gvPass   :=     Crypto(vINIFile.ReadString('DBAccessConfig', 'Pass'  , ''));
-//            gvPass   :=            vINIFile.ReadString('DBAccessConfig', 'Pass'  , '' );
-        finally
-            Result  := True;
+            gvServer           :=        vINIFile.ReadString('DBAccessConfig', 'Server'          , ''      );
+            gvBase             :=        vINIFile.ReadString('DBAccessConfig', 'Base'            , ''      );
+            gvPort             :=        vINIFile.ReadString('DBAccessConfig', 'Port'            , ''      );
+            gvDriver           :=        vINIFile.ReadString('DBAccessConfig', 'Driver'          , ''      );
+            gvUser             :=        vINIFile.ReadString('DBAccessConfig', 'User'            , ''      );
+            gvPass             := Crypto(vINIFile.ReadString('DBAccessConfig', 'Pass'            , ''     ));
+//            gvPass             :=        vINIFile.ReadString('DBAccessConfig', 'Pass'             , ''     );
+
+            gvHExpI            :=        vINIFile.ReadString('DBAccessConfig', 'HExpI'           , '08:00' );
+            gvHExpF            :=        vINIFile.ReadString('DBAccessConfig', 'HExpF'           , '18:00' );
+             vScheduleInterval :=        vINIFile.ReadString('DBAccessConfig', 'ScheduleInterval', '60'    );
+             vScheduleRefresh  :=        vINIFile.ReadString('DBAccessConfig', 'ScheduleRefresh' , '30'    );
+
+            gvScheduleInterval := StrToInt(vScheduleInterval);
+            gvScheduleRefresh  := StrToInt(vScheduleRefresh ) * (1000 * 60);
+
+        except
+            Result  := False;
         end;
     finally
         vINIFile.Free;
