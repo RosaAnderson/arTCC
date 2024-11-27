@@ -240,6 +240,9 @@ begin
 
         // recarrega os dados
         iSchedulingBox(Self, pnlAtendimentos, gvDate);
+
+        // carrega o proximo aendimento no card
+        loadNextATD(Sender);
     end;
 end;
 
@@ -270,6 +273,9 @@ begin
     begin
         // finaliza o atendimento
         c.atendimentos.atdChange(vATD_ID, 'F');
+
+        // carrega o proximo aendimento no card
+        loadNextATD(Sender);
     end;
 end;
 
