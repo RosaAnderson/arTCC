@@ -126,6 +126,7 @@ type
     lblCreditoH: TLabel;
     Panel13: TPanel;
     lblDebitoH: TLabel;
+    imgSee: TImage;
 
     function getId(Sender: TObject): Integer;
     function getName(Sender: TObject): string;
@@ -154,6 +155,7 @@ type
     procedure btnClienteClick(Sender: TObject);
     procedure btnCompromissoClick(Sender: TObject);
     procedure btnDashboardClick(Sender: TObject);
+    procedure imgSeeClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -202,6 +204,12 @@ begin
     end;
 end;
 
+procedure TfrmMain.imgSeeClick(Sender: TObject);
+begin
+  inherited;
+//
+end;
+
 procedure TfrmMain.btnAddClick(Sender: TObject);
 begin
     // pega o id do atendimento
@@ -211,8 +219,38 @@ begin
     if vATD_ID <> 0 then
         Exit;
 
-    // inicializa o form
-    ToCreate(frmAtd_Cadastro, TfrmAtd_Cadastro, Self, nil, pnlAgenda);
+
+
+
+
+    visiblePanel(False);
+
+
+
+
+
+    // verifica se o form foi criado
+    if not Assigned(frmAtd_Cadastro) then
+        frmAtd_Cadastro := TfrmAtd_Cadastro.Create(nil); // cria o form
+
+    try
+        frmAtd_Cadastro.txtData.Date         := gvDate;
+        frmAtd_Cadastro.txtHora.Time         := StrToTime((Sender as TImage).Parent.Hint + ':00');
+
+        frmAtd_Cadastro.ShowModal; // exibe o form
+    finally
+        frmAtd_Cadastro := nil;
+        frmAtd_Cadastro.Free; // descarrega o objeto
+
+
+
+
+        visiblePanel(True); // isso precisa ter uma melhoria...
+
+
+
+
+    end;
 end;
 
 procedure TfrmMain.btnCanClick(Sender: TObject);
@@ -304,13 +342,22 @@ end;
 
 procedure TfrmMain.btnEdtClick(Sender: TObject);
 begin
-visiblePanel(False);
     // pega o id do atendimento
     vATD_ID := getId(Sender);
 
     // verifica se tem atendimento
     if vATD_ID = 0 then
         Exit;
+
+
+
+
+
+    visiblePanel(False);
+
+
+
+
 
     // verifica se o form foi criado
     if not Assigned(frmAtd_Cadastro) then
