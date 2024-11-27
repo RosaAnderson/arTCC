@@ -78,14 +78,25 @@ var
     RESTRequest : TRESTRequest;
     RESTResponse: TRESTResponse;
 begin
+    if sysDevShortcut then
+    begin
+        showMsg({janela de ogigem}    'Debug process message',
+                {título da mensagem}  'Aqui o sistema envia a mensagem ao cliente',
+                {mensagem ao usuário} '' + //gvAPIKey // insere a chave
+                                      ''
+                                      + sLineBreak + 'Phone Origem..: ' + gvPhoneFrom // insere o telefone de origem
+                                      + sLineBreak + 'Phone Destino.: ' + vfTo // insere o numero de destino
+                                      + sLineBreak + 'msg ID........: ' + vfID // define o id da mensagem
+                                      + '' //+ vfType // tipo de mensagem (texto/anexo)
+                                      ,
+                {caminho do ícone}    'exclamation', {check/error/question/exclamation}
+                {botão}               'ok', {'y/n', 'y/n/a', 'ok', 'ok/cancel', 'ok/link'}
+                {nome do link}        '',
+                {link}                ''
+               );
 
-
-
-
-if sysDevShortcut then Exit;
-
-
-
+        Exit;
+    end;
 
     try
         // verifica o tipo de envio
