@@ -39,20 +39,23 @@ uses
 {$R *.res}
 
 var
-    vDBDriver: string = 'MySQL';
+    vDBDriver     : string  = 'MySQL';
 
 begin
     Application.Initialize;
-    // se estiver em Debug
-    if (DebugHook <> 0) then
-    begin
-        gvScheduleRefresh := (1000 * 45);
-        gvHExpI           := '06:00';
-        gvHExpF           := '23:00';
-    end;
 
-//    sysDevTools := (DebugHook <> 0);
-    ReportMemoryLeaksOnShutdown := (DebugHook <> 0);
+    // se estiver em Debug
+    sysDevShortcut := (DebugHook <> 0);
+
+    if sysDevShortcut then
+    begin
+//{
+        gvScheduleRefresh           := (1000 * 45);
+        gvHExpI                     := '06:00';
+        gvHExpF                     := '23:00';
+//}
+        ReportMemoryLeaksOnShutdown := sysDevShortcut;
+    end;
 
     Application.CreateForm(TfrmDBConnect, frmDBConnect);
 

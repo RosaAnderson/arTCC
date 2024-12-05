@@ -14378,6 +14378,7 @@ inherited frmMain: TfrmMain
     Color = clWhite
     ParentBackground = False
     TabOrder = 4
+    Visible = False
     object pnlAtend: TPanel
       AlignWithMargins = True
       Left = 0
@@ -14513,7 +14514,6 @@ inherited frmMain: TfrmMain
     ParentBackground = False
     TabOrder = 5
     Visible = False
-    ExplicitTop = 721
     object imgDel: TImage
       AlignWithMargins = True
       Left = 390
@@ -23563,6 +23563,7 @@ inherited frmMain: TfrmMain
     Top = 24
   end
   object tmrAgendas: TTimer
+    Enabled = False
     Interval = 500
     OnTimer = tmrAgendasTimer
     Left = 1240
