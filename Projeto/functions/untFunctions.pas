@@ -78,9 +78,11 @@ end;
 procedure ToCreate(vpForm: TForm; vpTForm: TFormClass; vpParent: TComponent; vpPParent, vpPanel: TPanel);
 begin
     if Assigned(vpPanel) then
+    begin
         vpPanel.Visible := False; // fecha a dashboard
 
 frmMain.pnlCenter.Visible := vpPanel.Visible; // tecer melhorias no futuro
+    end;
 
     // verifica se o form foi criado
     if not Assigned(vpForm) then
@@ -107,9 +109,11 @@ frmMain.pnlCenter.Visible := vpPanel.Visible; // tecer melhorias no futuro
     end;
 
     if Assigned(vpPanel) then
+    begin
         vpPanel.Visible := True; // fecha a dashboard
 
 frmMain.pnlCenter.Visible := vpPanel.Visible; // tecer melhorias no futuro
+    end;
 end;
 
 //##############################################################################

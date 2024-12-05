@@ -173,7 +173,8 @@ implementation
 
 uses untFunctions, untSource, untStyle, untObjects,
         c.atendimentos,
-        untAtd_Cadastro, untSnd_Mensagem, untPrepareMessage, untCli_Cadastro;
+        untAtd_Cadastro, untSnd_Mensagem, untPrepareMessage, untCli_Cadastro,
+  untLogin;
 
 var
     vType: string = 'text';
@@ -760,7 +761,7 @@ begin
     Self.ClientWidth  := 1300;
 
     // cria o form
-//    ToCreate(frmLogin, TfrmLogin, nil, nil, nil);
+    ToCreate(frmLogin, TfrmLogin, nil, nil, nil);
 
     //
     inherited;
@@ -768,6 +769,10 @@ begin
     // seta as definições da janela
     lblTitleForm02.Caption := 'EasyCare';
     Self.Caption           := gcAppTitle;
+
+    //
+    pnlAgenda.Visible  := True;
+    tmrAgendas.Enabled := True;
 end;
 
 procedure TfrmMain.MoveForm(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -802,6 +807,7 @@ begin
     // define a hora
     ATime(lblHou, lblMin, lblSec);
 
+    //
     tmrAgendas.Enabled := pnlAgenda.Visible;
 end;
 
@@ -846,5 +852,5 @@ DIFERENÇA DE HORAS ENTRE DUAS HORAS
 V_Nora_Nova := IntToStr(HoursBetween(V_Hora,V_Hora_1));
 
 DIFERENÇA ENTRE DUAS HORAS
-V_Nova_Hora := (StrToTime('23:59:59') + StrToTime('00:00:01')-V_Hora)+V_Hora_1;
+V_Nova_Hora := (StrToTime('23:59:59') + StrToTime('00:00:01')-V_Hora) + V_Hora_1;
 
