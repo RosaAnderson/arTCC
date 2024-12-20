@@ -1,0 +1,42 @@
+1. **Sistema de Agendamento Automatizado**  
+2. **Delphi**  
+3. **Estética e Beleza**  
+4. **Software para Estética**  
+5. **Agenda Eletrônica**  
+6. **Automatização de Processos**  
+7. **Tecnologia na Estética**  
+8. **Gestão de Agendamentos**  
+9. **Interface de Usuário (UI)**  
+10. **Manuais de Sistemas**  
+11. **Desenvolvimento de Software**  
+12. **Organização de Agendas**  
+13. **Atendimento ao Cliente**  
+14. **Eficiência em Agendamentos**  
+15. **Ferramentas Tecnológicas para Salões**  
+16. **Notificações Automatizadas**  
+17. **Alertas de Agendamento**  
+18. **Lembretes para Clientes**  
+19. **Notificações por E-mail**  
+20. **Notificações via SMS**  
+21. **Gestão de Notificações**  
+22. **Comunicação Automatizada**  
+23. **Notificações em Tempo Real**  
+24. **Lembretes Personalizados**  
+25. **Interação com Usuários**  
+26. **MySQL**  
+27. **Banco de Dados Relacional**  
+28. **Armazenamento de Dados**  
+29. **Consultas SQL**  
+30. **Integração com Banco de Dados**  
+31. **Gerenciamento de Dados de Agendamentos**  
+
+
+
+Sistema de Agendamento; Delphi; Estética e Beleza; Software para Estética; Agenda Eletrônica; Automatização de Processos; Tecnologia na Estética; Gestão de Agendamentos; Interface de Usuário (UI); Experiência do Usuário; Desenvolvimento de Software; Organização de Agendas; Atendimento ao Cliente; Eficiência em Agendamentos; Ferramentas Tecnológicas para Salões; Notificações Automatizadas; Alertas de Agendamento; Lembretes para Clientes; Notificações por Whatsapp; Gestão de Notificações; Comunicação Automatizada; Notificações em Tempo Real; Lembretes Personalizados; Interação com Usuários; MySQL; Banco de Dados Relacional; Armazenamento de Dados; Consultas SQL; Integração com Banco de Dados; Gerenciamento de Dados de Agendamentos.
+
+
+
+Scheduling System; Delphi; Aesthetics and Beauty; Software for Aesthetics; Electronic Schedule; Process Automation; Technology in Aesthetics; Appointment Management; User Interface (UI); User Experience; Software Development; Schedule Organization; Customer Service; Appointment Efficiency; Technological Tools for Salons; Automated Notifications; Appointment Alerts; Client Reminders; Notifications via WhatsApp; Notification Management; Automated Communication; Real-Time Notifications; Personalized Reminders; User Interaction; MySQL; Relational Database; Data Storage; SQL Queries; Database Integration; Appointment Data Management.
+
+
+
