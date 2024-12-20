@@ -1,0 +1,108 @@
+Código Limpo: Habilidades práticas do Agile Software – Robert C. Martin
+# Conteúdo principal:
+Este livro é um dos mais renomados sobre práticas de desenvolvimento de software e foca na importância de escrever código de qualidade, fácil de entender e manter. O autor, Robert C. Martin (também conhecido como "Uncle Bob"), defende que a clareza e simplicidade no código são fundamentais para o sucesso a longo prazo de um projeto.
+
+Principais pontos:
+- Princípios de código limpo: Como manter o código limpo através de princípios como "faça pequeno", "evite duplicação", "nomeação clara", e "mantenha funções simples".
+- Refatoração: A importância de refatorar o código constantemente para melhorar a legibilidade e evitar o acúmulo de "dívidas técnicas".
+- Testes automatizados: A relação entre código limpo e testes, e como a escrita de testes pode ajudar a manter a qualidade do código ao longo do tempo.
+- Estruturas e boas práticas: Uso de design patterns, SOLID, e boas práticas de design de software.
+
+
+
+
+
+Scrum - A Arte de Fazer o Dobro de Trabalho na Metade do Tempo – Jeff Sutherland
+# Conteúdo principal:
+Este livro apresenta o framework Scrum, que é uma metodologia ágil de gestão de projetos, e o autor Jeff Sutherland compartilha suas experiências na criação e implementação do Scrum.
+
+Principais pontos:
+- Fundamentos do Scrum: Como o Scrum promove a eficiência e agilidade em projetos complexos e como ele pode ser implementado em diferentes tipos de equipes.
+- Histórias de sucesso: O autor usa exemplos práticos de empresas que implementaram o Scrum e aumentaram significativamente sua produtividade.
+- Práticas ágeis: Como o Scrum pode ser aplicado em diferentes contextos para melhorar o desempenho das equipes, com foco em entregas rápidas e melhoria contínua.
+- Resultados impactantes: Como o Scrum pode ajudar as equipes a reduzir desperdícios e melhorar a comunicação, permitindo entregas mais rápidas e com mais valor para o cliente.
+
+
+
+
+
+Delphi - Programação Orientada a Objetos – Sérgio Luís de Moura
+# Conteúdo principal:
+Este livro aborda a programação orientada a objetos (POO) utilizando a linguagem Delphi, uma das principais linguagens de desenvolvimento para aplicações desktop. 
+
+Principais pontos:
+- Princípios de POO: Conceitos fundamentais como encapsulamento, herança, polimorfismo e abstração, explicados no contexto do Delphi.
+- Classes e objetos: Como definir e trabalhar com classes e objetos em Delphi, usando as estruturas específicas da linguagem.
+- Design e implementação: Como projetar software orientado a objetos de forma eficiente e como utilizar o Delphi para implementações práticas.
+- Exemplos práticos: O livro oferece uma série de exemplos para demonstrar os conceitos de POO, bem como técnicas para resolver problemas comuns no desenvolvimento de software.
+
+
+
+
+
+MySQL - O Guia Completo – Paul DuBois
+# Conteúdo principal:
+Este livro é um guia abrangente sobre o sistema de gerenciamento de banco de dados MySQL. Paul DuBois apresenta desde os conceitos básicos até tópicos avançados, tornando-o uma excelente fonte de referência para quem trabalha com MySQL.
+
+Principais pontos:
+- Fundamentos do MySQL: Como instalar, configurar e administrar bancos de dados MySQL.
+- Consultas SQL: Técnicas para escrever consultas SQL eficientes, incluindo joins, subconsultas, e otimização de consultas.
+- Procedimentos armazenados e triggers: Como usar funcionalidades avançadas como stored procedures, triggers e views no MySQL.
+- Segurança e backup: Estratégias para garantir a segurança do banco de dados e métodos de backup e recuperação de dados.
+- Administração e otimização: Como monitorar o desempenho do MySQL e otimizar sua configuração e consultas.
+
+
+
+
+
+Delphi - Guia Completo – Marco Cantu
+# Conteúdo principal:
+Este livro é um guia extenso sobre o desenvolvimento de software com a linguagem Delphi. Marco Cantu é um dos maiores especialistas em Delphi e fornece uma cobertura detalhada sobre a criação de aplicações no ambiente Delphi.
+
+Principais pontos:
+- Fundamentos do Delphi: Introdução à linguagem Delphi, com explicações sobre a IDE (Ambiente de Desenvolvimento Integrado) e ferramentas para desenvolver aplicativos desktop e móveis.
+- Componentes VCL e FMX: Detalhamento dos principais componentes de interface gráfica (VCL) e aplicativos móveis (FMX) do Delphi.
+- Desenvolvimento Orientado a Objetos: Como aplicar os conceitos de orientação a objetos dentro do Delphi, criando software modular e reutilizável.
+- Interação com banco de dados: Conexão e manipulação de dados de bancos de dados, incluindo MySQL e SQL Server.
+- Desenvolvimento avançado: Tópicos avançados como multithreading, criação de DLLs, e integração com APIs externas.
+
+
+
+
+
+Administração de Banco de Dados: Conceitos e Técnicas de Hospedagem e Gestão – Carlos A. de L. de Moura
+# Conteúdo principal:
+Este livro é voltado para a administração de bancos de dados, com foco nas práticas de gestão, hospedagem e performance de sistemas.
+
+Principais pontos:
+- Administração de DBMS: Explicações sobre como gerenciar sistemas de banco de dados, incluindo instalação, configuração e administração diária.
+- Técnicas de backup e recuperação: Métodos para garantir a integridade dos dados e estratégias para backups e recuperação de desastres.
+- Otimização de desempenho: Como melhorar a performance do banco de dados com ajustes em consultas, índices e arquitetura.
+- Hospedagem e escalabilidade: Questões relacionadas à hospedagem de bancos de dados, incluindo escalabilidade horizontal e vertical, e monitoramento de servidores.
+- Segurança e políticas de acesso: Como garantir a segurança dos dados e configurar permissões e políticas de acesso.
+
+
+
+
+
+Engenharia de Software - Fundamentos, Práticas e Modelos – Roger S. Pressman
+# Conteúdo principal:
+O livro de Roger Pressman é uma das principais referências sobre engenharia de software. Ele fornece uma visão abrangente das metodologias, técnicas e modelos utilizados no desenvolvimento de sistemas de software.
+
+Principais pontos:
+- Modelos de desenvolvimento de software: Análise dos principais modelos de desenvolvimento, como o modelo em cascata, prototipagem, incremental e ágil.
+- Processos de software: Descrição detalhada do ciclo de vida do software, desde a coleta de requisitos até a manutenção e evolução.
+- Qualidade de software: Estratégias para garantir a qualidade do software, incluindo testes, revisões e métricas de desempenho.
+- Gestão de projetos: Como planejar, gerenciar e controlar projetos de software, utilizando técnicas como estimativas de tempo, custo e recursos.
+- Técnicas de modelagem e design: Abordagens para modelar sistemas usando diagramas de fluxo, UML, e outras técnicas de design.
+
+
+
+
+
+# Dicas gerais para usar como referências no TCC:
+- Utilização dos conceitos: Ao fazer a citação de cada obra, certifique-se de utilizar os conceitos que melhor se aplicam ao seu tema de pesquisa. Por exemplo, se você está abordando a engenharia de software, pode usar o livro de Pressman para definir processos e práticas de desenvolvimento.
+- Exemplos práticos: Use os exemplos práticos oferecidos nos livros, como os do "Código Limpo" ou "Scrum", para ilustrar como as práticas são aplicadas em empresas reais.
+- Conceitos técnicos: Ao abordar tópicos mais técnicos como MySQL ou Delphi, use os livros correspondentes para detalhar como essas ferramentas e tecnologias podem ser usadas no contexto do seu TCC.
+
+Cada um desses livros traz conceitos aplicáveis em diferentes áreas do desenvolvimento de software e gestão de banco de dados, por isso escolha as partes que melhor se adequem ao seu tema de pesquisa.

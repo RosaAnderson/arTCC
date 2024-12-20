@@ -1,0 +1,25 @@
+
+Estou fazendo uma revisão bibliográfica para um TCC e preciso de uma sugestão de título para o texto abaixo:
+
+Processos bem estruturados, tecnologia e foco na satisfação do cliente aliado a gestão eficiente dos agendamentos, por meio de sistemas informatizados, melhora o fluxo de trabalho, reduz erros e aumenta a produtividade. Além disso, o uso de sistemas facilita o controle de agendamentos e a tomada de decisões, o que é essencial para profissionais dos setores como estética e beleza. A automatização também contribui para um atendimento mais rápido e preciso, oferecendo um diferencial competitivo 
+
+Uma análise do artigo “Sistemas de Agendamento para Serviços de Saúde: Uma Análise de Impactos na Qualidade do Atendimento, (Costa; Lima, 2019)” demostra como sistemas de agendamento influenciam a eficiência e qualidade no setor de saúde, e destaca problemas como o alto índice de ausências, que resultam em desperdício de recursos e diminuição da capacidade de atendimento. A pesquisa também aborda metodologias para reduzir faltas, como o uso de lembretes automáticos, melhorando a satisfação do paciente e o uso eficiente do tempo.
+
+----------------------------------------------------------
+Escolha um dos 5 títulos disponíveis aquele que você acredita que esteja mais adequado ao Título 2.1 e ao mais um título para Título 2.2:
+
+Sugestões de Títulos para 2.1 na página 19:
+1. "Automatização e Satisfação do Cliente: O Impacto dos Sistemas Informatizados na Gestão de Agendamentos em Estéticas"
+2. "Eficiência no Atendimento: A Influência da Tecnologia na Gestão de Agendamentos no Setor de Beleza"
+3. "Melhoria do Fluxo de Trabalho em Estéticas: A Contribuição da Tecnologia e da Gestão Eficiente de Agendamentos"
+4. "Sistemas Informatizados e a Satisfação do Cliente: Uma Análise da Gestão de Agendamentos em Serviços de Beleza"
+5. "A Revolução Tecnológica na Estética: Como a Automatização Melhora a Produtividade e a Satisfação do Cliente"
+
+----------------------------------------------------------
+
+Sugestões de Títulos para 2.2 na página 19:
+1. "Impactos dos Sistemas de Agendamento na Qualidade do Atendimento em Saúde: Uma Análise Crítica"
+2. "Eficiência e Satisfação: A Influência dos Sistemas de Agendamento na Redução de Ausências em Consultas de Saúde"
+3. "Sistemas de Agendamento e Qualidade do Atendimento: Uma Revisão sobre Metodologias para Redução de Faltas"
+4. "A Importância dos Lembretes Automáticos na Gestão de Agendamentos: Melhoria da Satisfação do Paciente no Setor de Saúde"
+5. "Análise dos Efeitos dos Sistemas de Agendamento na Eficiência do Atendimento em Serviços de Saúde"
